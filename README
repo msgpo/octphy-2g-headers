@@ -1,0 +1,5 @@
+This repository contains the PHY API header files of the Octasic
+OCTSDR PHY for GSM (OCTSDR-2G).
+
+The files have been released by Octasic under GNU AGPLv3 in order
+to be license compliant with OsmoBTS (http://git.osmocom.org/osmo-bts/)
