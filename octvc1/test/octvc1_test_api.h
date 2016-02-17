@@ -2,7 +2,7 @@
 
 File: OCTVC1_TEST_API.h
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.
+Copyright (c) 2016 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the TEST API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
 
 $Revision: $
 
@@ -66,7 +66,7 @@ $Revision: $
 typedef struct
 {
 	tOCTVC1_HANDLE_OBJECT	ahObj[cOCTVC1_TEST_RUNNER_TEST_MAX_OBJ];
-	tOCT_UINT8				szParms[(cOCTVC1_TEST_PARMS_MAX_LENGTH+1)];
+	tOCT_INT8				szParms[(cOCTVC1_TEST_PARMS_MAX_LENGTH+1)];
 
 } tOCTVC1_TEST_EXEC_PARMS;
 

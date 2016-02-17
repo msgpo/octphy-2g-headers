@@ -1,6 +1,6 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
 
-File: OCTVC1_VLAN.h
+File: OCTVC1_IPC.h
 
 Copyright (c) 2016 Octasic Inc. All rights reserved.
 
@@ -24,8 +24,8 @@ $Revision: $
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 
-#ifndef __OCTVC1_VLAN_H__
-#define __OCTVC1_VLAN_H__
+#ifndef __OCTVC1_IPC_H__
+#define __OCTVC1_IPC_H__
 
 
 /*****************************  INCLUDE FILES  *******************************/
@@ -34,59 +34,51 @@ $Revision: $
 
 /************************  COMMON DEFINITIONS  *******************************/
 
-#define cOCTVC1_VLAN_MAX_TAG								4		
-
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_VLAN_PROTOCOL_ID_ENUM :
+ 	Interprocess communication
 -------------------------------------------------------------------------------------*/
-#define tOCTVC1_VLAN_PROTOCOL_ID_ENUM						tOCT_UINT32
-
-#define cOCTVC1_VLAN_PROTOCOL_ID_ENUM_8100					0		
-#define cOCTVC1_VLAN_PROTOCOL_ID_ENUM_88A8					1		
-#define cOCTVC1_VLAN_PROTOCOL_ID_ENUM_9100					2		
-#define cOCTVC1_VLAN_PROTOCOL_ID_ENUM_9200					3		
 
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_VLAN_TAG
+ 	IPC Header Definition
+-------------------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IPC_MSG_FLAG_MASK :
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_IPC_MSG_FLAG_MASK							tOCT_UINT8
+
+#define cOCTVC1_IPC_MSG_FLAG_MASK_VALID						0x1		
+#define cOCTVC1_IPC_MSG_FLAG_MASK_ERROR						0x8		
+#define cOCTVC1_IPC_MSG_FLAG_BIT_OFFSET						28		
+#define cOCTVC1_IPC_MSG_FLAG_BIT_MASK						0xF0000000	
+
+/*-------------------------------------------------------------------------------------
+ 	IPC Message Header sequence.
+-------------------------------------------------------------------------------------*/
+#define cOCTVC1_IPC_MSG_SEQUENCE_BIT_OFFSET					20		
+#define cOCTVC1_IPC_MSG_SEQUENCE_BIT_MASK					0x0FF00000	
+
+/*-------------------------------------------------------------------------------------
+ 	IPC Message Header ID.
+-------------------------------------------------------------------------------------*/
+#define cOCTVC1_IPC_MSG_ID_BIT_OFFSET						0		
+#define cOCTVC1_IPC_MSG_ID_BIT_MASK							0x000FFFFF	
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IPC_MSG_HEADER
+ 		IPC message Header
 
  Members:
-	ulPriority
-		Range:		[0..7]
-		Default:	5
-	ulVlanId
-		Range:		[0..4095]
-		Default:	0
-	ulProtocolId
-		Default:	cOCTVC1_VLAN_PROTOCOL_ID_ENUM_8100
+	ulFlag_Seq_Id
+ 		bits[31:28] = Message flag tOCTVC1_IPC_MSG_FLAG_MASK_.
+ 		bits[27:20] = Sequence number
+ 		bits[19:0] = IPC Message Id.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCT_UINT32						ulPriority;
-	tOCT_UINT32						ulVlanId;
-	tOCTVC1_VLAN_PROTOCOL_ID_ENUM	ulProtocolId;
+	tOCT_UINT32	ulFlag_Seq_Id;
 
-} tOCTVC1_VLAN_TAG;
-
-/*-------------------------------------------------------------------------------------
-	tOCTVC1_VLAN_HEADER_INFO
-
- Members:
-	ulNumVlanTag
-		Range:		[0..cOCTVC1_VLAN_MAX_TAG]
-		Default:	0
- 		Number of Vlan TAGs present in the header. The tag inserted right after the
- 		Ethernet header must be located at index 0 of aVlanTag while the one at the
- 		highest index is located right before the transport header.
-	aVlanTag
- 		Array containing the VLAN TAG to present in the header for this member.
--------------------------------------------------------------------------------------*/
-typedef struct
-{
-	tOCT_UINT32			ulNumVlanTag;
-	tOCTVC1_VLAN_TAG	aVlanTag[cOCTVC1_VLAN_MAX_TAG];
-
-} tOCTVC1_VLAN_HEADER_INFO;
+} tOCTVC1_IPC_MSG_HEADER;
 
 
-#endif /* __OCTVC1_VLAN_H__ */
+#endif /* __OCTVC1_IPC_H__ */
 

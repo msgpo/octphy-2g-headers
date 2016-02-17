@@ -2,7 +2,7 @@
 
 File: OCTVC1_APP.h
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.
+Copyright (c) 2016 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the OCTVC1 API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
 
 $Octasic_Revision: $
 
@@ -39,9 +39,9 @@ $Octasic_Revision: $
 #define cOCTVC1_APP_PRODUCT_SHORT_NAME			"octsdr_gsm"
 #define cOCTVC1_APP_PRODUCT_GOOSE_ROOT_NAME			"octsdr"
 #define cOCTVC1_APP_VERSION_MAJOR			2
-#define cOCTVC1_APP_VERSION_MINOR			3
+#define cOCTVC1_APP_VERSION_MINOR			5
 #define cOCTVC1_APP_VERSION_MAINTENANCE	0
-#define cOCTVC1_APP_VERSION_BUILD		560
+#define cOCTVC1_APP_VERSION_BUILD		818
 #define cOCTVC1_APP_VERSION_ID			((cOCTVC1_APP_VERSION_MAJOR << 25) + \
 								(cOCTVC1_APP_VERSION_MINOR << 18) + \
 								(cOCTVC1_APP_VERSION_MAINTENANCE << 11) + \

@@ -2,7 +2,7 @@
 
 File: OCTVC1_IRSC_RC.h
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.
+Copyright (c) 2016 Octasic Inc. All rights reserved.
 
 Description: Contains the return codes for the IRSC API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
 
 $Octasic_Revision: $
 
@@ -47,6 +47,13 @@ $Octasic_Revision: $
 #define cOCTVC1_IRSC_RC_OBJMGR_INVALID_OBJECT				 ( 0x0002 + cOCTVC1_IRSC_OBJMGR_RC_BASE )
 #define cOCTVC1_IRSC_RC_OBJMGR_INTERNAL_ERROR				 ( 0x0003 + cOCTVC1_IRSC_OBJMGR_RC_BASE )
 #define cOCTVC1_IRSC_RC_OBJMGR_NOT_INIT						 ( 0x0004 + cOCTVC1_IRSC_OBJMGR_RC_BASE )
+
+/****************************************************************************
+	ROUTER return codes
+ ****************************************************************************/
+#define cOCTVC1_IRSC_ROUTER_RC_BASE							 ( 0x0460 + cOCTVC1_IRSC_RC_BASE )
+
+#define cOCTVC1_IRSC_RC_ROUTER_ROUTER_IF_INVALID			 ( 0x0001 + cOCTVC1_IRSC_ROUTER_RC_BASE )
 
 /****************************************************************************
 	API_COMMAND return codes

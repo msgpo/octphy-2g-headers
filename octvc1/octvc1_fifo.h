@@ -2,7 +2,7 @@
 
 File: OCTVC1_FIFO.h
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.
+Copyright (c) 2016 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
 
 $Revision: $
 
@@ -31,10 +31,17 @@ $Revision: $
 /************************  COMMON DEFINITIONS  *******************************/
 
 /*-------------------------------------------------------------------------------------
- 	Control process _FIFO-ID definition
+ 	Control process FIFO-ID definition
+ 	Deprecated should use cOCTVC1_FIFO_ID_CONTROL
 -------------------------------------------------------------------------------------*/
 
 #define cOCTVC1_FIFO_ID_MGW_CONTROL							0x00000000	
+
+/*-------------------------------------------------------------------------------------
+ 	Control process _FIFO-ID definition
+-------------------------------------------------------------------------------------*/
+
+#define cOCTVC1_FIFO_ID_CONTROL								0x00000000	
 
 /*-------------------------------------------------------------------------------------
  	Invalid _FIFO-ID

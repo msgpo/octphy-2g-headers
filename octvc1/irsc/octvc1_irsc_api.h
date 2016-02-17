@@ -2,7 +2,7 @@
 
 File: OCTVC1_IRSC_API.h
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.
+Copyright (c) 2016 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the IRSC API.
  		OCTVC1 Internal Resources
@@ -19,7 +19,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
 
 $Revision: $
 
@@ -45,6 +45,7 @@ $Revision: $
 #include "../octvc1_radio.h"
 #include "../octvc1_api.h"
 #include "../octvc1_module.h"
+#include "../octvc1_user_id.h"
 #include "../octvc1_tap.h"
 
 #include "octvc1_irsc_id.h"
@@ -77,6 +78,45 @@ $Revision: $
 #define cOCTVC1_IRSC_IPC_PORT_STATE_ENUM_CONFIG				2		
 #define cOCTVC1_IRSC_IPC_PORT_STATE_ENUM_WAIT_REMOTE		3		
 #define cOCTVC1_IRSC_IPC_PORT_STATE_ENUM_READY				4		
+
+/*-------------------------------------------------------------------------------------
+ 	IPC port clone state.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_IRSC_IPC_PORT_CLONE_STATE_ENUM				tOCT_UINT32
+
+#define cOCTVC1_IRSC_IPC_PORT_CLONE_STATE_ENUM_INVALID		0		 	/* Ipc port not part of IPC clone */
+#define cOCTVC1_IRSC_IPC_PORT_CLONE_STATE_ENUM_CLONE		1		 	/* Ipc port clone of other port */
+#define cOCTVC1_IRSC_IPC_PORT_CLONE_STATE_ENUM_ORIGINAL		2		 	/* Original Ipc port cloned */
+#define cOCTVC1_IRSC_IPC_PORT_CLONE_STATE_ENUM_REMOTE		3		 	/* Remote Ipc port connected to a clone port */
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_IPC_PORT_CLONE
+ 		Ipc port clone context
+
+ Members:
+	ulCloneState
+ 		Port Clone State.
+	hProcess
+ 		When ulCloneState set to CLONE: Process handle of the original port
+ 		When ulCloneState set to ORIGINAL: Process handle of the clone port
+ 		When ulCloneState set to REMOTE: Process handle of the original port
+	ulPortId
+ 		When ulCloneState set to CLONE: IPC port identifier of the original port
+ 		When ulCloneState set to ORIGINAL: IPC port identifier of the clone port
+ 		When ulCloneState set to REMOTE: IPC port identifier of the original port
+	ulUserPortId
+ 		When ulCloneState set to CLONE: IPC port user id of the original port
+ 		When ulCloneState set to ORIGINAL: IPC port user id of the clone port
+ 		When ulCloneState set to REMOTE: IPC port user id of the original port
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_IRSC_IPC_PORT_CLONE_STATE_ENUM	ulCloneState;
+	tOCTVC1_HANDLE_OBJECT					hProcess;
+	tOCTVC1_SUB_OBJECT_ID					ulPortId;
+	tOCT_UINT32								ulUserPortId;
+
+} tOCTVC1_IRSC_IPC_PORT_CLONE;
 
 /*-------------------------------------------------------------------------------------
  	API related definitions
@@ -180,9 +220,11 @@ typedef struct
 
  Members:
 	ulModuleId
- 		Current number of process active in this for this module.
+ 		Module Id.
 	hProcess
  		Process handle where Tap is instantiate
+	ulProcessUserId
+ 		Process user identifier, connect on this interface
 	ulDirection
 	ulDataSubType
  		Data sub type cOCTVOCNET_PKT_SUBTYPE_UNSPECIFIED,
@@ -194,14 +236,36 @@ typedef struct
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MODULE_ID_ENUM		ulModuleId;
-	tOCT_UINT32					hProcess;
-	tOCTVC1_TAP_DIRECTION_ENUM	ulDirection;
-	tOCT_UINT32					ulDataSubType;
-	tOCT_UINT8					szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
-	tOCT_UINT8					szDescription[(cOCTVC1_IRSC_APPLICATION_TAP_MAX_DESCRIPTION_BYTE_SIZE+1)];/* NOSWAPMAC */
+	tOCT_UINT32						ulModuleId;
+	tOCTVC1_HANDLE_OBJECT			hProcess;
+	tOCTVC1_USER_ID_PROCESS_ENUM	ulProcessUserId;
+	tOCTVC1_TAP_DIRECTION_ENUM		ulDirection;
+	tOCT_UINT32						ulDataSubType;
+	tOCT_INT8						szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_INT8						szDescription[(cOCTVC1_IRSC_APPLICATION_TAP_MAX_DESCRIPTION_BYTE_SIZE+1)];/* NOSWAPMAC */
 
 } tOCTVC1_IRSC_APPLICATION_TAP_INFO;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_STREAM_STATS
+ 		Stream stats
+
+ Members:
+	ulPacketCnt
+	ulDropCnt
+	ulOverflowCnt
+	ulRetryCnt
+	ulMissCnt
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCT_UINT32	ulPacketCnt;
+	tOCT_UINT32	ulDropCnt;
+	tOCT_UINT32	ulOverflowCnt;
+	tOCT_UINT32	ulRetryCnt;
+	tOCT_UINT32	ulMissCnt;
+
+} tOCTVC1_IRSC_STREAM_STATS;
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_IRSC_APPLICATION_TAP_STATS
@@ -212,12 +276,14 @@ typedef struct
 		Default:	cOCTVC1_IRSC_APPLICATION_TAP_STATE_ENUM_DISABLE
 	ulFilterIndex
 	ulUserId
+	Stream
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_IRSC_APPLICATION_TAP_STATE_ENUM	ulState;
 	tOCTVC1_INDEX							ulFilterIndex;
 	tOCT_UINT32								ulUserId;
+	tOCTVC1_IRSC_STREAM_STATS				Stream;
 
 } tOCTVC1_IRSC_APPLICATION_TAP_STATS;
 
@@ -237,6 +303,10 @@ typedef struct
 		Default:	cOCTVC1_INDEX_INVALID
 	ulUserId
 		Default:	0
+	ulRetryEnableFlag
+		Default:	cOCT_FALSE
+ 		If true, Retry events will be sent when blocks are missing.
+ 		Blocks will be dropped to ensure they are not kept out of sequence.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -244,8 +314,147 @@ typedef struct
 	tOCT_UINT32								ulMaxTransportDataSize;
 	tOCTVC1_INDEX							ulFilterIndex;
 	tOCT_UINT32								ulUserId;
+	tOCT_BOOL32								ulRetryEnableFlag;
 
 } tOCTVC1_IRSC_APPLICATION_TAP_START;
+
+/*-------------------------------------------------------------------------------------
+ 	IRSC Module Tap Id
+-------------------------------------------------------------------------------------*/
+#define cOCTVC1_IRSC_TAP_TX_LOG								((0x0000)|(cOCTVC1_TAP_DIRECTION_ENUM_TX<<cOCTVC1_TAP_ID_MASK_DIRECTION_BIT_OFFSET)|(cOCTVC1_MODULE_APPLICATION_ID_MAIN_SYSTEM<<cOCTVC1_TAP_ID_MASK_MODULE_ID_BIT_OFFSET))	
+
+/*-------------------------------------------------------------------------------------
+ 	IRSC Router
+-------------------------------------------------------------------------------------*/
+#define cOCTVC1_IRSC_ROUTER_MAX_INTERFACE					24		
+
+/*-------------------------------------------------------------------------------------
+ 	Interface type.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_IRSC_ROUTER_INTERFACE_TYPE_ENUM				tOCT_UINT32
+
+#define cOCTVC1_IRSC_ROUTER_INTERFACE_TYPE_ENUM_UNUSE		0		
+#define cOCTVC1_IRSC_ROUTER_INTERFACE_TYPE_ENUM_LOCAL		1		
+#define cOCTVC1_IRSC_ROUTER_INTERFACE_TYPE_ENUM_REMOTE		2		
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_ROUTER_INTERFACE_INFO
+ 		Router interface info
+
+ Members:
+	ulInterfaceIndex
+ 		Router interface index
+	ulProcessUserId
+ 		Process user identifier, connect on this interface
+	ulType
+ 		Process user identifier
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_INDEX							ulInterfaceIndex;
+	tOCTVC1_USER_ID_PROCESS_ENUM			ulProcessUserId;
+	tOCTVC1_IRSC_ROUTER_INTERFACE_TYPE_ENUM	ulType;
+
+} tOCTVC1_IRSC_ROUTER_INTERFACE_INFO;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_ROUTER_INTERFACE_STATS
+ 		Router interface stats
+
+ Members:
+	ulInterfaceIndex
+ 		Router interface index
+	ulProcessUserId
+ 		Process user identifier, connect on this interface
+	ulSentPktCnt
+ 		Number of packet sent to ulProcessUserId
+	ulRecvPktCnt
+ 		Number of packet receive from ulProcessUserId
+	ulErrSentPktCnt
+ 		Number error when trying to sent to ulProcessUserId
+	ulErrRecvPktCnt
+ 		Number error when trying to receive from ulProcessUserId
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_INDEX					ulInterfaceIndex;
+	tOCTVC1_USER_ID_PROCESS_ENUM	ulProcessUserId;
+	tOCT_UINT32						ulSentPktCnt;
+	tOCT_UINT32						ulRecvPktCnt;
+	tOCT_UINT32						ulErrSentPktCnt;
+	tOCT_UINT32						ulErrRecvPktCnt;
+
+} tOCTVC1_IRSC_ROUTER_INTERFACE_STATS;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_ROUTER_INFO
+ 		Router interface stats
+
+ Members:
+	ulProcessUserId
+ 		Process user identifier where router is instanciated
+	ulSafeModeFlag
+ 		Indication if router is in safe mode or not
+	ulInterfaceMaxNum
+ 		Maximun number of interface supported by the router
+	ulInterfaceNum
+ 		Number of interface between router and process
+	aInterfaceInfo
+ 		Session event Info
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_USER_ID_PROCESS_ENUM		ulProcessUserId;
+	tOCT_BOOL32							ulSafeModeFlag;
+	tOCT_UINT32							ulInterfaceMaxNum;
+	tOCT_UINT32							ulInterfaceNum;
+	tOCTVC1_IRSC_ROUTER_INTERFACE_INFO	aInterfaceInfo[cOCTVC1_IRSC_ROUTER_MAX_INTERFACE];
+
+} tOCTVC1_IRSC_ROUTER_INFO;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_ROUTER_STATS
+ 		Router interface stats
+
+ Members:
+	ulInterfaceTotalSentPktCnt
+ 		Total packet sent to Interface (router-> process)
+	ulInterfaceTotalRecvPktCnt
+ 		Total packet receive from Interface (process -> router )
+	ulInterfaceTotalErrSentPktCnt
+ 		Total error when trying to packet (router-> process)
+	ulInterfaceTotalErrRecvPktCnt
+ 		Total error when trying to receive packet (process -> router )
+	ulTotalSentPktCnt
+ 		Total packet sent to external
+	ulTotalRecvPktCnt
+ 		Total packet receive from external
+	ulSentEvtPktCnt
+ 		Number of event sent by router
+	ulModuleDataTotalRecvPktCnt
+ 		Total module_data packet receive from external
+	ulModuleDataTotalSentPktCnt
+ 		Total module_data packet sent to external
+	ulInterfaceNum
+ 		Number of interface between router and process
+	aInterfaceStats
+ 		Session event Info
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCT_UINT32							ulInterfaceTotalSentPktCnt;
+	tOCT_UINT32							ulInterfaceTotalRecvPktCnt;
+	tOCT_UINT32							ulInterfaceTotalErrSentPktCnt;
+	tOCT_UINT32							ulInterfaceTotalErrRecvPktCnt;
+	tOCT_UINT32							ulTotalSentPktCnt;
+	tOCT_UINT32							ulTotalRecvPktCnt;
+	tOCT_UINT32							ulSentEvtPktCnt;
+	tOCT_UINT32							ulModuleDataTotalRecvPktCnt;
+	tOCT_UINT32							ulModuleDataTotalSentPktCnt;
+	tOCT_UINT32							ulInterfaceNum;
+	tOCTVC1_IRSC_ROUTER_INTERFACE_STATS	aInterfaceStats[cOCTVC1_IRSC_ROUTER_MAX_INTERFACE];
+
+} tOCTVC1_IRSC_ROUTER_STATS;
 
 /*****************************  METHODS  *************************************/
 /*-------------------------------------------------------------------------------------
@@ -261,8 +470,8 @@ typedef struct
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT32			hProcess;
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hProcess;
 
 } tOCTVC1_IRSC_MSG_PROCESS_INFO_CMD;
 
@@ -273,20 +482,23 @@ typedef struct
 	Header
  		OCTVC1 Message Header
 	hProcess
+	ulUserId
+ 		Process user identifier
 	szName
  		Process Name.
 	szProcessImageName
  		Process file name.
-	ulType
- 		Process Type.
+	ulModuleId
+ 		Module Id.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER			Header;
-	tOCT_UINT32					hProcess;
-	tOCT_UINT8					szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
-	tOCT_UINT8					szProcessImageName[(cOCTVC1_PROCESS_IMAGE_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
-	tOCTVC1_PROCESS_TYPE_ENUM	ulType;
+	tOCTVC1_MSG_HEADER				Header;
+	tOCTVC1_HANDLE_OBJECT			hProcess;
+	tOCTVC1_USER_ID_PROCESS_ENUM	ulUserId;
+	tOCT_INT8						szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_INT8						szProcessImageName[(cOCTVC1_PROCESS_IMAGE_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_UINT32						ulModuleId;
 
 } tOCTVC1_IRSC_MSG_PROCESS_INFO_RSP;
 
@@ -310,11 +522,11 @@ typedef struct
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT32			hProcess;
-	tOCT_BOOL32			ulResetProcessStatsFlag;
-	tOCT_BOOL32			ulResetIpcStatsFlag;
-	tOCT_BOOL32			ulResetTaskStatsFlag;
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hProcess;
+	tOCT_BOOL32				ulResetProcessStatsFlag;
+	tOCT_BOOL32				ulResetIpcStatsFlag;
+	tOCT_BOOL32				ulResetTaskStatsFlag;
 
 } tOCTVC1_IRSC_MSG_PROCESS_STATS_CMD;
 
@@ -327,14 +539,16 @@ typedef struct
 	hProcess
 	State
  		Current process state.
+	ulTotalCacheMissCnt
 	Error
  		Process Error
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_MSG_HEADER			Header;
-	tOCT_UINT32					hProcess;
+	tOCTVC1_HANDLE_OBJECT		hProcess;
 	tOCTVC1_PROCESS_STATE_ENUM	State;
+	tOCT_UINT32					ulTotalCacheMissCnt;
 	tOCTVC1_PROCESS_ERROR		Error;
 
 } tOCTVC1_IRSC_MSG_PROCESS_STATS_RSP;
@@ -405,6 +619,8 @@ typedef struct
  		IPC port identifier
 	ulUserId
  		IPC port user identifier
+	ulModuleId
+ 		Module Id.
 	hRemoteProcess
  		Remote Process identifier
 	ulRemotePortId
@@ -419,8 +635,8 @@ typedef struct
  		Process Local Port Idx
 	ulSystemFlag
  		System Flag
-	ulGhostFlag
- 		Ghost Flag. Use for internal test.
+	Clone
+ 		Ipc Port Clone information.
 	ulRecvMsgNum
  		Reception array message number.
 	ulRecvMsgSize
@@ -432,14 +648,15 @@ typedef struct
 	tOCTVC1_HANDLE_OBJECT			hProcess;
 	tOCTVC1_SUB_OBJECT_ID			ulPortId;
 	tOCT_UINT32						ulUserId;
+	tOCT_UINT32						ulModuleId;
 	tOCTVC1_HANDLE_OBJECT			hRemoteProcess;
 	tOCTVC1_SUB_OBJECT_ID			ulRemotePortId;
 	tOCT_UINT32						ulRemoteUserId;
-	tOCT_UINT8						szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_INT8						szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
 	tOCT_UINT32						ulPortIdx;
 	tOCTVC1_IRSC_IPC_PORT_TYPE_ENUM	ulType;
 	tOCT_BOOL32						ulSystemFlag;
-	tOCT_BOOL32						ulGhostFlag;
+	tOCTVC1_IRSC_IPC_PORT_CLONE		Clone;
 	tOCT_UINT32						ulRecvMsgNum;
 	tOCT_UINT32						ulRecvMsgSize;
 
@@ -562,6 +779,8 @@ typedef struct
  		Process identifier
 	ulTaskIndex
  		Task identifier
+	ulModuleId
+ 		Module Id.
 	szName
  		Name given to the task
 -------------------------------------------------------------------------------------*/
@@ -570,7 +789,8 @@ typedef struct
 	tOCTVC1_MSG_HEADER		Header;
 	tOCTVC1_HANDLE_OBJECT	hProcess;
 	tOCTVC1_SUB_OBJECT_ID	ulTaskIndex;
-	tOCT_UINT8				szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];
+	tOCT_UINT32				ulModuleId;
+	tOCT_INT8				szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];
 
 } tOCTVC1_IRSC_MSG_PROCESS_INFO_TASK_RSP;
 
@@ -691,7 +911,7 @@ typedef struct
 	tOCT_UINT32			ulObjType;
 	tOCT_UINT32			ulMaxNumObj;
 	tOCT_UINT32			ulObjByteSize;
-	tOCT_UINT8			szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];
+	tOCT_INT8			szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];
 
 } tOCTVC1_IRSC_MSG_OBJMGR_INFO_RSP;
 
@@ -1259,6 +1479,64 @@ typedef struct
 	tOCT_UINT32			hTapId;
 
 } tOCTVC1_IRSC_MSG_APPLICATION_STOP_TAP_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_ROUTER_INFO_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_IRSC_MSG_ROUTER_INFO_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_ROUTER_INFO_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	Info
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER			Header;
+	tOCTVC1_IRSC_ROUTER_INFO	Info;
+
+} tOCTVC1_IRSC_MSG_ROUTER_INFO_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_ROUTER_STATS_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	Stats
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER			Header;
+	tOCTVC1_IRSC_ROUTER_STATS	Stats;
+
+} tOCTVC1_IRSC_MSG_ROUTER_STATS_RSP;
 
 
 /***************  INCLUDE FILES WITH DEPENDENCIES ON THIS FILE  **************/

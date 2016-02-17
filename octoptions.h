@@ -1,10 +1,10 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
 
-File: OCTVC1_HW_ID_PRIV.h
+File: octoption.h
 
 Copyright (c) 2016 Octasic Inc. All rights reserved.
 
-Description: Contains the identifiers for the HW API.
+Description: Compiler conditionnal directives. 'octoptions_default'
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -20,29 +20,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
 
-$Octasic_Revision: $
+$Revision: $
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 
-#ifndef __OCTVC1_HW_ID_PRIV_H__
-#define __OCTVC1_HW_ID_PRIV_H__
+#ifndef __OCTOPTIONS_H__
+#define __OCTOPTIONS_H__
+
+/*--------------------------------------------------------------------------
+	C language
+----------------------------------------------------------------------------*/
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/*--------------------------------------------------------------------------
+	SPECIFIC OPTIONS
+----------------------------------------------------------------------------*/
 
 
-/*****************************  INCLUDE FILES  *******************************/
-#include "octvc1_hw_id.h"
-#include "octvc1_hw_base.h"
 
-/****************************************************************************
-	Command IDs
- ****************************************************************************/
-#define cOCTVC1_HW_MSG_ETH_PORT_RESTRICTED_UNBLOCK_CID    ( 0x008 + cOCTVC1_HW_CID_BASE )
-#define cOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CID   ( 0x016 + cOCTVC1_HW_CID_BASE )
-#define cOCTVC1_HW_MSG_CLOCK_SYNC_MGR_STOP_SYNCHRO_CID    ( 0x017 + cOCTVC1_HW_CID_BASE )
-
-/****************************************************************************
-	Event IDs
- ****************************************************************************/
+/*--------------------------------------------------------------------------
+	C language
+----------------------------------------------------------------------------*/
 
 
-#endif /* __OCTVC1_HW_ID_PRIV_H__ */
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __OCTOPTIONS_H__ */
+
 

@@ -2,7 +2,7 @@
 
 File: OCTVC1_GSM_ID.h
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.
+Copyright (c) 2016 Octasic Inc. All rights reserved.
 
 Description: Contains the identifiers for the GSM API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
 
 $Octasic_Revision: $
 
@@ -69,8 +69,12 @@ $Octasic_Revision: $
 #define cOCTVC1_GSM_MSG_TAP_FILTER_MODIFY_CID                              ( 0x020 + cOCTVC1_GSM_CID_BASE )
 #define cOCTVC1_GSM_MSG_TRX_START_LOGICAL_CHANNEL_RAW_DATA_INDICATIONS_CID ( 0x035 + cOCTVC1_GSM_CID_BASE )
 #define cOCTVC1_GSM_MSG_TRX_STOP_LOGICAL_CHANNEL_RAW_DATA_INDICATIONS_CID  ( 0x036 + cOCTVC1_GSM_CID_BASE )
+#define cOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CID  ( 0x037 + cOCTVC1_GSM_CID_BASE )
+#define cOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CID                ( 0x038 + cOCTVC1_GSM_CID_BASE )
+#define cOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CID                  ( 0x039 + cOCTVC1_GSM_CID_BASE )
+#define cOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CID                   ( 0x03a + cOCTVC1_GSM_CID_BASE )
 
-#define cOCTVC1_GSM_CID_MAX                                                (( 0x036 + 1 ) & 0xFFF)
+#define cOCTVC1_GSM_CID_MAX                                                (( 0x03a + 1 ) & 0xFFF)
 
 /****************************************************************************
 	Event IDs
@@ -83,6 +87,15 @@ $Octasic_Revision: $
 #define cOCTVC1_GSM_MSG_TRX_LOGICAL_CHANNEL_RAW_DATA_INDICATION_EID      ( 0x0034 + cOCTVC1_GSM_EID_BASE )
 
 #define cOCTVC1_GSM_EID_MAX                                              (( 0x0034 + 1 ) & 0xFFFF)
+
+/****************************************************************************
+	Module Data IDs
+ ****************************************************************************/
+#define cOCTVC1_GSM_MSG_TRX_UPLINK_RF_INPUT_DATA_LOGICAL_CHANNEL_MID ( 0x0000 + cOCTVC1_GSM_MID_BASE )
+#define cOCTVC1_GSM_MSG_TRX_EMPTY_FRAME_LOGICAL_CHANNEL_MID          ( 0x0001 + cOCTVC1_GSM_MID_BASE )
+#define cOCTVC1_GSM_MSG_TRX_DATA_LOGICAL_CHANNEL_MID                 ( 0x0002 + cOCTVC1_GSM_MID_BASE )
+
+#define cOCTVC1_GSM_MID_MAX                                          (( 0x0002 + 1 ) & 0xFFFF)
 
 
 #endif /* __OCTVC1_GSM_ID_H__ */

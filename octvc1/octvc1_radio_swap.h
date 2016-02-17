@@ -2,7 +2,7 @@
 
 File: octvc1_radio_swap.h	
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.	
+Copyright (c) 2016 Octasic Inc. All rights reserved.	
 
 Description:	
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)	
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)	
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/	
 #ifndef __OCTVC1_RADIO_SWAP_H__
@@ -69,6 +69,16 @@ extern "C" {
 
 #define mOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_SWAP( pType )
 
+#endif /* _OCT_ENDIAN_TYPE_LE_ */
+
+#if defined( _OCT_ENDIAN_TYPE_LE_ )
+#define mOCTVC1_RADIO_STANDARD_FREQ_BAND_ID_SWAP( _f_pParms ){ 	tOCTVC1_RADIO_STANDARD_FREQ_BAND_ID * pOCTVC1_RADIO_STANDARD_FREQ_BAND_ID = (_f_pParms); SWAP_UNUSED(pOCTVC1_RADIO_STANDARD_FREQ_BAND_ID)\
+	{ mOCTVC1_RADIO_STANDARD_ENUM_SWAP( &((tOCTVC1_RADIO_STANDARD_FREQ_BAND_ID *)pOCTVC1_RADIO_STANDARD_FREQ_BAND_ID)->ulStandard ); }  \
+	((tOCTVC1_RADIO_STANDARD_FREQ_BAND_ID *)pOCTVC1_RADIO_STANDARD_FREQ_BAND_ID)->ulBandNumber = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_RADIO_STANDARD_FREQ_BAND_ID *)pOCTVC1_RADIO_STANDARD_FREQ_BAND_ID)->ulBandNumber); \
+}
+#else
+#define mOCTVC1_RADIO_STANDARD_FREQ_BAND_ID_SWAP( pOCTVC1_RADIO_STANDARD_FREQ_BAND_ID )
 #endif /* _OCT_ENDIAN_TYPE_LE_ */
 
 #if defined( _OCT_ENDIAN_TYPE_LE_ )

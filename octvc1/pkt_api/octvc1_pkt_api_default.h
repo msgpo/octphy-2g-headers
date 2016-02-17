@@ -2,7 +2,7 @@
 
 File: OCTVC1_PKT_API.h
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.
+Copyright (c) 2016 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: Octasic Application Development Framework OCTADF-04.00.00-B1829 (2015/07/02)
+Release: Octasic Application Development Framework OCTADF-04.02.01-B2322 (2016/02/01)
 
 $Revision: $
 
@@ -264,7 +264,7 @@ extern "C" {
 	{																		\
 		tOCTVC1_PKT_API_SESS_OPEN_PARMS *	_pParms;						\
 		_pParms = (_f_pParms);												\
-		_pParms->ulControlProcessFifoId		= cOCTVC1_FIFO_ID_MGW_CONTROL;	\
+		_pParms->ulControlProcessFifoId		= cOCTVC1_FIFO_ID_CONTROL;		\
 		_pParms->pUserSessionContext		= NULL;							\
 		_pParms->pSession					= NULL;							\
 	}
@@ -329,7 +329,7 @@ extern "C" {
 	{																		\
 		tOCTVC1_PKT_API_DATA_SEND_PARMS *	_pParms;						\
 		_pParms = (_f_pParms);												\
-		_pParms->ulFormat					= cOCTVOCNET_PKT_FORMAT_DATA_FRAGMENT;		\
+		_pParms->ulFormat					= cOCTVOCNET_PKT_FORMAT_MODULE_DATA;	\
 		_pParms->ulLength					= 0;							\
 		_pParms->pData						= NULL;							\
 	}

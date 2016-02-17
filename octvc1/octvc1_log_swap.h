@@ -2,7 +2,7 @@
 
 File: octvc1_log_swap.h	
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.	
+Copyright (c) 2016 Octasic Inc. All rights reserved.	
 
 Description:	
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)	
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)	
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/	
 #ifndef __OCTVC1_LOG_SWAP_H__
@@ -73,7 +73,8 @@ extern "C" {
 
 #if defined( _OCT_ENDIAN_TYPE_LE_ )
 #define mOCTVC1_LOG_HEADER_SWAP( _f_pParms ){ 	tOCTVC1_LOG_HEADER * pOCTVC1_LOG_HEADER = (_f_pParms); SWAP_UNUSED(pOCTVC1_LOG_HEADER)\
-	{ mOCTVC1_LOG_ID_SWAP( &((tOCTVC1_LOG_HEADER *)pOCTVC1_LOG_HEADER)->ulId ); }  \
+	((tOCTVC1_LOG_HEADER *)pOCTVC1_LOG_HEADER)->ulId = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_LOG_HEADER *)pOCTVC1_LOG_HEADER)->ulId); \
 	((tOCTVC1_LOG_HEADER *)pOCTVC1_LOG_HEADER)->ulTime = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_LOG_HEADER *)pOCTVC1_LOG_HEADER)->ulTime); \
 	((tOCTVC1_LOG_HEADER *)pOCTVC1_LOG_HEADER)->hProcess = \

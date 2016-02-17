@@ -2,7 +2,7 @@
 
 File: OCTVC1_MAIN_RC.h
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.
+Copyright (c) 2016 Octasic Inc. All rights reserved.
 
 Description: Contains the return codes for the MAIN API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
 
 $Octasic_Revision: $
 
@@ -77,9 +77,12 @@ $Octasic_Revision: $
 /****************************************************************************
 	APPLICATION return codes
  ****************************************************************************/
-#define cOCTVC1_MAIN_APPLICATION_RC_BASE					 ( 0x0350 + cOCTVC1_MAIN_RC_BASE )
+#define cOCTVC1_MAIN_APPLICATION_RC_BASE						 ( 0x0350 + cOCTVC1_MAIN_RC_BASE )
 
-#define cOCTVC1_MAIN_RC_APPLICATION_ALREADY_START			 ( 0x0001 + cOCTVC1_MAIN_APPLICATION_RC_BASE )
+#define cOCTVC1_MAIN_RC_APPLICATION_ALREADY_START				 ( 0x0001 + cOCTVC1_MAIN_APPLICATION_RC_BASE )
+#define cOCTVC1_MAIN_RC_APPLICATION_MODULE_ALREADY_START		 ( 0x0002 + cOCTVC1_MAIN_APPLICATION_RC_BASE )
+#define cOCTVC1_MAIN_RC_APPLICATION_MODULE_ALREADY_STOP			 ( 0x0003 + cOCTVC1_MAIN_APPLICATION_RC_BASE )
+#define cOCTVC1_MAIN_RC_APPLICATION_MODULE_MAIN_CANNOT_BE_STOP	 ( 0x0004 + cOCTVC1_MAIN_APPLICATION_RC_BASE )
 
 /****************************************************************************
 	CPU_USAGE return codes
@@ -109,6 +112,8 @@ $Octasic_Revision: $
 #define cOCTVC1_MAIN_RC_LOG_INTERNAL_ERROR					 ( 0x0003 + cOCTVC1_MAIN_LOG_RC_BASE )
 #define cOCTVC1_MAIN_RC_LOG_TRACE_ALREADY_START				 ( 0x0004 + cOCTVC1_MAIN_LOG_RC_BASE )
 #define cOCTVC1_MAIN_RC_LOG_TRACE_NOT_START					 ( 0x0005 + cOCTVC1_MAIN_LOG_RC_BASE )
+#define cOCTVC1_MAIN_RC_LOG_TRACE_MASK_INVALID				 ( 0x0006 + cOCTVC1_MAIN_LOG_RC_BASE )
+#define cOCTVC1_MAIN_RC_LOG_TRACE_FILTER_PROCESS_EMPTY		 ( 0x0007 + cOCTVC1_MAIN_LOG_RC_BASE )
 
 /****************************************************************************
 	Validate return codes

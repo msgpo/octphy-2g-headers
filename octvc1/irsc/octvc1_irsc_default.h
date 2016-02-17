@@ -2,7 +2,7 @@
 
 File: OCTVC1_IRSC_DEFAULT.h
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.
+Copyright (c) 2016 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the IRSC API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
 
 $Octasic_Revision: $
 
@@ -830,7 +830,8 @@ const tOCTVC1_IRSC_MSG_APPLICATION_START_TAP_CMD buf_tOCTVC1_IRSC_MSG_APPLICATIO
        cOCTVC1_IRSC_APPLICATION_TAP_MODE_ENUM_STREAM, /* ulMode */
        cOCTVC1_IRSC_APPLICATION_TRANSPORT_MAX_DATA_SIZE, /* ulMaxTransportDataSize */
        cOCTVC1_INDEX_INVALID, /* ulFilterIndex */
-       0  /* ulUserId */
+       0, /* ulUserId */
+       cOCT_FALSE  /* ulRetryEnableFlag */
    }
 };
 
@@ -875,6 +876,66 @@ extern const tOCTVC1_IRSC_MSG_APPLICATION_STOP_TAP_CMD *g_pOctDef_tOCTVC1_IRSC_M
 #define mOCTVC1_IRSC_MSG_APPLICATION_STOP_TAP_CMD_DEF(pSt) \
     { \
         *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_APPLICATION_STOP_TAP_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_IRSC_MSG_ROUTER_INFO_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_IRSC_MSG_ROUTER_INFO_CMD buf_tOCTVC1_IRSC_MSG_ROUTER_INFO_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_IRSC_MSG_ROUTER_INFO_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_IRSC_MSG_ROUTER_INFO_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   }
+};
+
+const tOCTVC1_IRSC_MSG_ROUTER_INFO_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_INFO_CMD =
+    &buf_tOCTVC1_IRSC_MSG_ROUTER_INFO_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_IRSC_MSG_ROUTER_INFO_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_INFO_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_IRSC_MSG_ROUTER_INFO_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_INFO_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD buf_tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_IRSC_MSG_ROUTER_STATS_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   }
+};
+
+const tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD =
+    &buf_tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_IRSC_MSG_ROUTER_STATS_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD; \
     }
 
 

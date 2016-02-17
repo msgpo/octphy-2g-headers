@@ -1,6 +1,6 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
 
-File: OCTVC1_IP.h
+File: OCTVC1_USER_ID.h
 
 Copyright (c) 2016 Octasic Inc. All rights reserved.
 
@@ -24,38 +24,34 @@ $Revision: $
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 
-#ifndef __OCTVC1_IP_H__
-#define __OCTVC1_IP_H__
+#ifndef __OCTVC1_USER_ID_H__
+#define __OCTVC1_USER_ID_H__
 
 
 /*****************************  INCLUDE FILES  *******************************/
 #include "../octdev_types.h"
+#include "octvc1_base.h"
+#include "octvc1_module.h"
 
 
 /************************  COMMON DEFINITIONS  *******************************/
 
-/*-------------------------------------------------------------------------------------
-	tOCTVC1_IP_VERSION_ENUM : 	IP versions
--------------------------------------------------------------------------------------*/
-#define tOCTVC1_IP_VERSION_ENUM								tOCTDEV_IP_VERSION_ENUM
-
-#define cOCTVC1_IP_VERSION_ENUM_4							cOCTDEV_IP_VERSION_ENUM_4	
-#define cOCTVC1_IP_VERSION_ENUM_6							cOCTDEV_IP_VERSION_ENUM_6	
-#define cOCTVC1_IP_VERSION_ENUM_INVALID						cOCTDEV_IP_VERSION_ENUM_INVALID	
+#define cOCTVC1_USER_ID_MODULE_ID_BIT_SHIFT					24		 	/* Number of bit the module id is shifted in user id. */
 
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_IP_ADDRESS : 	IP address structure
+ 	Base process user id.
+ 	Octadf_internal Process user id.
 -------------------------------------------------------------------------------------*/
-#define tOCTVC1_IP_ADDRESS									tOCTDEV_IP_ADDRESS
+#define tOCTVC1_USER_ID_PROCESS_ENUM						tOCT_UINT32
+
+#define cOCTVC1_USER_ID_PROCESS_ENUM_INVALID				0x00000000	
+#define cOCTVC1_USER_ID_PROCESS_ENUM_MAIN_APP				((tOCT_UINT32)((0x00000000)|(cOCTVC1_MODULE_ID_ENUM_MAIN<<cOCTVC1_USER_ID_MODULE_ID_BIT_SHIFT)) )	
+#define cOCTVC1_USER_ID_PROCESS_ENUM_MAIN_ROUTER			((tOCT_UINT32)((0x00000001)|(cOCTVC1_MODULE_ID_ENUM_MAIN<<cOCTVC1_USER_ID_MODULE_ID_BIT_SHIFT)) )	
+#define cOCTVC1_USER_ID_PROCESS_ENUM_GSM_DL_0				((tOCT_UINT32)((0x00000100)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_USER_ID_MODULE_ID_BIT_SHIFT)) )	
+#define cOCTVC1_USER_ID_PROCESS_ENUM_GSM_ULIM_0				((tOCT_UINT32)((0x00000200)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_USER_ID_MODULE_ID_BIT_SHIFT)) )	
+#define cOCTVC1_USER_ID_PROCESS_ENUM_GSM_ULOM_0				((tOCT_UINT32)((0x00000300)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_USER_ID_MODULE_ID_BIT_SHIFT)) )	
+#define cOCTVC1_USER_ID_PROCESS_ENUM_GSM_SCHED_0			((tOCT_UINT32)((0x00000400)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_USER_ID_MODULE_ID_BIT_SHIFT)) )	
 
 
-                
-/*--------------------------------------------------------------------------
-	SWAP directive (for compatibility reason)
-----------------------------------------------------------------------------*/
-#define mOCTVC1_IP_ADDRESS_SWAP mOCTDEV_IP_ADDRESS_SWAP
-            
-              
-
-#endif /* __OCTVC1_IP_H__ */
+#endif /* __OCTVC1_USER_ID_H__ */
 

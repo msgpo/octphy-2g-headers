@@ -2,7 +2,7 @@
 
 File: octvc1_hw_api_swap.h	
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.	
+Copyright (c) 2016 Octasic Inc. All rights reserved.	
 
 Description:	
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)	
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)	
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/	
 #ifndef __OCTVC1_HW_API_SWAP_H__
@@ -99,7 +99,7 @@ extern "C" {
 		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_CPU_CORE_INFO *)pOCTVC1_HW_CPU_CORE_INFO)->hProcess); \
 	((tOCTVC1_HW_CPU_CORE_INFO *)pOCTVC1_HW_CPU_CORE_INFO)->ulPhysicalCoreId = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_CPU_CORE_INFO *)pOCTVC1_HW_CPU_CORE_INFO)->ulPhysicalCoreId); \
-	{ mOCTVC1_PROCESS_TYPE_ENUM_SWAP( &((tOCTVC1_HW_CPU_CORE_INFO *)pOCTVC1_HW_CPU_CORE_INFO)->ulProcessImageType ); }  \
+	{ mOCTVC1_USER_ID_PROCESS_ENUM_SWAP( &((tOCTVC1_HW_CPU_CORE_INFO *)pOCTVC1_HW_CPU_CORE_INFO)->ulProcessUserId ); }  \
 }
 #else
 #define mOCTVC1_HW_CPU_CORE_INFO_SWAP( pOCTVC1_HW_CPU_CORE_INFO )
@@ -235,8 +235,8 @@ extern "C" {
 		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_RF_PORT_RX_STATS *)pOCTVC1_HW_RF_PORT_RX_STATS)->ulRxAverageBytePerSecond); \
 	((tOCTVC1_HW_RF_PORT_RX_STATS *)pOCTVC1_HW_RF_PORT_RX_STATS)->ulRxAveragePeriodUs = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_RF_PORT_RX_STATS *)pOCTVC1_HW_RF_PORT_RX_STATS)->ulRxAveragePeriodUs); \
-	((tOCTVC1_HW_RF_PORT_RX_STATS *)pOCTVC1_HW_RF_PORT_RX_STATS)->ulFrequencyHz = \
-		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_RF_PORT_RX_STATS *)pOCTVC1_HW_RF_PORT_RX_STATS)->ulFrequencyHz); \
+	((tOCTVC1_HW_RF_PORT_RX_STATS *)pOCTVC1_HW_RF_PORT_RX_STATS)->ulFrequencyKhz = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_RF_PORT_RX_STATS *)pOCTVC1_HW_RF_PORT_RX_STATS)->ulFrequencyKhz); \
 }
 #else
 #define mOCTVC1_HW_RF_PORT_RX_STATS_SWAP( pOCTVC1_HW_RF_PORT_RX_STATS )
@@ -252,8 +252,8 @@ extern "C" {
 		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_RF_PORT_TX_STATS *)pOCTVC1_HW_RF_PORT_TX_STATS)->ulTxAverageBytePerSecond); \
 	((tOCTVC1_HW_RF_PORT_TX_STATS *)pOCTVC1_HW_RF_PORT_TX_STATS)->ulTxAveragePeriodUs = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_RF_PORT_TX_STATS *)pOCTVC1_HW_RF_PORT_TX_STATS)->ulTxAveragePeriodUs); \
-	((tOCTVC1_HW_RF_PORT_TX_STATS *)pOCTVC1_HW_RF_PORT_TX_STATS)->ulFrequencyHz = \
-		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_RF_PORT_TX_STATS *)pOCTVC1_HW_RF_PORT_TX_STATS)->ulFrequencyHz); \
+	((tOCTVC1_HW_RF_PORT_TX_STATS *)pOCTVC1_HW_RF_PORT_TX_STATS)->ulFrequencyKhz = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_RF_PORT_TX_STATS *)pOCTVC1_HW_RF_PORT_TX_STATS)->ulFrequencyKhz); \
 }
 #else
 #define mOCTVC1_HW_RF_PORT_TX_STATS_SWAP( pOCTVC1_HW_RF_PORT_TX_STATS )
@@ -489,10 +489,10 @@ extern "C" {
 		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_MSG_RF_PORT_INFO_RSP *)pOCTVC1_HW_MSG_RF_PORT_INFO_RSP)->hOwner); \
 	((tOCTVC1_HW_MSG_RF_PORT_INFO_RSP *)pOCTVC1_HW_MSG_RF_PORT_INFO_RSP)->ulPortInterfaceId = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_MSG_RF_PORT_INFO_RSP *)pOCTVC1_HW_MSG_RF_PORT_INFO_RSP)->ulPortInterfaceId); \
-	((tOCTVC1_HW_MSG_RF_PORT_INFO_RSP *)pOCTVC1_HW_MSG_RF_PORT_INFO_RSP)->ulFrequencyMinHz = \
-		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_MSG_RF_PORT_INFO_RSP *)pOCTVC1_HW_MSG_RF_PORT_INFO_RSP)->ulFrequencyMinHz); \
-	((tOCTVC1_HW_MSG_RF_PORT_INFO_RSP *)pOCTVC1_HW_MSG_RF_PORT_INFO_RSP)->ulFrequencyMaxHz = \
-		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_MSG_RF_PORT_INFO_RSP *)pOCTVC1_HW_MSG_RF_PORT_INFO_RSP)->ulFrequencyMaxHz); \
+	((tOCTVC1_HW_MSG_RF_PORT_INFO_RSP *)pOCTVC1_HW_MSG_RF_PORT_INFO_RSP)->ulFrequencyMinKhz = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_MSG_RF_PORT_INFO_RSP *)pOCTVC1_HW_MSG_RF_PORT_INFO_RSP)->ulFrequencyMinKhz); \
+	((tOCTVC1_HW_MSG_RF_PORT_INFO_RSP *)pOCTVC1_HW_MSG_RF_PORT_INFO_RSP)->ulFrequencyMaxKhz = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_MSG_RF_PORT_INFO_RSP *)pOCTVC1_HW_MSG_RF_PORT_INFO_RSP)->ulFrequencyMaxKhz); \
 }
 #else
 #define mOCTVC1_HW_MSG_RF_PORT_INFO_RSP_SWAP( pOCTVC1_HW_MSG_RF_PORT_INFO_RSP )

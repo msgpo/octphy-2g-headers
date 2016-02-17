@@ -2,7 +2,7 @@
 
 File: octvc1_process_swap.h	
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.	
+Copyright (c) 2016 Octasic Inc. All rights reserved.	
 
 Description:	
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)	
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)	
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/	
 #ifndef __OCTVC1_PROCESS_SWAP_H__
@@ -95,6 +95,8 @@ extern "C" {
 		mOCT_SWAP32_IF_LE(((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulMaxExecCacheMissCnt); \
 	((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulLastExecCacheMissCnt = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulLastExecCacheMissCnt); \
+	((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulTotalCacheMissCnt = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulTotalCacheMissCnt); \
 	((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulExecCnt = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulExecCnt); \
 	((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulDoneCnt = \

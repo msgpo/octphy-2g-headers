@@ -2,7 +2,7 @@
 
 File: OCTVOCNET_PKT.h
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.
+Copyright (c) 2016 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
 
 $Revision: $
 
@@ -63,6 +63,7 @@ $Revision: $
 #define cOCTVOCNET_PKT_FORMAT_CTRL							0x00	
 #define cOCTVOCNET_PKT_FORMAT_F								0x01	
 #define cOCTVOCNET_PKT_FORMAT_DATA_FRAGMENT					0x02	
+#define cOCTVOCNET_PKT_FORMAT_MODULE_DATA					0x03	 	/* Use to send OCTVC1 MODULE DATA */
 
 /*-------------------------------------------------------------------------------------
  	VocalloNet Format Control Bit Shifted
@@ -70,9 +71,10 @@ $Revision: $
 #define cOCTVOCNET_PKT_BITSHIFTED_FORMAT_CTRL				(cOCTVOCNET_PKT_FORMAT_CTRL<<cOCTVOCNET_PKT_FORMAT_BIT_OFFSET)	
 #define cOCTVOCNET_PKT_BITSHIFTED_FORMAT_F					(cOCTVOCNET_PKT_FORMAT_F<<cOCTVOCNET_PKT_FORMAT_BIT_OFFSET)	
 #define cOCTVOCNET_PKT_BITSHIFTED_FORMAT_DATA_FRAGMENT		(cOCTVOCNET_PKT_FORMAT_DATA_FRAGMENT<<cOCTVOCNET_PKT_FORMAT_BIT_OFFSET)	
+#define cOCTVOCNET_PKT_BITSHIFTED_FORMAT_MODULE_DATA		(cOCTVOCNET_PKT_FORMAT_MODULE_DATA<<cOCTVOCNET_PKT_FORMAT_BIT_OFFSET)	
 
 /*-------------------------------------------------------------------------------------
- 	VocalloNet Packet sub-type Values
+ 	VocalloNet Packet F sub-type Values
 -------------------------------------------------------------------------------------*/
 #define cOCTVOCNET_PKT_SUBTYPE_UNSPECIFIED					0x0		
 #define cOCTVOCNET_PKT_SUBTYPE_API_EVENT					0x1		
@@ -156,7 +158,7 @@ typedef struct
 	ulTimestamp
  		bits[31:0] = Timestamp
 	ulSubType
- 		bits[31:4] = Reserved, bits[3:0] = SubType
+ 		bits[31:0] = SubType
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -175,11 +177,11 @@ typedef struct
 	ulSequenceId
  		Sequence id.
 	ulTransfertTotalSize
- 		Total byte transert for that ulSequenceId (for all ulFragmentTotalNum fragment).
+ 		Total byte transert for that ulSequenceId (for all ulFragmentTotalCnt fragment).
  		If ulTransfertTotalSize set 0, the total ulTransfertTotalSize is unknown
-	ulFragmentTotalNum
- 		Total number of fragment.
- 		If ulFragmentTotalNum set 0, the total ulFragmentTotalNum is unknown
+	ulFragmentTotalCnt
+ 		Total count of fragment.
+ 		If ulFragmentTotalCnt set 0, the total ulFragmentTotalCnt is unknown
 	ulFragmentId
  		Fragment id.
 	ulFragmentDataOffset
@@ -194,7 +196,7 @@ typedef struct
 	tOCTVOCNET_PKT_DATA_F_HEADER	DataHeader;
 	tOCT_UINT32						ulSequenceId;
 	tOCT_UINT32						ulTransfertTotalSize;
-	tOCT_UINT32						ulFragmentTotalNum;
+	tOCT_UINT32						ulFragmentTotalCnt;
 	tOCT_UINT32						ulFragmentId;
 	tOCT_UINT32						ulFragmentDataOffset;
 	tOCT_UINT32						ulFragmentDataSize;

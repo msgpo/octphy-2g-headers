@@ -2,7 +2,7 @@
 
 File: OCTVC1_GSM_API.h
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.
+Copyright (c) 2016 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the GSM API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
 
 $Revision: $
 
@@ -47,16 +47,23 @@ $Revision: $
 /************************  COMMON DEFINITIONS  *******************************/
 
 /*-------------------------------------------------------------------------------------
+ 	APP_TEST Application Module Id
+-------------------------------------------------------------------------------------*/
+
+#define cOCTVC1_GSM_APPLICATION_ID_MODULE_PHY				((0x00)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_MODULE_APPLICATION_ID_MODULE_BIT_OFFSET))	
+
+/*-------------------------------------------------------------------------------------
  	GSM Module Tap Id
 -------------------------------------------------------------------------------------*/
 
-#define cOCTVC1_GSM_TAP_ID_RF_UPLINK_INPUT					((0x0000)|(cOCTVC1_TAP_DIRECTION_ENUM_TX<<cOCTVC1_TAP_ID_MASK_DIRECTION_BIT_OFFSET)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_TAP_ID_MASK_MODULE_ID_BIT_OFFSET))	
+#define cOCTVC1_GSM_TAP_ID_RF_UPLINK_INPUT					((0x0000)|(cOCTVC1_TAP_DIRECTION_ENUM_TX<<cOCTVC1_TAP_ID_MASK_DIRECTION_BIT_OFFSET)|(cOCTVC1_GSM_APPLICATION_ID_MODULE_PHY<<cOCTVC1_TAP_ID_MASK_MODULE_ID_BIT_OFFSET))	
 
 /*-------------------------------------------------------------------------------------
  	GSM Module Data Id
 -------------------------------------------------------------------------------------*/
 
-#define cOCTVC1_GSM_MODULE_DATA_ID_RF_UPLINK_INPUT_COMPLEX16	((0x0000)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_TAP_ID_MASK_MODULE_ID_BIT_OFFSET))	
+#define cOCTVC1_GSM_MODULE_DATA_ID_RF_UPLINK_INPUT_COMPLEX16	((0x0000)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_TAP_ID_MASK_MODULE_ID_BIT_OFFSET))	 	/* Deprecated */
+ 																		/* Should use cOCTVC1_GSM_MSG_TRX_UPLINK_RF_INPUT_DATA_LOGICAL_CHANNEL_MID */
 
 
 #define cOCTVC1_GSM_HOPPING_LIST_MAX_ENTRY					64		 	/* This is the maximum number of entries in a hopping list */
@@ -109,6 +116,7 @@ $Revision: $
 #define cOCTVC1_GSM_ID_DIRECTION_ENUM_NONE					0		
 #define cOCTVC1_GSM_ID_DIRECTION_ENUM_RX_BTS_MS				1		
 #define cOCTVC1_GSM_ID_DIRECTION_ENUM_TX_BTS_MS				3		
+#define cOCTVC1_GSM_ID_DIRECTION_ENUM_TX_RX_BTS_MS			4		
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_DIRECTION_ENUM : 	Sub Channel Direction.
@@ -118,6 +126,7 @@ $Revision: $
 #define cOCTVC1_GSM_DIRECTION_ENUM_NONE						cOCTVC1_GSM_ID_DIRECTION_ENUM_NONE	
 #define cOCTVC1_GSM_DIRECTION_ENUM_RX_BTS_MS				cOCTVC1_GSM_ID_DIRECTION_ENUM_RX_BTS_MS	
 #define cOCTVC1_GSM_DIRECTION_ENUM_TX_BTS_MS				cOCTVC1_GSM_ID_DIRECTION_ENUM_TX_BTS_MS	
+#define cOCTVC1_GSM_DIRECTION_ENUM_TX_RX_BTS_MS				cOCTVC1_GSM_ID_DIRECTION_ENUM_TX_RX_BTS_MS	
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_ID_TIMESLOT_NB_ENUM : 	Time slot number.
@@ -146,6 +155,36 @@ $Revision: $
 #define cOCTVC1_GSM_TIMESLOT_NB_ENUM_5						cOCTVC1_GSM_ID_TIMESLOT_NB_ENUM_5	
 #define cOCTVC1_GSM_TIMESLOT_NB_ENUM_6						cOCTVC1_GSM_ID_TIMESLOT_NB_ENUM_6	
 #define cOCTVC1_GSM_TIMESLOT_NB_ENUM_7						cOCTVC1_GSM_ID_TIMESLOT_NB_ENUM_7	
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM : 	Time slot number.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM				tOCT_UINT8
+
+#define cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_0				0		
+#define cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_1				1		
+#define cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_2				2		
+#define cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_3				3		
+#define cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_4				4		
+#define cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_5				5		
+#define cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_6				6		
+#define cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_7				7		
+#define cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_ALL			0xFF	
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM : 	Time slot number.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM					tOCT_UINT32
+
+#define cOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM_0					cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_0	
+#define cOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM_1					cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_1	
+#define cOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM_2					cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_2	
+#define cOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM_3					cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_3	
+#define cOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM_4					cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_4	
+#define cOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM_5					cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_5	
+#define cOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM_6					cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_6	
+#define cOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM_7					cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_7	
+#define cOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM_ALL				cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_ALL	
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM : 	Sub Channel number.
@@ -503,6 +542,49 @@ typedef struct
 	tOCT_UINT8						abyKey[cOCTVC1_GSM_CIPHER_KEY_LENGTH];
 
 } tOCTVC1_GSM_CIPHER_CONFIG;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_BUFF_ADDR
+ 		Buffer address
+
+ Members:
+	BuffAddr_TCHFS
+		Range:		[0..2147483647]
+		Default:	0
+ 		Adress of Real Pointer
+	BuffAddr_RACH
+		Range:		[0..2147483647]
+		Default:	0
+ 		Adress of Real Pointer
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCT_UINT32	BuffAddr_TCHFS;
+	tOCT_UINT32	BuffAddr_RACH;
+
+} tOCTVC1_GSM_BUFF_ADDR;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_STUB_CHANNEL_ID
+
+ Members:
+	byTimeslotNb
+		Default:	cOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM_0
+ 		Timeslot number.
+	bySubChannelNb
+		Default:	cOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM_0
+ 		Sub-Channel number.
+	CHANNEL_TYPE
+		Default:	cOCTVC1_GSM_SAPI_ENUM_TCHF
+ 		CHANNEL_TYPE.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM	byTimeslotNb;
+	tOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM	bySubChannelNb;
+	tOCTVC1_GSM_SAPI_ENUM				CHANNEL_TYPE;
+
+} tOCTVC1_GSM_STUB_CHANNEL_ID;
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_LOGICAL_CHANNEL_ID
@@ -929,6 +1011,10 @@ typedef struct
 
 } tOCTVC1_GSM_TAP_FILTER_STATS;
 
+/*-------------------------------------------------------------------------------------
+ 	Deprecated
+ 	Should use tOCTVC1_GSM_MSG_TRX_UPLINK_RF_INPUT_DATA_LOGICAL_CHANNEL_MDA
+-------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_MODULE_DATA_RF_UPLINK_INPUT_HEADER
 
@@ -2252,6 +2338,231 @@ typedef struct
 	tOCTVC1_GSM_LOGICAL_CHANNEL_ID	LchId;
 
 } tOCTVC1_GSM_MSG_TRX_STOP_LOGICAL_CHANNEL_RAW_DATA_INDICATIONS_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	TrxId
+ 		Unique TRX identifier
+	LchId
+ 		Unique Logical channel identifier
+	ulResetFlag
+ 		Reset timeslot stats
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER				Header;
+	tOCTVC1_GSM_TRX_ID				TrxId;
+	tOCTVC1_GSM_LOGICAL_CHANNEL_ID	LchId;
+	tOCT_BOOL32						ulResetFlag;
+
+} tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	TrxId
+ 		Unique TRX identifier
+	LchId
+ 		Unique Logical channel identifier
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER				Header;
+	tOCTVC1_GSM_TRX_ID				TrxId;
+	tOCTVC1_GSM_LOGICAL_CHANNEL_ID	LchId;
+
+} tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	TrxId
+ 		Unique TRX identifier
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_GSM_TRX_ID	TrxId;
+
+} tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	TrxId
+ 		Unique TRX identifier
+	BuffADDR
+ 		Buf Address pointer
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_GSM_TRX_ID		TrxId;
+	tOCTVC1_GSM_BUFF_ADDR	BuffADDR;
+
+} tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	TrxId
+ 		Unique TRX identifier
+	STUB_CHANNEL_ID
+ 		Unique channel_identifier
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER			Header;
+	tOCTVC1_GSM_TRX_ID			TrxId;
+	tOCTVC1_GSM_STUB_CHANNEL_ID	STUB_CHANNEL_ID;
+
+} tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	TrxId
+ 		Unique TRX identifier
+	byTimeslotNb
+ 		Timeslot number.
+	bySubChannelNb
+ 		Sub-Channel number.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER					Header;
+	tOCTVC1_GSM_TRX_ID					TrxId;
+	tOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM	byTimeslotNb;
+	tOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM	bySubChannelNb;
+
+} tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_RSP;
+
+
+/*****************************  MODULE_DATA  *************************************/
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_UPLINK_RF_INPUT_DATA_LOGICAL_CHANNEL_MDA
+
+ Members:
+	ModuleData
+ 		Module Data structure
+	TrxId
+ 		Unique TRX identifier
+	LchId
+ 		Logical Channel identifier
+	ulAntennaIndex
+ 		Antenna index
+	ulFrameNumber
+		Range:		[..cOCTVC1_GSM_MAX_FRAME_COUNT]
+	ulPower
+	ulDataSizeInBytes
+	byBadFlag
+	byBurstId
+	byReserved0
+	byReserved1
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MODULE_DATA				ModuleData;
+	tOCTVC1_GSM_TRX_ID				TrxId;
+	tOCTVC1_GSM_LOGICAL_CHANNEL_ID	LchId;
+	tOCTVC1_INDEX					ulAntennaIndex;
+	tOCT_UINT32						ulFrameNumber;
+	tOCT_UINT32						ulPower;
+	tOCT_UINT32						ulDataSizeInBytes;
+	tOCT_UINT8						byBadFlag;
+	tOCT_UINT8						byBurstId;
+	tOCT_UINT8						byReserved0;
+	tOCT_UINT8						byReserved1;
+
+} tOCTVC1_GSM_MSG_TRX_UPLINK_RF_INPUT_DATA_LOGICAL_CHANNEL_MDA;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_EMPTY_FRAME_LOGICAL_CHANNEL_MDA
+
+ Members:
+	ModuleData
+ 		Module Data structure
+	TrxId
+ 		Unique TRX identifier
+	LchId
+ 		Unique Logical channel identifier
+	ulFrameNumber
+		Range:		[..cOCTVC1_GSM_MAX_FRAME_COUNT]
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MODULE_DATA				ModuleData;
+	tOCTVC1_GSM_TRX_ID				TrxId;
+	tOCTVC1_GSM_LOGICAL_CHANNEL_ID	LchId;
+	tOCT_UINT32						ulFrameNumber;
+
+} tOCTVC1_GSM_MSG_TRX_EMPTY_FRAME_LOGICAL_CHANNEL_MDA;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_DATA_LOGICAL_CHANNEL_MDA
+
+ Members:
+	ModuleData
+ 		Module Data structure
+	TrxId
+ 		Unique TRX identifier
+	LchId
+ 		Unique Logical channel identifier
+	Data
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MODULE_DATA					ModuleData;
+	tOCTVC1_GSM_TRX_ID					TrxId;
+	tOCTVC1_GSM_LOGICAL_CHANNEL_ID		LchId;
+	tOCTVC1_GSM_LOGICAL_CHANNEL_DATA	Data;
+
+} tOCTVC1_GSM_MSG_TRX_DATA_LOGICAL_CHANNEL_MDA;
 
 
 /***************  INCLUDE FILES WITH DEPENDENCIES ON THIS FILE  **************/

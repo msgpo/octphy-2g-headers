@@ -2,7 +2,7 @@
 
 File: OCTVC1_GENERIC_RC.h
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.
+Copyright (c) 2016 Octasic Inc. All rights reserved.
 
 Description: Contains the return codes for the GENERIC API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
 
 $Octasic_Revision: $
 
@@ -63,6 +63,8 @@ $Octasic_Revision: $
 #define cOCTVC1_GENERIC_RC_API_SESSION_INACTIVE				 ( 0x0004 + cOCTVC1_GENERIC_API_RC_BASE )
 #define cOCTVC1_GENERIC_RC_API_INVALID_CMD_LENGTH			 ( 0x0005 + cOCTVC1_GENERIC_API_RC_BASE )
 #define cOCTVC1_GENERIC_RC_API_INVALID_CMD_ID				 ( 0x0006 + cOCTVC1_GENERIC_API_RC_BASE )
+#define cOCTVC1_GENERIC_RC_API_ROUTING_ERROR				 ( 0x0007 + cOCTVC1_GENERIC_API_RC_BASE )
+#define cOCTVC1_GENERIC_RC_API_RSP_ERROR					 ( 0x0008 + cOCTVC1_GENERIC_API_RC_BASE )
 
 /****************************************************************************
 	MEMORY return codes

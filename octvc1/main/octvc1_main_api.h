@@ -2,7 +2,7 @@
 
 File: OCTVC1_MAIN_API.h
 
-Copyright (c) 2015 Octasic Inc. All rights reserved.
+Copyright (c) 2016 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the MAIN API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
 
 $Revision: $
 
@@ -43,6 +43,7 @@ $Revision: $
 #include "../octvc1_process.h"
 #include "../octvc1_api.h"
 #include "../octvc1_module.h"
+#include "../octvc1_user_id.h"
 
 #include "octvc1_main_id.h"
 #include "octvc1_main_rc.h"
@@ -102,12 +103,11 @@ $Revision: $
  		Application Module information
 
  Members:
-	ulModuleId
- 		Current number of process active in this for this module.
+	ulReserved
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MODULE_ID_ENUM	ulModuleId;
+	tOCT_UINT32	ulReserved;
 
 } tOCTVC1_MAIN_APPLICATION_MODULE_INFO;
 
@@ -117,17 +117,33 @@ typedef struct
 
  Members:
 	ulState
- 		Current number of process active in this for this module.
 	ulConfigState
- 		Current number of process active in this for this module.
-	ulProcessNum
- 		Current number of process active in this for this module.
+	ulProcessCnt
+ 		Current number of process active in this module.
+	ulIpcLinkCnt
+ 		Current number IPC Link.
+	ulIpcLinkErrCnt
+ 		Number IPC Link open with error.
+	ulStartTotalCnt
+ 		Total Count of start attempt.
+	ulStartErrCnt
+ 		Count of start with error.
+	ulStopTotalCnt
+ 		Total Count of stop attempt.
+	ulStopErrCnt
+ 		Count of stop with error.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_MAIN_APPLICATION_MODULE_STATE_ENUM			ulState;
 	tOCTVC1_MAIN_APPLICATION_MODULE_CONFIG_STATE_ENUM	ulConfigState;
-	tOCT_UINT32											ulProcessNum;
+	tOCT_UINT32											ulProcessCnt;
+	tOCT_UINT32											ulIpcLinkCnt;
+	tOCT_UINT32											ulIpcLinkErrCnt;
+	tOCT_UINT32											ulStartTotalCnt;
+	tOCT_UINT32											ulStartErrCnt;
+	tOCT_UINT32											ulStopTotalCnt;
+	tOCT_UINT32											ulStopErrCnt;
 
 } tOCTVC1_MAIN_APPLICATION_MODULE_STATS;
 
@@ -194,7 +210,7 @@ typedef struct
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCT_UINT8					szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_INT8					szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 	tOCTVC1_OBJECT_CURSOR_ENUM	ulGetMode;
 
 } tOCTVC1_MAIN_FILE_SYSTEM_FILE_CURSOR;
@@ -206,6 +222,32 @@ typedef struct
 
 #define cOCTVC1_MAIN_FILE_OPEN_MODE_MASK_READ				0x1		
 #define cOCTVC1_MAIN_FILE_OPEN_MODE_MASK_WRITE				0x2		
+
+/*-------------------------------------------------------------------------------------
+ 	Stream related definitions
+-------------------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------------------
+ 	Stream state.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_MAIN_STREAM_STATE_ENUM						tOCT_UINT32
+
+#define cOCTVC1_MAIN_STREAM_STATE_ENUM_STOP					0		
+#define cOCTVC1_MAIN_STREAM_STATE_ENUM_START				1		
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_STREAM_INFO
+
+ Members:
+	hLogicalObj
+	ulState
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_HANDLE_OBJECT			hLogicalObj;
+	tOCTVC1_MAIN_STREAM_STATE_ENUM	ulState;
+
+} tOCTVC1_MAIN_STREAM_INFO;
 
 /*-------------------------------------------------------------------------------------
  	LOG related sections.
@@ -220,6 +262,7 @@ typedef struct
 #define cOCTVC1_MAIN_LOG_TRACE_STATE_ENUM_START				1		
 #define cOCTVC1_MAIN_LOG_MAX_NUM_FILES						32		 	/* Maximum total number of log files that can be logged to */
 #define cOCTVC1_MAIN_LOG_FILE_PREFIX_MAX_LENGTH				(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH-2)	 	/* Maximum length of the prefix of the log filename */
+#define cOCTVC1_MAIN_LOG_TRACE_FILTER_PROCESS_ENTRY_MAX		8		 	/* Max number of process entry in log trace filter */
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_MAIN_LOG_TRACE_STATS
@@ -249,7 +292,7 @@ typedef struct
 	tOCT_UINT32	ulFileOverwriteCnt;
 	tOCT_UINT32	ulNumFiles;
 	tOCT_UINT8	abyFileIndexes[cOCTVC1_MAIN_LOG_MAX_NUM_FILES];
-	tOCT_UINT8	szFileNamePrefix[cOCTVC1_MAIN_LOG_FILE_PREFIX_MAX_LENGTH];
+	tOCT_INT8	szFileNamePrefix[cOCTVC1_MAIN_LOG_FILE_PREFIX_MAX_LENGTH];
 
 } tOCTVC1_MAIN_LOG_TRACE_STATS;
 
@@ -270,9 +313,34 @@ typedef struct
 {
 	tOCT_UINT32	ulMaxFileSize;
 	tOCT_UINT32	ulMaxNumFiles;
-	tOCT_UINT8	szFileNamePrefix[cOCTVC1_MAIN_LOG_FILE_PREFIX_MAX_LENGTH];
+	tOCT_INT8	szFileNamePrefix[cOCTVC1_MAIN_LOG_FILE_PREFIX_MAX_LENGTH];
 
 } tOCTVC1_MAIN_LOG_TRACE_INFO;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_LOG_TRACE_FILTER
+
+ Members:
+	ulTraceProcessAllFlag
+		Default:	cOCT_TRUE
+ 		When set to cOCT_TRUE, the trace will be started for all process
+ 		When set to cOCT_FALSE, the trace will be started only for specified process
+	aTraceProcessUserId
+		Default:	cOCTVC1_USER_ID_PROCESS_ENUM_INVALID
+ 		Process User ID to start trace.
+ 		Only used, if ulTraceProcessAllFlag set to cOCT_FALSE
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCT_BOOL32						ulTraceProcessAllFlag;
+	tOCTVC1_USER_ID_PROCESS_ENUM	aTraceProcessUserId[cOCTVC1_MAIN_LOG_TRACE_FILTER_PROCESS_ENTRY_MAX];
+
+} tOCTVC1_MAIN_LOG_TRACE_FILTER;
+
+/*-------------------------------------------------------------------------------------
+ 	Main Module Data Definitions
+-------------------------------------------------------------------------------------*/
+#define cOCTVC1_MAIN_MODULE_DATA_IPC						((0x0001)|(cOCTVC1_MODULE_ID_ENUM_MAIN<<cOCTVC1_MODULE_ID_BIT_OFFSET))	
 
 /*****************************  METHODS  *************************************/
 /*-------------------------------------------------------------------------------------
@@ -329,7 +397,7 @@ typedef struct
 {
 	tOCTVC1_MSG_HEADER			Header;
 	tOCTDEV_DEVICES_TYPE_ENUM	ulTargetType;
-	tOCT_UINT8					abyTargetInfo[cOCTVC1_MAIN_TARGET_MAX_INFO_BYTE_SIZE];
+	tOCT_INT8					abyTargetInfo[cOCTVC1_MAIN_TARGET_MAX_INFO_BYTE_SIZE];
 	tOCT_UINT8					abyUserInfo[cOCTVC1_MAIN_USER_MAX_INFO_BYTE_SIZE];
 
 } tOCTVC1_MAIN_MSG_TARGET_INFO_RSP;
@@ -471,14 +539,17 @@ typedef struct
 	ulFileNumber
 		Default:	4
  		The maximum number of files for tracing
+	Filter
+ 		Trace Filter
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER		Header;
-	tOCT_BOOL32				ulFullAutoStopFlag;
-	tOCTVC1_LOG_TRACE_MASK	ulTraceMask;
-	tOCT_UINT32				ulFileSize;
-	tOCT_UINT32				ulFileNumber;
+	tOCTVC1_MSG_HEADER				Header;
+	tOCT_BOOL32						ulFullAutoStopFlag;
+	tOCTVC1_LOG_TRACE_MASK			ulTraceMask;
+	tOCT_UINT32						ulFileSize;
+	tOCT_UINT32						ulFileNumber;
+	tOCTVC1_MAIN_LOG_TRACE_FILTER	Filter;
 
 } tOCTVC1_MAIN_MSG_LOG_START_TRACE_CMD;
 
@@ -574,6 +645,8 @@ typedef struct
  		The tracing masks that are currently active
 	TraceStats
  		Trace stats structure
+	Filter
+ 		Trace Filter
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -582,6 +655,7 @@ typedef struct
 	tOCT_UINT32							ulFullAutoStopFlag;
 	tOCTVC1_LOG_TRACE_MASK				ulTraceMask;
 	tOCTVC1_MAIN_LOG_TRACE_STATS		TraceStats;
+	tOCTVC1_MAIN_LOG_TRACE_FILTER		Filter;
 
 } tOCTVC1_MAIN_MSG_LOG_STATS_TRACE_RSP;
 
@@ -638,7 +712,7 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER					Header;
-	tOCT_UINT8							szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_INT8							szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 	tOCTVC1_MAIN_FILE_OPEN_MODE_MASK	ulAccessMode;
 
 } tOCTVC1_MAIN_MSG_FILE_OPEN_CMD;
@@ -699,7 +773,7 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_INT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD;
 
@@ -715,7 +789,7 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_INT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_RSP;
 
@@ -824,7 +898,7 @@ typedef struct
 {
 	tOCTVC1_MSG_HEADER					Header;
 	tOCTVC1_HANDLE_OBJECT				hFile;
-	tOCT_UINT8							szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_INT8							szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 	tOCTVC1_MAIN_FILE_OPEN_MODE_MASK	ulAccessMode;
 	tOCT_UINT32							ulMinAlignBytes;
 
@@ -967,16 +1041,19 @@ typedef struct
  		Process Name.
 	szProcessImageName
  		Process file name.
-	ulType
- 		Process Type.
+	ulModuleId
+ 		Module Id.
+	ulUserId
+ 		Process user identifier
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER			Header;
-	tOCT_UINT32					hProcess;
-	tOCT_UINT8					szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
-	tOCT_UINT8					szProcessImageName[(cOCTVC1_PROCESS_IMAGE_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
-	tOCTVC1_PROCESS_TYPE_ENUM	ulType;
+	tOCTVC1_MSG_HEADER				Header;
+	tOCT_UINT32						hProcess;
+	tOCT_INT8						szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_INT8						szProcessImageName[(cOCTVC1_PROCESS_IMAGE_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_UINT32						ulModuleId;
+	tOCTVC1_USER_ID_PROCESS_ENUM	ulUserId;
 
 } tOCTVC1_MAIN_MSG_PROCESS_INFO_RSP;
 
@@ -1426,33 +1503,6 @@ typedef struct
 } tOCTVC1_MAIN_MSG_API_SYSTEM_MODIFY_SESSION_HEARTBEAT_RSP;
 
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_MAIN_MSG_APPLICATION_START_CMD
- 		This command starts the application.
-
- Members:
-	Header
- 		OCTVC1 Message Header
--------------------------------------------------------------------------------------*/
-typedef struct
-{
-	tOCTVC1_MSG_HEADER	Header;
-
-} tOCTVC1_MAIN_MSG_APPLICATION_START_CMD;
-
-/*-------------------------------------------------------------------------------------
-	tOCTVC1_MAIN_MSG_APPLICATION_START_RSP
-
- Members:
-	Header
- 		OCTVC1 Message Header
--------------------------------------------------------------------------------------*/
-typedef struct
-{
-	tOCTVC1_MSG_HEADER	Header;
-
-} tOCTVC1_MAIN_MSG_APPLICATION_START_RSP;
-
-/*-------------------------------------------------------------------------------------
 	tOCTVC1_MAIN_MSG_APPLICATION_STOP_CMD
  		This command stops the application.
 
@@ -1462,6 +1512,7 @@ typedef struct
 	ulQuit
  		Whether the app should quit after stopping. If set to cOCT_TRUE,
  		the app will quit after stopping.
+ 		If set to cOCT_FALSE, the app will stop all but 'system' modules.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -1476,10 +1527,16 @@ typedef struct
  Members:
 	Header
  		OCTVC1 Message Header
+	ulModuleStopCnt
+ 		Number of module stopped.
+	ulModuleStopErrCnt
+ 		Number of module not stopped cause of errors.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_MSG_HEADER	Header;
+	tOCT_UINT32			ulModuleStopCnt;
+	tOCT_UINT32			ulModuleStopErrCnt;
 
 } tOCTVC1_MAIN_MSG_APPLICATION_STOP_RSP;
 
@@ -1514,9 +1571,9 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT8			szName[(cOCTVC1_MAIN_APPLICATION_MAX_NAME_LENGTH+1)];
-	tOCT_UINT8			szDescription[(cOCTVC1_MAIN_APPLICATION_MAX_DESCRIPTION_LENGTH+1)];
-	tOCT_UINT8			szVersion[(cOCTVC1_MAIN_APPLICATION_MAX_VERSION_LENGTH+1)];
+	tOCT_INT8			szName[(cOCTVC1_MAIN_APPLICATION_MAX_NAME_LENGTH+1)];
+	tOCT_INT8			szDescription[(cOCTVC1_MAIN_APPLICATION_MAX_DESCRIPTION_LENGTH+1)];
+	tOCT_INT8			szVersion[(cOCTVC1_MAIN_APPLICATION_MAX_VERSION_LENGTH+1)];
 	tOCT_UINT8			abyInfo[cOCTVC1_MAIN_APPLICATION_MAX_INFO_BYTE_SIZE];
 
 } tOCTVC1_MAIN_MSG_APPLICATION_INFO_RSP;
@@ -1548,8 +1605,8 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT8			szPlatform[(cOCTVC1_MAIN_APPLICATION_SYSTEM_MAX_PLATFORM_LENGTH+1)];
-	tOCT_UINT8			szVersion[cOCTVC1_MAIN_APPLICATION_SYSTEM_MAX_VERSION_LENGTH];
+	tOCT_INT8			szPlatform[(cOCTVC1_MAIN_APPLICATION_SYSTEM_MAX_PLATFORM_LENGTH+1)];
+	tOCT_INT8			szVersion[cOCTVC1_MAIN_APPLICATION_SYSTEM_MAX_VERSION_LENGTH];
 
 } tOCTVC1_MAIN_MSG_APPLICATION_INFO_SYSTEM_RSP;
 
@@ -1595,12 +1652,12 @@ typedef struct
  Members:
 	Header
  		OCTVC1 Message Header
-	hModule
+	ulModuleId
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER		Header;
-	tOCTVC1_HANDLE_OBJECT	hModule;
+	tOCTVC1_MSG_HEADER	Header;
+	tOCT_UINT32			ulModuleId;
 
 } tOCTVC1_MAIN_MSG_APPLICATION_INFO_MODULE_CMD;
 
@@ -1610,7 +1667,7 @@ typedef struct
  Members:
 	Header
  		OCTVC1 Message Header
-	hModule
+	ulModuleId
 	szName
  		Module Name.
 	Info
@@ -1619,8 +1676,8 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER						Header;
-	tOCTVC1_HANDLE_OBJECT					hModule;
-	tOCT_UINT8								szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_UINT32								ulModuleId;
+	tOCT_INT8								szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
 	tOCTVC1_MAIN_APPLICATION_MODULE_INFO	Info;
 
 } tOCTVC1_MAIN_MSG_APPLICATION_INFO_MODULE_RSP;
@@ -1631,16 +1688,16 @@ typedef struct
  Members:
 	Header
  		OCTVC1 Message Header
-	hModule
+	ulModuleId
 	ulResetStatsFlag
 		Default:	cOCT_FALSE
  		Statistics counters will be reset to zero after the current values are returned.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER		Header;
-	tOCTVC1_HANDLE_OBJECT	hModule;
-	tOCT_BOOL32				ulResetStatsFlag;
+	tOCTVC1_MSG_HEADER	Header;
+	tOCT_UINT32			ulModuleId;
+	tOCT_BOOL32			ulResetStatsFlag;
 
 } tOCTVC1_MAIN_MSG_APPLICATION_STATS_MODULE_CMD;
 
@@ -1650,14 +1707,14 @@ typedef struct
  Members:
 	Header
  		OCTVC1 Message Header
-	hModule
+	ulModuleId
 	Stats
  		Module stats
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_MSG_HEADER						Header;
-	tOCTVC1_HANDLE_OBJECT					hModule;
+	tOCT_UINT32								ulModuleId;
 	tOCTVC1_MAIN_APPLICATION_MODULE_STATS	Stats;
 
 } tOCTVC1_MAIN_MSG_APPLICATION_STATS_MODULE_RSP;
@@ -1676,7 +1733,7 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_INT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 	tOCT_UINT32			ulMaxFilesize;
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_ADD_FILE_CMD;
@@ -1693,9 +1750,166 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_INT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_ADD_FILE_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LOG_INFO_STREAM_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	Info
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER			Header;
+	tOCTVC1_MAIN_STREAM_INFO	Info;
+
+} tOCTVC1_MAIN_MSG_LOG_INFO_STREAM_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LOG_START_STREAM_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_MAIN_MSG_LOG_START_STREAM_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LOG_START_STREAM_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_MAIN_MSG_LOG_START_STREAM_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LOG_STOP_STREAM_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_MAIN_MSG_LOG_STOP_STREAM_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CMD
+ 		This command starts the module.
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulModuleId
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCT_UINT32			ulModuleId;
+
+} tOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulModuleId
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCT_UINT32			ulModuleId;
+
+} tOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD
+ 		This command stops the module.
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulModuleId
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCT_UINT32			ulModuleId;
+
+} tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulModuleId
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCT_UINT32			ulModuleId;
+
+} tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_RSP;
+
+
+/*****************************  MODULE_DATA  *************************************/
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LOG_DATA_MDA
+
+ Members:
+	ModuleData
+ 		OCTVC1 Module Data
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MODULE_DATA	ModuleData;
+
+} tOCTVC1_MAIN_MSG_LOG_DATA_MDA;
 
 
 /***************  INCLUDE FILES WITH DEPENDENCIES ON THIS FILE  **************/
