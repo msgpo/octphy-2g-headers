@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.04.00-B662 (2015/10/28)
 
 $Revision: $
 
@@ -93,7 +93,7 @@ $Revision: $
 typedef struct
 {
 	tOCT_UINT32	ulObject32;
-	tOCT_UINT8	szDisplayName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];
+	tOCT_INT8	szDisplayName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];
 
 } tOCTVC1_OBJECT32_NAME;
 

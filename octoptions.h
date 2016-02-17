@@ -1,9 +1,10 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
 
-File: OCTVC1_TEST_EVT_PRIV.h
+File: octoption.h
+
 Copyright (c) 2015 Octasic Inc. All rights reserved.
 
-Description: Contains the event definition of the TEST API.
+Description: Compiler conditionnal directives. 'octoptions_default'
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -19,21 +20,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Release: OCTSDR Software Development Kit OCTSDR_GSM-02.04.00-B662 (2015/10/28)
 
-$Octasic_Revision: $
+$Revision: $
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 
-#ifndef __OCTVC1_TEST_EVT_PRIV_H__
-#define __OCTVC1_TEST_EVT_PRIV_H__
+#ifndef __OCTOPTIONS_H__
+#define __OCTOPTIONS_H__
+
+/*--------------------------------------------------------------------------
+	C language
+----------------------------------------------------------------------------*/
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/*--------------------------------------------------------------------------
+	SPECIFIC OPTIONS
+----------------------------------------------------------------------------*/
 
 
-/*****************************  INCLUDE FILES  *******************************/
 
-#include "octvc1_test_api_priv.h"
+/*--------------------------------------------------------------------------
+	C language
+----------------------------------------------------------------------------*/
 
-/************************  COMMON DEFINITIONS  *******************************/
 
-/*****************************  NOTIFICATIONS  **********************************/
+#ifdef __cplusplus
+}
+#endif
 
-#endif /* __OCTVC1_TEST_EVT_PRIV_H__ */
+#endif /* __OCTOPTIONS_H__ */
+
 

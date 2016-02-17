@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.04.00-B662 (2015/10/28)
 
 $Octasic_Revision: $
 
@@ -2396,6 +2396,172 @@ extern const tOCTVC1_GSM_MSG_TRX_STOP_LOGICAL_CHANNEL_RAW_DATA_INDICATIONS_CMD *
 #define mOCTVC1_GSM_MSG_TRX_STOP_LOGICAL_CHANNEL_RAW_DATA_INDICATIONS_CMD_DEF(pSt) \
     { \
         *pSt = *g_pOctDef_tOCTVC1_GSM_MSG_TRX_STOP_LOGICAL_CHANNEL_RAW_DATA_INDICATIONS_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CMD buf_tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* TrxId */
+       0, /* byTrxId */
+       { /* abyPad */
+           0, /* abyPad[0] */
+           0, /* abyPad[1] */
+           0  /* abyPad[2] */
+       }
+   },
+   { /* LchId */
+       cOCTVC1_GSM_ID_TIMESLOT_NB_ENUM_0, /* byTimeslotNb */
+       cOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM_0, /* bySubChannelNb */
+       0, /* bySAPI */
+       0  /* byDirection */
+   },
+   0  /* ulResetFlag */
+};
+
+const tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CMD =
+    &buf_tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD buf_tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* TrxId */
+       0, /* byTrxId */
+       { /* abyPad */
+           0, /* abyPad[0] */
+           0, /* abyPad[1] */
+           0  /* abyPad[2] */
+       }
+   }
+};
+
+const tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD =
+    &buf_tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD buf_tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* TrxId */
+       0, /* byTrxId */
+       { /* abyPad */
+           0, /* abyPad[0] */
+           0, /* abyPad[1] */
+           0  /* abyPad[2] */
+       }
+   },
+   { /* STUB_CHANNEL_ID */
+       cOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM_0, /* byTimeslotNb */
+       cOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM_0, /* bySubChannelNb */
+       cOCTVC1_GSM_SAPI_ENUM_TCHF  /* CHANNEL_TYPE */
+   }
+};
+
+const tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD =
+    &buf_tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD buf_tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* TrxId */
+       0, /* byTrxId */
+       { /* abyPad */
+           0, /* abyPad[0] */
+           0, /* abyPad[1] */
+           0  /* abyPad[2] */
+       }
+   },
+   0, /* byTimeslotNb */
+   0  /* bySubChannelNb */
+};
+
+const tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD =
+    &buf_tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD; \
     }
 
 

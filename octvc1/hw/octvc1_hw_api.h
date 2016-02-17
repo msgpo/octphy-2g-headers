@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.04.00-B662 (2015/10/28)
 
 $Revision: $
 
@@ -395,8 +395,8 @@ typedef struct
  		Average byte receive per seconds
 	ulRxAveragePeriodUs
  		Average Time in micro second between two receive
-	ulFrequencyHz
- 		Current frequency in Hz
+	ulFrequencyKhz
+ 		Current frequency in Khz
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -404,7 +404,7 @@ typedef struct
 	tOCT_UINT32	ulRxOverflowCnt;
 	tOCT_UINT32	ulRxAverageBytePerSecond;
 	tOCT_UINT32	ulRxAveragePeriodUs;
-	tOCT_UINT32	ulFrequencyHz;
+	tOCT_UINT32	ulFrequencyKhz;
 
 } tOCTVC1_HW_RF_PORT_RX_STATS;
 
@@ -421,8 +421,8 @@ typedef struct
  		Average byte receive per seconds
 	ulTxAveragePeriodUs
  		Average Time in micro second between two send
-	ulFrequencyHz
- 		Current frequency in Hz
+	ulFrequencyKhz
+ 		Current frequency in Khz
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -430,7 +430,7 @@ typedef struct
 	tOCT_UINT32	ulTxUnderflowCnt;
 	tOCT_UINT32	ulTxAverageBytePerSecond;
 	tOCT_UINT32	ulTxAveragePeriodUs;
-	tOCT_UINT32	ulFrequencyHz;
+	tOCT_UINT32	ulFrequencyKhz;
 
 } tOCTVC1_HW_RF_PORT_TX_STATS;
 
@@ -527,14 +527,14 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER				Header;
-	tOCT_UINT8						szName[(cOCTVC1_HW_PCB_NAME_MAX_LENGTH+1)];
+	tOCT_INT8						szName[(cOCTVC1_HW_PCB_NAME_MAX_LENGTH+1)];
 	tOCT_UINT32						ulDeviceId;
-	tOCT_UINT8						szSerial[(cOCTVC1_HW_PCB_SERIAL_MAX_LENGTH+1)];
-	tOCT_UINT8						szFilename[(cOCTVC1_HW_PCB_FILENAME_MAX_LENGTH+1)];
+	tOCT_INT8						szSerial[(cOCTVC1_HW_PCB_SERIAL_MAX_LENGTH+1)];
+	tOCT_INT8						szFilename[(cOCTVC1_HW_PCB_FILENAME_MAX_LENGTH+1)];
 	tOCTVC1_HW_PCB_INFO_SOURCE_ENUM	ulInfoSource;
 	tOCTVC1_HW_PCB_INFO_STATE_ENUM	ulInfoState;
-	tOCT_UINT8						szGpsName[(cOCTVC1_HW_PCB_GPS_NAME_MAX_LENGTH+1)];
-	tOCT_UINT8						szWifiName[(cOCTVC1_HW_PCB_WIFI_NAME_MAX_LENGTH+1)];
+	tOCT_INT8						szGpsName[(cOCTVC1_HW_PCB_GPS_NAME_MAX_LENGTH+1)];
+	tOCT_INT8						szWifiName[(cOCTVC1_HW_PCB_WIFI_NAME_MAX_LENGTH+1)];
 
 } tOCTVC1_HW_MSG_PCB_INFO_RSP;
 
@@ -821,10 +821,10 @@ typedef struct
  		Main Rf port owner identifier.
 	ulPortInterfaceId
  		PCB Port Interface Id
-	ulFrequencyMinHz
- 		RF minimum frequency (Hz)
-	ulFrequencyMaxHz
- 		RF maximum frequency (Hz)
+	ulFrequencyMinKhz
+ 		RF minimum frequency (Khz)
+	ulFrequencyMaxKhz
+ 		RF maximum frequency (Khz)
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -833,8 +833,8 @@ typedef struct
 	tOCT_BOOL32				ulInService;
 	tOCTVC1_HANDLE_OBJECT	hOwner;
 	tOCT_UINT32				ulPortInterfaceId;
-	tOCT_UINT32				ulFrequencyMinHz;
-	tOCT_UINT32				ulFrequencyMaxHz;
+	tOCT_UINT32				ulFrequencyMinKhz;
+	tOCT_UINT32				ulFrequencyMaxKhz;
 
 } tOCTVC1_HW_MSG_RF_PORT_INFO_RSP;
 

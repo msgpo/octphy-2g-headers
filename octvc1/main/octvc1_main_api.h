@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.04.00-B662 (2015/10/28)
 
 $Revision: $
 
@@ -103,7 +103,6 @@ $Revision: $
 
  Members:
 	ulModuleId
- 		Current number of process active in this for this module.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -117,11 +116,9 @@ typedef struct
 
  Members:
 	ulState
- 		Current number of process active in this for this module.
 	ulConfigState
- 		Current number of process active in this for this module.
 	ulProcessNum
- 		Current number of process active in this for this module.
+ 		Current number of process active in this module.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -194,7 +191,7 @@ typedef struct
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCT_UINT8					szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_INT8					szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 	tOCTVC1_OBJECT_CURSOR_ENUM	ulGetMode;
 
 } tOCTVC1_MAIN_FILE_SYSTEM_FILE_CURSOR;
@@ -249,7 +246,7 @@ typedef struct
 	tOCT_UINT32	ulFileOverwriteCnt;
 	tOCT_UINT32	ulNumFiles;
 	tOCT_UINT8	abyFileIndexes[cOCTVC1_MAIN_LOG_MAX_NUM_FILES];
-	tOCT_UINT8	szFileNamePrefix[cOCTVC1_MAIN_LOG_FILE_PREFIX_MAX_LENGTH];
+	tOCT_INT8	szFileNamePrefix[cOCTVC1_MAIN_LOG_FILE_PREFIX_MAX_LENGTH];
 
 } tOCTVC1_MAIN_LOG_TRACE_STATS;
 
@@ -270,7 +267,7 @@ typedef struct
 {
 	tOCT_UINT32	ulMaxFileSize;
 	tOCT_UINT32	ulMaxNumFiles;
-	tOCT_UINT8	szFileNamePrefix[cOCTVC1_MAIN_LOG_FILE_PREFIX_MAX_LENGTH];
+	tOCT_INT8	szFileNamePrefix[cOCTVC1_MAIN_LOG_FILE_PREFIX_MAX_LENGTH];
 
 } tOCTVC1_MAIN_LOG_TRACE_INFO;
 
@@ -329,7 +326,7 @@ typedef struct
 {
 	tOCTVC1_MSG_HEADER			Header;
 	tOCTDEV_DEVICES_TYPE_ENUM	ulTargetType;
-	tOCT_UINT8					abyTargetInfo[cOCTVC1_MAIN_TARGET_MAX_INFO_BYTE_SIZE];
+	tOCT_INT8					abyTargetInfo[cOCTVC1_MAIN_TARGET_MAX_INFO_BYTE_SIZE];
 	tOCT_UINT8					abyUserInfo[cOCTVC1_MAIN_USER_MAX_INFO_BYTE_SIZE];
 
 } tOCTVC1_MAIN_MSG_TARGET_INFO_RSP;
@@ -638,7 +635,7 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER					Header;
-	tOCT_UINT8							szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_INT8							szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 	tOCTVC1_MAIN_FILE_OPEN_MODE_MASK	ulAccessMode;
 
 } tOCTVC1_MAIN_MSG_FILE_OPEN_CMD;
@@ -699,7 +696,7 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_INT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD;
 
@@ -715,7 +712,7 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_INT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_RSP;
 
@@ -824,7 +821,7 @@ typedef struct
 {
 	tOCTVC1_MSG_HEADER					Header;
 	tOCTVC1_HANDLE_OBJECT				hFile;
-	tOCT_UINT8							szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_INT8							szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 	tOCTVC1_MAIN_FILE_OPEN_MODE_MASK	ulAccessMode;
 	tOCT_UINT32							ulMinAlignBytes;
 
@@ -974,8 +971,8 @@ typedef struct
 {
 	tOCTVC1_MSG_HEADER			Header;
 	tOCT_UINT32					hProcess;
-	tOCT_UINT8					szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
-	tOCT_UINT8					szProcessImageName[(cOCTVC1_PROCESS_IMAGE_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_INT8					szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_INT8					szProcessImageName[(cOCTVC1_PROCESS_IMAGE_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
 	tOCTVC1_PROCESS_TYPE_ENUM	ulType;
 
 } tOCTVC1_MAIN_MSG_PROCESS_INFO_RSP;
@@ -1514,9 +1511,9 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT8			szName[(cOCTVC1_MAIN_APPLICATION_MAX_NAME_LENGTH+1)];
-	tOCT_UINT8			szDescription[(cOCTVC1_MAIN_APPLICATION_MAX_DESCRIPTION_LENGTH+1)];
-	tOCT_UINT8			szVersion[(cOCTVC1_MAIN_APPLICATION_MAX_VERSION_LENGTH+1)];
+	tOCT_INT8			szName[(cOCTVC1_MAIN_APPLICATION_MAX_NAME_LENGTH+1)];
+	tOCT_INT8			szDescription[(cOCTVC1_MAIN_APPLICATION_MAX_DESCRIPTION_LENGTH+1)];
+	tOCT_INT8			szVersion[(cOCTVC1_MAIN_APPLICATION_MAX_VERSION_LENGTH+1)];
 	tOCT_UINT8			abyInfo[cOCTVC1_MAIN_APPLICATION_MAX_INFO_BYTE_SIZE];
 
 } tOCTVC1_MAIN_MSG_APPLICATION_INFO_RSP;
@@ -1548,8 +1545,8 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT8			szPlatform[(cOCTVC1_MAIN_APPLICATION_SYSTEM_MAX_PLATFORM_LENGTH+1)];
-	tOCT_UINT8			szVersion[cOCTVC1_MAIN_APPLICATION_SYSTEM_MAX_VERSION_LENGTH];
+	tOCT_INT8			szPlatform[(cOCTVC1_MAIN_APPLICATION_SYSTEM_MAX_PLATFORM_LENGTH+1)];
+	tOCT_INT8			szVersion[cOCTVC1_MAIN_APPLICATION_SYSTEM_MAX_VERSION_LENGTH];
 
 } tOCTVC1_MAIN_MSG_APPLICATION_INFO_SYSTEM_RSP;
 
@@ -1620,7 +1617,7 @@ typedef struct
 {
 	tOCTVC1_MSG_HEADER						Header;
 	tOCTVC1_HANDLE_OBJECT					hModule;
-	tOCT_UINT8								szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_INT8								szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
 	tOCTVC1_MAIN_APPLICATION_MODULE_INFO	Info;
 
 } tOCTVC1_MAIN_MSG_APPLICATION_INFO_MODULE_RSP;
@@ -1676,7 +1673,7 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_INT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 	tOCT_UINT32			ulMaxFilesize;
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_ADD_FILE_CMD;
@@ -1693,7 +1690,7 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_INT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_ADD_FILE_RSP;
 

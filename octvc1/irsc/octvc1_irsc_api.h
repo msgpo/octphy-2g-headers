@@ -19,7 +19,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.03.00-B560 (2015/08/07)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.04.00-B662 (2015/10/28)
 
 $Revision: $
 
@@ -198,8 +198,8 @@ typedef struct
 	tOCT_UINT32					hProcess;
 	tOCTVC1_TAP_DIRECTION_ENUM	ulDirection;
 	tOCT_UINT32					ulDataSubType;
-	tOCT_UINT8					szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
-	tOCT_UINT8					szDescription[(cOCTVC1_IRSC_APPLICATION_TAP_MAX_DESCRIPTION_BYTE_SIZE+1)];/* NOSWAPMAC */
+	tOCT_INT8					szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_INT8					szDescription[(cOCTVC1_IRSC_APPLICATION_TAP_MAX_DESCRIPTION_BYTE_SIZE+1)];/* NOSWAPMAC */
 
 } tOCTVC1_IRSC_APPLICATION_TAP_INFO;
 
@@ -284,8 +284,8 @@ typedef struct
 {
 	tOCTVC1_MSG_HEADER			Header;
 	tOCT_UINT32					hProcess;
-	tOCT_UINT8					szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
-	tOCT_UINT8					szProcessImageName[(cOCTVC1_PROCESS_IMAGE_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_INT8					szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_INT8					szProcessImageName[(cOCTVC1_PROCESS_IMAGE_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
 	tOCTVC1_PROCESS_TYPE_ENUM	ulType;
 
 } tOCTVC1_IRSC_MSG_PROCESS_INFO_RSP;
@@ -435,7 +435,7 @@ typedef struct
 	tOCTVC1_HANDLE_OBJECT			hRemoteProcess;
 	tOCTVC1_SUB_OBJECT_ID			ulRemotePortId;
 	tOCT_UINT32						ulRemoteUserId;
-	tOCT_UINT8						szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_INT8						szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
 	tOCT_UINT32						ulPortIdx;
 	tOCTVC1_IRSC_IPC_PORT_TYPE_ENUM	ulType;
 	tOCT_BOOL32						ulSystemFlag;
@@ -570,7 +570,7 @@ typedef struct
 	tOCTVC1_MSG_HEADER		Header;
 	tOCTVC1_HANDLE_OBJECT	hProcess;
 	tOCTVC1_SUB_OBJECT_ID	ulTaskIndex;
-	tOCT_UINT8				szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];
+	tOCT_INT8				szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];
 
 } tOCTVC1_IRSC_MSG_PROCESS_INFO_TASK_RSP;
 
@@ -691,7 +691,7 @@ typedef struct
 	tOCT_UINT32			ulObjType;
 	tOCT_UINT32			ulMaxNumObj;
 	tOCT_UINT32			ulObjByteSize;
-	tOCT_UINT8			szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];
+	tOCT_INT8			szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];
 
 } tOCTVC1_IRSC_MSG_OBJMGR_INFO_RSP;
 
