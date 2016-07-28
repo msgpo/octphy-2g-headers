@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.06.00-B964 (2016/05/31)
 
 $Revision: $
 
@@ -762,7 +762,7 @@ typedef struct
 } tOCTVC1_MAIN_MSG_FILE_CLOSE_RSP;
 
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD
 
  Members:
 	Header
@@ -775,10 +775,10 @@ typedef struct
 	tOCTVC1_MSG_HEADER	Header;
 	tOCT_INT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 
-} tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD;
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD;
 
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_RSP
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_RSP
 
  Members:
 	Header
@@ -791,8 +791,10 @@ typedef struct
 	tOCTVC1_MSG_HEADER	Header;
 	tOCT_INT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 
-} tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_RSP;
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_RSP;
 
+#define tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD /* OCTVC1_RENAMED_API */
+#define tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_RSP tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_RSP /* OCTVC1_RENAMED_API */
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_MAIN_MSG_FILE_WRITE_CMD
 

@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.06.00-B964 (2016/05/31)
 
 $Octasic_Revision: $
 
@@ -2562,6 +2562,45 @@ extern const tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD *g_pOctDef_tOCTVC1
 #define mOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD_DEF(pSt) \
     { \
         *pSt = *g_pOctDef_tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD buf_tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* TrxId */
+       0, /* byTrxId */
+       { /* abyPad */
+           0, /* abyPad[0] */
+           0, /* abyPad[1] */
+           0  /* abyPad[2] */
+       }
+   },
+   0  /* testModeVal */
+};
+
+const tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD =
+    &buf_tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD; \
     }
 
 

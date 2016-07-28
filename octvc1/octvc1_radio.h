@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.06.00-B964 (2016/05/31)
 
 $Revision: $
 
@@ -173,7 +173,14 @@ $Revision: $
 #define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_42		41		
 #define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_43		42		
 #define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_44		43		
-#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_LAST		44		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_45		44		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_46		45		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_65		46		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_66		47		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_67		48		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_252		49		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_255		50		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_LAST		51		
 #define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_INVALID	0xCAFEDECA	
 
 /*-------------------------------------------------------------------------------------

@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.06.00-B964 (2016/05/31)
 
 $Octasic_Revision: $
 
@@ -56,6 +56,7 @@ $Octasic_Revision: $
 #define cOCTVC1_GSM_RC_TRX_RADIO_CONFIG						 ( 0x0005 + cOCTVC1_GSM_TRX_RC_BASE )
 #define cOCTVC1_GSM_RC_TRX_RADIO_RESET						 ( 0x0006 + cOCTVC1_GSM_TRX_RC_BASE )
 #define cOCTVC1_GSM_RC_TRX_RADIO_TERMINATE					 ( 0x0007 + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_PARAMS_INVALID					 ( 0x0008 + cOCTVC1_GSM_TRX_RC_BASE )
 
 /****************************************************************************
 	PHYSICAL_CHANNEL return codes
@@ -66,6 +67,7 @@ $Octasic_Revision: $
 #define cOCTVC1_GSM_RC_PHYSICAL_CHANNEL_ALREADY_ACTIVATED		 ( 0x0001 + cOCTVC1_GSM_PHYSICAL_CHANNEL_RC_BASE )
 #define cOCTVC1_GSM_RC_PHYSICAL_CHANNEL_NOT_ACTIVATED			 ( 0x0002 + cOCTVC1_GSM_PHYSICAL_CHANNEL_RC_BASE )
 #define cOCTVC1_GSM_RC_PHYSICAL_CHANNEL_ID_INVALID				 ( 0x0003 + cOCTVC1_GSM_PHYSICAL_CHANNEL_RC_BASE )
+#define cOCTVC1_GSM_RC_PHYSICAL_CHANNEL_PARAMS_INVALID			 ( 0x0004 + cOCTVC1_GSM_PHYSICAL_CHANNEL_RC_BASE )
 
 /****************************************************************************
 	SUB_CHANNEL return codes

@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.06.00-B964 (2016/05/31)
 
 $Revision: $
 
@@ -241,6 +241,14 @@ $Revision: $
 #define cOCTVC1_GSM_SUBCHANNEL_MASK_5						((tOCT_UINT32)(1<<5) )	
 #define cOCTVC1_GSM_SUBCHANNEL_MASK_6						((tOCT_UINT32)(1<<6) )	
 #define cOCTVC1_GSM_SUBCHANNEL_MASK_7						((tOCT_UINT32)(1<<7) )	
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_TEST_MODE_ENUM : 	TEST MODE OPTIONS.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_GSM_TEST_MODE_ENUM							tOCT_UINT8
+
+#define cOCTVC1_GSM_TEST_MODE_ENUM_TEST_MODE_NONE			0		
+#define cOCTVC1_GSM_TEST_MODE_ENUM_TEST_MODE_TX				1		
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_BURST_TYPE_ENUM : 	Burst type.
@@ -2481,6 +2489,38 @@ typedef struct
 	tOCTVC1_MSG_HEADER	Header;
 
 } tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	TrxId
+ 		Unique TRX identifier
+	testModeVal
+ 		Test Mode None/TX
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER			Header;
+	tOCTVC1_GSM_TRX_ID			TrxId;
+	tOCTVC1_GSM_TEST_MODE_ENUM	testModeVal;
+
+} tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_RSP;
 
 
 /*****************************  MODULE_DATA  *************************************/

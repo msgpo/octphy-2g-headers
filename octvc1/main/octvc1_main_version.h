@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.06.00-B964 (2016/05/31)
 
 $Octasic_Revision: $
 
@@ -36,9 +36,9 @@ $Octasic_Revision: $
       bit[10:0]:     Build number
 */
 #define cOCTVC1_MAIN_VERSION_MAJOR              2
-#define cOCTVC1_MAIN_VERSION_MINOR		5
+#define cOCTVC1_MAIN_VERSION_MINOR		6
 #define cOCTVC1_MAIN_VERSION_MAINTENANCE	0
-#define cOCTVC1_MAIN_VERSION_BUILD		818
+#define cOCTVC1_MAIN_VERSION_BUILD		964
 
 #define cOCTVC1_MAIN_VERSION_ID                 ( (cOCTVC1_MAIN_VERSION_MAJOR << 25) + \
                                                   (cOCTVC1_MAIN_VERSION_MINOR << 18) + \

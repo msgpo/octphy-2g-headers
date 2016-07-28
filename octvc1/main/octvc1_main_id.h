@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B818 (2016/02/11)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.06.00-B964 (2016/05/31)
 
 $Octasic_Revision: $
 
@@ -48,7 +48,8 @@ $Octasic_Revision: $
 #define cOCTVC1_MAIN_MSG_PROCESS_INFO_CPU_USAGE_CID              ( 0x00e + cOCTVC1_MAIN_CID_BASE )
 #define cOCTVC1_MAIN_MSG_FILE_OPEN_CID                           ( ( 0x00f + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
 #define cOCTVC1_MAIN_MSG_FILE_CLOSE_CID                          ( ( 0x010 + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
-#define cOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CID             ( ( 0x011 + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
+#define cOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CID             ( ( 0x011 + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
+#define cOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CID             cOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CID /* OCTVC1_RENAMED_API */
 #define cOCTVC1_MAIN_MSG_FILE_WRITE_CID                          ( ( 0x012 + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
 #define cOCTVC1_MAIN_MSG_FILE_READ_CID                           ( 0x013 + cOCTVC1_MAIN_CID_BASE )
 #define cOCTVC1_MAIN_MSG_FILE_INFO_CID                           ( 0x014 + cOCTVC1_MAIN_CID_BASE )
