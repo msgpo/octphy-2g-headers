@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.06.01-B981 (2016/06/10)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
 
 $Octasic_Revision: $
 
@@ -74,8 +74,9 @@ $Octasic_Revision: $
 #define cOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CID                  ( 0x039 + cOCTVC1_GSM_CID_BASE )
 #define cOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CID                   ( 0x03a + cOCTVC1_GSM_CID_BASE )
 #define cOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CID                           ( 0x03b + cOCTVC1_GSM_CID_BASE )
+#define cOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CID                             ( 0x03c + cOCTVC1_GSM_CID_BASE )
 
-#define cOCTVC1_GSM_CID_MAX                                                (( 0x03b + 1 ) & 0xFFF)
+#define cOCTVC1_GSM_CID_MAX                                                (( 0x03c + 1 ) & 0xFFF)
 
 /****************************************************************************
 	Event IDs

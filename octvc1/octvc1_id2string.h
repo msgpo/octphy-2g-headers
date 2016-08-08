@@ -20,7 +20,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.06.01-B981 (2016/06/10)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
 
 $Revision:  $
 
@@ -340,6 +340,8 @@ const char * octvc1_id2string( tOCT_UINT32 f_ulId )
 			return "cOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CID";
 		case ( cOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CID & ~( cOCTVC1_MSG_FLAGS_BIT_MASK << cOCTVC1_MSG_FLAGS_BIT_OFFSET )):
 			return "cOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CID";
+		case ( cOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CID & ~( cOCTVC1_MSG_FLAGS_BIT_MASK << cOCTVC1_MSG_FLAGS_BIT_OFFSET )):
+			return "cOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CID";
 		case (cOCTVC1_GSM_MSG_TRX_TIME_INDICATION_EID & ~( cOCTVC1_MSG_FLAGS_BIT_MASK << cOCTVC1_MSG_FLAGS_BIT_OFFSET )):
 			return "cOCTVC1_GSM_MSG_TRX_TIME_INDICATION_EID";
 		case (cOCTVC1_GSM_MSG_TRX_STATUS_CHANGE_EID & ~( cOCTVC1_MSG_FLAGS_BIT_MASK << cOCTVC1_MSG_FLAGS_BIT_OFFSET )):

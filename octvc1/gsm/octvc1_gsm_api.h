@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.06.01-B981 (2016/06/10)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
 
 $Revision: $
 
@@ -77,7 +77,7 @@ $Revision: $
  																		/* array. */
 #define cOCTVC1_GSM_TIMESLOT_MAX_SUBCHANNEL					(cOCTVC1_GSM_TIMESLOT_MAX_SUBCHANNEL_NUMBER+2)	 	/* This is the number of subchannels associated with a timeslot. */
 #define cOCTVC1_GSM_MAX_FRAME_COUNT							2715647	 	/* Max frame tick count. */
-#define cOCTVC1_GSM_DATA_CONTENT_SIZE						468		 	/* Data content buffer size in bytes. */
+#define cOCTVC1_GSM_DATA_CONTENT_SIZE						460		 	/* Data content buffer size in bytes. */
 #define cOCTVC1_GSM_RATE_LIST_SIZE							4		 	/* Rate list size. */
 #define cOCTVC1_GSM_RACH_IND_MSG_SIZE						32		 	/* RACH indication content buffer size. */
 #define cOCTVC1_GSM_TRX_ID_LIST_MAX_ENTRY					32		 	/* Maximum number of TRX_ID per list. */
@@ -556,19 +556,19 @@ typedef struct
  		Buffer address
 
  Members:
-	BuffAddr_TCHFS
+	IQ_SAMPLE_ADDR
 		Range:		[0..2147483647]
 		Default:	0
  		Adress of Real Pointer
-	BuffAddr_RACH
+	IQ_SAMPLE_ADDR_RACH
 		Range:		[0..2147483647]
 		Default:	0
  		Adress of Real Pointer
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCT_UINT32	BuffAddr_TCHFS;
-	tOCT_UINT32	BuffAddr_RACH;
+	tOCT_UINT32	IQ_SAMPLE_ADDR;
+	tOCT_UINT32	IQ_SAMPLE_ADDR_RACH;
 
 } tOCTVC1_GSM_BUFF_ADDR;
 
@@ -682,6 +682,9 @@ typedef struct
 	abyDataContent
  		The data contents are an array of size usDataLength. The current implementation
  		is incorrect.
+	abyEgprsCrc
+ 		EGPRS CRC Status for Max TWO Blocks.
+	abyPadding
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -689,6 +692,8 @@ typedef struct
 	tOCTVC1_GSM_PAYLOAD_TYPE_ENUM	ulPayloadType;
 	tOCT_UINT32						ulDataLength;
 	tOCT_UINT8						abyDataContent[cOCTVC1_GSM_DATA_CONTENT_SIZE];
+	tOCT_UINT8						abyEgprsCrc[2];
+	tOCT_UINT8						abyPadding[6];
 
 } tOCTVC1_GSM_LOGICAL_CHANNEL_DATA;
 
@@ -791,6 +796,8 @@ typedef struct
 	ulTchDataCrcPassCount
 	ulTchDataCrcFailCount
 	ulRachCount
+	aulPdtchCrcPassCount
+	aulPdtchCrcFailCount
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -799,6 +806,8 @@ typedef struct
 	tOCT_UINT32										ulTchDataCrcPassCount;
 	tOCT_UINT32										ulTchDataCrcFailCount;
 	tOCT_UINT32										ulRachCount;
+	tOCT_UINT32										aulPdtchCrcPassCount[2];
+	tOCT_UINT32										aulPdtchCrcFailCount[2];
 
 } tOCTVC1_GSM_PHYSICAL_STATUS;
 
@@ -2521,6 +2530,38 @@ typedef struct
 	tOCTVC1_MSG_HEADER	Header;
 
 } tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	TrxId
+ 		Unique TRX identifier
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_GSM_TRX_ID	TrxId;
+
+} tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	testModeVal
+ 		Test Mode None/TX
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER			Header;
+	tOCTVC1_GSM_TEST_MODE_ENUM	testModeVal;
+
+} tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_RSP;
 
 
 /*****************************  MODULE_DATA  *************************************/

@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.06.01-B981 (2016/06/10)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
 
 $Revision: $
 
@@ -448,7 +448,8 @@ typedef struct
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM_FREQ_10MHZ		1		
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM_FREQ_30_72MHZ		2		
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM_FREQ_1HZ_EXT		3		
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM_NONE				4		 	/* Clock Sync Manager is not initialized. */
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM_SOFT_APP			4		 	/* Clock Sync Manager is driven by the software application. */
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM_NONE				5		 	/* Clock Sync Manager is not initialized. */
  																		/* Base on config file informations. */
 
 /*-------------------------------------------------------------------------------------
@@ -480,13 +481,16 @@ typedef struct
 #define tOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM				tOCT_UINT32
 
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_UNINITIALIZE		0		
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_IDLE				1		
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_UNUSED				1		 	/* Not opened. */
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_NO_EXT_CLOCK		2		 	/* Never detect any clock. */
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_LOCKED				3		
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_UNLOCKED			4		
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_ERROR				5		
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_DISABLE			6		 	/* The actual PCB does not supporte this service. */
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_DISABLE			6		 	/* The actual PCB does not support this service. */
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_LOSS_EXT_CLOCK		7		 	/* No more clock detected. */
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_UNRESERVED			8		 	/* Opened, but no process has reserved. */
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_RESERVED			9		 	/* Reserved, not yet active. */
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_ACTIVE				10		
 
 /*****************************  METHODS  *************************************/
 /*-------------------------------------------------------------------------------------
@@ -1095,7 +1099,9 @@ typedef struct
 	ulState
  		Clock sync manager state
 	lClockError
- 		Curent error on the tracked clock's control loop
+ 		Accumulated error on the tracked clock's control loop
+	lLastMeasuredError
+ 		The last clock error that got injected in the control loop
 	lDroppedCycles
  		Number of cycles (at ulPllFreqHz) that have been dropped by the control loop
  		This occurs when there a big gaps of the reference clock in the frequency
@@ -1114,12 +1120,14 @@ typedef struct
  		Clock source state
 	ulDacValue
  		Curent DAC value
+	ulOwnerProcessUid
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_MSG_HEADER							Header;
 	tOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM		ulState;
 	tOCT_INT32									lClockError;
+	tOCT_INT32									lLastMeasuredError;
 	tOCT_INT32									lDroppedCycles;
 	tOCT_UINT32									ulPllFreqHz;
 	tOCT_UINT32									ulPllFractionalFreqHz;
@@ -1127,6 +1135,7 @@ typedef struct
 	tOCT_UINT32									ulSyncLosseCnt;
 	tOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_STATE_ENUM	ulSourceState;
 	tOCT_UINT32									ulDacValue;
+	tOCTVC1_USER_ID_PROCESS_ENUM				ulOwnerProcessUid;
 
 } tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_STATS_RSP;
 

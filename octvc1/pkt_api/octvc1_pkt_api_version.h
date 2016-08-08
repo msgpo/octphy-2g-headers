@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: Octasic Application Development Framework OCTADF-04.03.01-B2484 (2016/04/13)
+Release: Octasic Application Development Framework OCTADF-04.05.01-B2637 (2016/07/11)
 
 $Revision: $
 
@@ -48,9 +48,9 @@ extern "C" {
       bit[10:0]:     Build number
 */
 #define cOCTVC1_PKT_API_VERSION_MAJOR		4
-#define cOCTVC1_PKT_API_VERSION_MINOR		3
+#define cOCTVC1_PKT_API_VERSION_MINOR		5
 #define cOCTVC1_PKT_API_VERSION_MAINTENANCE	1
-#define cOCTVC1_PKT_API_VERSION_BUILD		2484
+#define cOCTVC1_PKT_API_VERSION_BUILD		2637
 
 #define cOCTVC1_PKT_API_VERSION_ID       ( (cOCTVC1_PKT_API_VERSION_MAJOR << 25) + \
 										 (cOCTVC1_PKT_API_VERSION_MINOR << 18) + \

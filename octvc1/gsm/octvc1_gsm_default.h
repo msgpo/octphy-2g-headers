@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.06.01-B981 (2016/06/10)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
 
 $Octasic_Revision: $
 
@@ -1341,15 +1341,19 @@ const tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_DATA_CMD buf_tOCTVC1_GSM_MSG_T
            0, /* abyDataContent[456] */
            0, /* abyDataContent[457] */
            0, /* abyDataContent[458] */
-           0, /* abyDataContent[459] */
-           0, /* abyDataContent[460] */
-           0, /* abyDataContent[461] */
-           0, /* abyDataContent[462] */
-           0, /* abyDataContent[463] */
-           0, /* abyDataContent[464] */
-           0, /* abyDataContent[465] */
-           0, /* abyDataContent[466] */
-           0  /* abyDataContent[467] */
+           0  /* abyDataContent[459] */
+       },
+       { /* abyEgprsCrc */
+           0, /* abyEgprsCrc[0] */
+           0  /* abyEgprsCrc[1] */
+       },
+       { /* abyPadding */
+           0, /* abyPadding[0] */
+           0, /* abyPadding[1] */
+           0, /* abyPadding[2] */
+           0, /* abyPadding[3] */
+           0, /* abyPadding[4] */
+           0  /* abyPadding[5] */
        }
    }
 };
@@ -2604,6 +2608,44 @@ extern const tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD *g_pOctDef_tOCTVC1_GSM_MSG
     }
 
 
+/*--------------------------------------------------------------------------
+    tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CMD buf_tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* TrxId */
+       0, /* byTrxId */
+       { /* abyPad */
+           0, /* abyPad[0] */
+           0, /* abyPad[1] */
+           0  /* abyPad[2] */
+       }
+   }
+};
+
+const tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CMD =
+    &buf_tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CMD; \
+    }
+
+
 /*****************************  MODULE_DATA  *************************************/
 
 /*--------------------------------------------------------------------------
@@ -3190,15 +3232,19 @@ const tOCTVC1_GSM_MSG_TRX_DATA_LOGICAL_CHANNEL_MDA buf_tOCTVC1_GSM_MSG_TRX_DATA_
            0, /* abyDataContent[456] */
            0, /* abyDataContent[457] */
            0, /* abyDataContent[458] */
-           0, /* abyDataContent[459] */
-           0, /* abyDataContent[460] */
-           0, /* abyDataContent[461] */
-           0, /* abyDataContent[462] */
-           0, /* abyDataContent[463] */
-           0, /* abyDataContent[464] */
-           0, /* abyDataContent[465] */
-           0, /* abyDataContent[466] */
-           0  /* abyDataContent[467] */
+           0  /* abyDataContent[459] */
+       },
+       { /* abyEgprsCrc */
+           0, /* abyEgprsCrc[0] */
+           0  /* abyEgprsCrc[1] */
+       },
+       { /* abyPadding */
+           0, /* abyPadding[0] */
+           0, /* abyPadding[1] */
+           0, /* abyPadding[2] */
+           0, /* abyPadding[3] */
+           0, /* abyPadding[4] */
+           0  /* abyPadding[5] */
        }
    }
 };
