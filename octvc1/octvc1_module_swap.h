@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)	
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B780 (2016/01/14)	
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/	
 #ifndef __OCTVC1_MODULE_SWAP_H__
@@ -45,24 +45,10 @@ extern "C" {
 #endif /* _OCT_ENDIAN_TYPE_LE_ */
 
 #if defined( _OCT_ENDIAN_TYPE_LE_ )
-#define mOCTVC1_MODULE_APPLICATION_ID_SWAP( pType ){ \
-		*((tOCT_UINT32 *)pType) = mOCT_SWAP32_IF_LE( *((tOCT_UINT32 *)pType) ); }
-#else
-
-#define mOCTVC1_MODULE_APPLICATION_ID_SWAP( pType )
-
-#endif /* _OCT_ENDIAN_TYPE_LE_ */
-
-#if defined( _OCT_ENDIAN_TYPE_LE_ )
 #define mOCTVC1_MODULE_DATA_SWAP( _f_pParms ){ 	tOCTVC1_MODULE_DATA * pOCTVC1_MODULE_DATA = (_f_pParms); SWAP_UNUSED(pOCTVC1_MODULE_DATA)\
+	{ mOCTVC1_MODULE_ID_ENUM_SWAP( &((tOCTVC1_MODULE_DATA *)pOCTVC1_MODULE_DATA)->ulModuleId ); }  \
 	((tOCTVC1_MODULE_DATA *)pOCTVC1_MODULE_DATA)->ulModuleDataId = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_MODULE_DATA *)pOCTVC1_MODULE_DATA)->ulModuleDataId); \
-	((tOCTVC1_MODULE_DATA *)pOCTVC1_MODULE_DATA)->ulModuleDataSize = \
-		mOCT_SWAP32_IF_LE(((tOCTVC1_MODULE_DATA *)pOCTVC1_MODULE_DATA)->ulModuleDataSize); \
-	((tOCTVC1_MODULE_DATA *)pOCTVC1_MODULE_DATA)->hLogicalObj = \
-		mOCT_SWAP32_IF_LE(((tOCTVC1_MODULE_DATA *)pOCTVC1_MODULE_DATA)->hLogicalObj); \
-	((tOCTVC1_MODULE_DATA *)pOCTVC1_MODULE_DATA)->ulTimestamp = \
-		mOCT_SWAP32_IF_LE(((tOCTVC1_MODULE_DATA *)pOCTVC1_MODULE_DATA)->ulTimestamp); \
 }
 #else
 #define mOCTVC1_MODULE_DATA_SWAP( pOCTVC1_MODULE_DATA )

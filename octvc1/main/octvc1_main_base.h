@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B780 (2016/01/14)
 
 $Octasic_Revision: $
 
@@ -43,7 +43,6 @@ $Octasic_Revision: $
 /* Module: MAIN */
 #define cOCTVC1_MAIN_CID_BASE                   ( (cOCTVC1_MAIN_UID << 16) + cOCTVC1_CID_BASE )
 #define cOCTVC1_MAIN_EID_BASE                   ( (cOCTVC1_MAIN_UID << 16) + cOCTVC1_EID_BASE )
-#define cOCTVC1_MAIN_MID_BASE                   ( (cOCTVC1_MAIN_UID << 24) )
 #define cOCTVC1_MAIN_RC_BASE                    ( (cOCTVC1_MAIN_UID << 16) + cOCTVC1_RC_BASE )
 
 #endif /* __OCTVC1_MAIN_BASE_H__ */

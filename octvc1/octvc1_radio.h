@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B780 (2016/01/14)
 
 $Revision: $
 
@@ -45,7 +45,6 @@ $Revision: $
 #define cOCTVC1_RADIO_STANDARD_ENUM_GSM						0		
 #define cOCTVC1_RADIO_STANDARD_ENUM_UMTS					1		
 #define cOCTVC1_RADIO_STANDARD_ENUM_LTE						2		
-#define cOCTVC1_RADIO_STANDARD_ENUM_CUSTOM					3		
 #define cOCTVC1_RADIO_STANDARD_ENUM_INVALID					0xCAFEDECA	
 
 /*-------------------------------------------------------------------------------------
@@ -173,35 +172,8 @@ $Revision: $
 #define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_42		41		
 #define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_43		42		
 #define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_44		43		
-#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_45		44		
-#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_46		45		
-#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_65		46		
-#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_66		47		
-#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_67		48		
-#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_252		49		
-#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_255		50		
-#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_LAST		51		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_LAST		44		
 #define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_INVALID	0xCAFEDECA	
-
-/*-------------------------------------------------------------------------------------
- 	Radio Standard Frequency Band Identifiers
--------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------
-	tOCTVC1_RADIO_STANDARD_FREQ_BAND_ID
-
- Members:
-	ulStandard
- 		Radio standard
-	ulBandNumber
-		Default:	0
- 		Band number value.
--------------------------------------------------------------------------------------*/
-typedef struct
-{
-	tOCTVC1_RADIO_STANDARD_ENUM	ulStandard;
-	tOCT_UINT32					ulBandNumber;
-
-} tOCTVC1_RADIO_STANDARD_FREQ_BAND_ID;
 
 /*-------------------------------------------------------------------------------------
  	Radio Configiguration Script Identifiers

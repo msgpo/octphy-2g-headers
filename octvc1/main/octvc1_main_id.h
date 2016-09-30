@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B780 (2016/01/14)
 
 $Octasic_Revision: $
 
@@ -48,8 +48,7 @@ $Octasic_Revision: $
 #define cOCTVC1_MAIN_MSG_PROCESS_INFO_CPU_USAGE_CID              ( 0x00e + cOCTVC1_MAIN_CID_BASE )
 #define cOCTVC1_MAIN_MSG_FILE_OPEN_CID                           ( ( 0x00f + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
 #define cOCTVC1_MAIN_MSG_FILE_CLOSE_CID                          ( ( 0x010 + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
-#define cOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CID             ( ( 0x011 + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
-#define cOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CID             cOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CID /* OCTVC1_RENAMED_API */
+#define cOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CID             ( ( 0x011 + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
 #define cOCTVC1_MAIN_MSG_FILE_WRITE_CID                          ( ( 0x012 + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
 #define cOCTVC1_MAIN_MSG_FILE_READ_CID                           ( 0x013 + cOCTVC1_MAIN_CID_BASE )
 #define cOCTVC1_MAIN_MSG_FILE_INFO_CID                           ( 0x014 + cOCTVC1_MAIN_CID_BASE )
@@ -69,20 +68,16 @@ $Octasic_Revision: $
 #define cOCTVC1_MAIN_MSG_API_SYSTEM_START_SESSION_HEARTBEAT_CID  ( 0x023 + cOCTVC1_MAIN_CID_BASE )
 #define cOCTVC1_MAIN_MSG_API_SYSTEM_STOP_SESSION_HEARTBEAT_CID   ( 0x024 + cOCTVC1_MAIN_CID_BASE )
 #define cOCTVC1_MAIN_MSG_API_SYSTEM_MODIFY_SESSION_HEARTBEAT_CID ( 0x025 + cOCTVC1_MAIN_CID_BASE )
-#define cOCTVC1_MAIN_MSG_APPLICATION_STOP_CID                    ( ( 0x027 + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
+#define cOCTVC1_MAIN_MSG_APPLICATION_START_CID                   ( 0x026 + cOCTVC1_MAIN_CID_BASE )
+#define cOCTVC1_MAIN_MSG_APPLICATION_STOP_CID                    ( 0x027 + cOCTVC1_MAIN_CID_BASE )
 #define cOCTVC1_MAIN_MSG_APPLICATION_INFO_CID                    ( 0x028 + cOCTVC1_MAIN_CID_BASE )
 #define cOCTVC1_MAIN_MSG_APPLICATION_INFO_SYSTEM_CID             ( 0x029 + cOCTVC1_MAIN_CID_BASE )
 #define cOCTVC1_MAIN_MSG_APPLICATION_LIST_MODULE_CID             ( 0x02a + cOCTVC1_MAIN_CID_BASE )
 #define cOCTVC1_MAIN_MSG_APPLICATION_INFO_MODULE_CID             ( 0x02b + cOCTVC1_MAIN_CID_BASE )
 #define cOCTVC1_MAIN_MSG_APPLICATION_STATS_MODULE_CID            ( 0x02c + cOCTVC1_MAIN_CID_BASE )
 #define cOCTVC1_MAIN_MSG_FILE_SYSTEM_ADD_FILE_CID                ( 0x02d + cOCTVC1_MAIN_CID_BASE )
-#define cOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CID                     ( 0x02e + cOCTVC1_MAIN_CID_BASE )
-#define cOCTVC1_MAIN_MSG_LOG_START_STREAM_CID                    ( 0x02f + cOCTVC1_MAIN_CID_BASE )
-#define cOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CID                     ( 0x030 + cOCTVC1_MAIN_CID_BASE )
-#define cOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CID            ( ( 0x031 + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
-#define cOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CID             ( ( 0x032 + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
 
-#define cOCTVC1_MAIN_CID_MAX                                     (( 0x032 + 1 ) & 0xFFF)
+#define cOCTVC1_MAIN_CID_MAX                                     (( 0x02d + 1 ) & 0xFFF)
 
 /****************************************************************************
 	Event IDs
@@ -91,16 +86,8 @@ $Octasic_Revision: $
 #define cOCTVC1_MAIN_MSG_API_SYSTEM_SESSION_HEARTBEAT_EID ( 0x0002 + cOCTVC1_MAIN_EID_BASE )
 #define cOCTVC1_MAIN_MSG_PROCESS_CPU_USAGE_REPORT_EID     ( 0x0003 + cOCTVC1_MAIN_EID_BASE )
 #define cOCTVC1_MAIN_MSG_APPLICATION_STATE_CHANGE_EID     ( 0x0004 + cOCTVC1_MAIN_EID_BASE )
-#define cOCTVC1_MAIN_MSG_PROCESS_STATE_CHANGE_EID         ( 0x0005 + cOCTVC1_MAIN_EID_BASE )
 
-#define cOCTVC1_MAIN_EID_MAX                              (( 0x0005 + 1 ) & 0xFFFF)
-
-/****************************************************************************
-	Module Data IDs
- ****************************************************************************/
-#define cOCTVC1_MAIN_MSG_LOG_DATA_MID ( 0x0000 + cOCTVC1_MAIN_MID_BASE )
-
-#define cOCTVC1_MAIN_MID_MAX          (( 0x0000 + 1 ) & 0xFFFF)
+#define cOCTVC1_MAIN_EID_MAX                              (( 0x0004 + 1 ) & 0xFFFF)
 
 
 #endif /* __OCTVC1_MAIN_ID_H__ */

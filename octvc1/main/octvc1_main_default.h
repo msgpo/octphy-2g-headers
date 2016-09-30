@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B780 (2016/01/14)
 
 $Octasic_Revision: $
 
@@ -231,20 +231,7 @@ const tOCTVC1_MAIN_MSG_LOG_START_TRACE_CMD buf_tOCTVC1_MAIN_MSG_LOG_START_TRACE_
    cOCT_FALSE, /* ulFullAutoStopFlag */
    cOCTVC1_LOG_TRACE_MASK_NONE, /* ulTraceMask */
    16384, /* ulFileSize */
-   4, /* ulFileNumber */
-   { /* Filter */
-       cOCT_TRUE, /* ulTraceProcessAllFlag */
-       { /* aTraceProcessUserId */
-           cOCTVC1_USER_ID_PROCESS_ENUM_INVALID, /* aTraceProcessUserId[0] */
-           cOCTVC1_USER_ID_PROCESS_ENUM_INVALID, /* aTraceProcessUserId[1] */
-           cOCTVC1_USER_ID_PROCESS_ENUM_INVALID, /* aTraceProcessUserId[2] */
-           cOCTVC1_USER_ID_PROCESS_ENUM_INVALID, /* aTraceProcessUserId[3] */
-           cOCTVC1_USER_ID_PROCESS_ENUM_INVALID, /* aTraceProcessUserId[4] */
-           cOCTVC1_USER_ID_PROCESS_ENUM_INVALID, /* aTraceProcessUserId[5] */
-           cOCTVC1_USER_ID_PROCESS_ENUM_INVALID, /* aTraceProcessUserId[6] */
-           cOCTVC1_USER_ID_PROCESS_ENUM_INVALID  /* aTraceProcessUserId[7] */
-       }
-   }
+   4  /* ulFileNumber */
 };
 
 const tOCTVC1_MAIN_MSG_LOG_START_TRACE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_START_TRACE_CMD =
@@ -447,16 +434,16 @@ extern const tOCTVC1_MAIN_MSG_FILE_CLOSE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_CL
 
 
 /*--------------------------------------------------------------------------
-    tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD
 ----------------------------------------------------------------------------*/
 #ifdef OCTVC1_OPT_DECLARE_DEFAULTS
 
-const tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD =
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD =
 {
    { /* Header */
-       ((sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       ((sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
        0, /* ulTransactionId */
-       ((cOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       ((cOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
        0, /* ulSessionId */
        0, /* ulReturnCode */
        0  /* ulUserInfo */
@@ -466,19 +453,18 @@ const tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYS
    }
 };
 
-const tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD =
-    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD;
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD;
 
 #else /* OCTVC1_OPT_DECLARE_DEFAULTS */
-extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD;
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD;
 #endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
 
-#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD_DEF(pSt) \
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD_DEF(pSt) \
     { \
-        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD; \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD; \
     }
 
-#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_DELETE_FILE_CMD_DEF mOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD_DEF  /* OCTVC1_RENAMED_API */
 
 /*--------------------------------------------------------------------------
     tOCTVC1_MAIN_MSG_FILE_WRITE_CMD
@@ -1100,6 +1086,36 @@ extern const tOCTVC1_MAIN_MSG_API_SYSTEM_MODIFY_SESSION_HEARTBEAT_CMD *g_pOctDef
 
 
 /*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_APPLICATION_START_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_APPLICATION_START_CMD buf_tOCTVC1_MAIN_MSG_APPLICATION_START_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_APPLICATION_START_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_APPLICATION_START_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   }
+};
+
+const tOCTVC1_MAIN_MSG_APPLICATION_START_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_APPLICATION_START_CMD =
+    &buf_tOCTVC1_MAIN_MSG_APPLICATION_START_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_APPLICATION_START_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_APPLICATION_START_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_APPLICATION_START_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_APPLICATION_START_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
     tOCTVC1_MAIN_MSG_APPLICATION_STOP_CMD
 ----------------------------------------------------------------------------*/
 #ifdef OCTVC1_OPT_DECLARE_DEFAULTS
@@ -1239,7 +1255,7 @@ const tOCTVC1_MAIN_MSG_APPLICATION_INFO_MODULE_CMD buf_tOCTVC1_MAIN_MSG_APPLICAT
        0, /* ulReturnCode */
        0  /* ulUserInfo */
    },
-   0  /* ulModuleId */
+   0  /* hModule */
 };
 
 const tOCTVC1_MAIN_MSG_APPLICATION_INFO_MODULE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_APPLICATION_INFO_MODULE_CMD =
@@ -1270,7 +1286,7 @@ const tOCTVC1_MAIN_MSG_APPLICATION_STATS_MODULE_CMD buf_tOCTVC1_MAIN_MSG_APPLICA
        0, /* ulReturnCode */
        0  /* ulUserInfo */
    },
-   0, /* ulModuleId */
+   0, /* hModule */
    cOCT_FALSE  /* ulResetStatsFlag */
 };
 
@@ -1318,188 +1334,6 @@ extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_ADD_FILE_CMD *g_pOctDef_tOCTVC1_MAIN_M
 #define mOCTVC1_MAIN_MSG_FILE_SYSTEM_ADD_FILE_CMD_DEF(pSt) \
     { \
         *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_ADD_FILE_CMD; \
-    }
-
-
-/*--------------------------------------------------------------------------
-    tOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CMD
-----------------------------------------------------------------------------*/
-#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
-
-const tOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CMD buf_tOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CMD =
-{
-   { /* Header */
-       ((sizeof(tOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
-       0, /* ulTransactionId */
-       ((cOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
-       0, /* ulSessionId */
-       0, /* ulReturnCode */
-       0  /* ulUserInfo */
-   }
-};
-
-const tOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CMD =
-    &buf_tOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CMD;
-
-#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
-extern const tOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CMD;
-#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
-
-#define mOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CMD_DEF(pSt) \
-    { \
-        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_INFO_STREAM_CMD; \
-    }
-
-
-/*--------------------------------------------------------------------------
-    tOCTVC1_MAIN_MSG_LOG_START_STREAM_CMD
-----------------------------------------------------------------------------*/
-#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
-
-const tOCTVC1_MAIN_MSG_LOG_START_STREAM_CMD buf_tOCTVC1_MAIN_MSG_LOG_START_STREAM_CMD =
-{
-   { /* Header */
-       ((sizeof(tOCTVC1_MAIN_MSG_LOG_START_STREAM_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
-       0, /* ulTransactionId */
-       ((cOCTVC1_MAIN_MSG_LOG_START_STREAM_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
-       0, /* ulSessionId */
-       0, /* ulReturnCode */
-       0  /* ulUserInfo */
-   }
-};
-
-const tOCTVC1_MAIN_MSG_LOG_START_STREAM_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_START_STREAM_CMD =
-    &buf_tOCTVC1_MAIN_MSG_LOG_START_STREAM_CMD;
-
-#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
-extern const tOCTVC1_MAIN_MSG_LOG_START_STREAM_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_START_STREAM_CMD;
-#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
-
-#define mOCTVC1_MAIN_MSG_LOG_START_STREAM_CMD_DEF(pSt) \
-    { \
-        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_START_STREAM_CMD; \
-    }
-
-
-/*--------------------------------------------------------------------------
-    tOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CMD
-----------------------------------------------------------------------------*/
-#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
-
-const tOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CMD buf_tOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CMD =
-{
-   { /* Header */
-       ((sizeof(tOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
-       0, /* ulTransactionId */
-       ((cOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
-       0, /* ulSessionId */
-       0, /* ulReturnCode */
-       0  /* ulUserInfo */
-   }
-};
-
-const tOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CMD =
-    &buf_tOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CMD;
-
-#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
-extern const tOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CMD;
-#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
-
-#define mOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CMD_DEF(pSt) \
-    { \
-        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CMD; \
-    }
-
-
-/*--------------------------------------------------------------------------
-    tOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CMD
-----------------------------------------------------------------------------*/
-#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
-
-const tOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CMD buf_tOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CMD =
-{
-   { /* Header */
-       ((sizeof(tOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
-       0, /* ulTransactionId */
-       ((cOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
-       0, /* ulSessionId */
-       0, /* ulReturnCode */
-       0  /* ulUserInfo */
-   },
-   0  /* ulModuleId */
-};
-
-const tOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CMD =
-    &buf_tOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CMD;
-
-#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
-extern const tOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CMD;
-#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
-
-#define mOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CMD_DEF(pSt) \
-    { \
-        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CMD; \
-    }
-
-
-/*--------------------------------------------------------------------------
-    tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD
-----------------------------------------------------------------------------*/
-#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
-
-const tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD buf_tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD =
-{
-   { /* Header */
-       ((sizeof(tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
-       0, /* ulTransactionId */
-       ((cOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
-       0, /* ulSessionId */
-       0, /* ulReturnCode */
-       0  /* ulUserInfo */
-   },
-   0  /* ulModuleId */
-};
-
-const tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD =
-    &buf_tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD;
-
-#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
-extern const tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD;
-#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
-
-#define mOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD_DEF(pSt) \
-    { \
-        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD; \
-    }
-
-
-/*****************************  MODULE_DATA  *************************************/
-
-/*--------------------------------------------------------------------------
-    tOCTVC1_MAIN_MSG_LOG_DATA_MDA
-----------------------------------------------------------------------------*/
-#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
-
-const tOCTVC1_MAIN_MSG_LOG_DATA_MDA buf_tOCTVC1_MAIN_MSG_LOG_DATA_MDA =
-{
-   { /* ModuleData */
-       (cOCTVC1_MAIN_MSG_LOG_DATA_MID), /* ulModuleDataId */
-       (sizeof(tOCTVC1_MAIN_MSG_LOG_DATA_MDA)), /* ulModuleDataSize */
-       0, /* hLogicalObj */
-       0  /* ulTimestamp */
-   }
-};
-
-const tOCTVC1_MAIN_MSG_LOG_DATA_MDA *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_DATA_MDA =
-    &buf_tOCTVC1_MAIN_MSG_LOG_DATA_MDA;
-
-#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
-extern const tOCTVC1_MAIN_MSG_LOG_DATA_MDA *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_DATA_MDA;
-#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
-
-#define mOCTVC1_MAIN_MSG_LOG_DATA_MDA_DEF(pSt) \
-    { \
-        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_DATA_MDA; \
     }
 
 

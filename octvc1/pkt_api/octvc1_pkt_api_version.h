@@ -2,7 +2,7 @@
 
 File: OCTVC1_PKT_API_VERSION.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2015 Octasic Inc. All rights reserved.
 
 Description:
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: Octasic Application Development Framework OCTADF-04.05.01-B2637 (2016/07/11)
+Release: Octasic Application Development Framework OCTADF-04.01.00-B1993 (2015/09/16)
 
 $Revision: $
 
@@ -48,9 +48,9 @@ extern "C" {
       bit[10:0]:     Build number
 */
 #define cOCTVC1_PKT_API_VERSION_MAJOR		4
-#define cOCTVC1_PKT_API_VERSION_MINOR		5
-#define cOCTVC1_PKT_API_VERSION_MAINTENANCE	1
-#define cOCTVC1_PKT_API_VERSION_BUILD		2637
+#define cOCTVC1_PKT_API_VERSION_MINOR		1
+#define cOCTVC1_PKT_API_VERSION_MAINTENANCE	0
+#define cOCTVC1_PKT_API_VERSION_BUILD		1993
 
 #define cOCTVC1_PKT_API_VERSION_ID       ( (cOCTVC1_PKT_API_VERSION_MAJOR << 25) + \
 										 (cOCTVC1_PKT_API_VERSION_MINOR << 18) + \

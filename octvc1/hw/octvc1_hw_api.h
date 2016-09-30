@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B780 (2016/01/14)
 
 $Revision: $
 
@@ -41,7 +41,6 @@ $Revision: $
 #include "../octvc1_list.h"
 #include "../octvc1_log.h"
 #include "../octvc1_process.h"
-#include "../octvc1_user_id.h"
 #include "../octvc1_radio.h"
 
 #include "octvc1_hw_id.h"
@@ -174,15 +173,15 @@ typedef struct
 		Default:	0
  		Physical core index. Value 0 means no core is running for this logical
  		identifier.
-	ulProcessUserId
-		Default:	cOCTVC1_USER_ID_PROCESS_ENUM_INVALID
+	ulProcessImageType
+		Default:	cOCTVC1_PROCESS_TYPE_ENUM_INVALID
  		Process Type identifier. Value INVALID means no process running on this core.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCT_UINT32						hProcess;
-	tOCT_UINT32						ulPhysicalCoreId;
-	tOCTVC1_USER_ID_PROCESS_ENUM	ulProcessUserId;
+	tOCT_UINT32					hProcess;
+	tOCT_UINT32					ulPhysicalCoreId;
+	tOCTVC1_PROCESS_TYPE_ENUM	ulProcessImageType;
 
 } tOCTVC1_HW_CPU_CORE_INFO;
 
@@ -448,8 +447,7 @@ typedef struct
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM_FREQ_10MHZ		1		
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM_FREQ_30_72MHZ		2		
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM_FREQ_1HZ_EXT		3		
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM_SOFT_APP			4		 	/* Clock Sync Manager is driven by the software application. */
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM_NONE				5		 	/* Clock Sync Manager is not initialized. */
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM_NONE				4		 	/* Clock Sync Manager is not initialized. */
  																		/* Base on config file informations. */
 
 /*-------------------------------------------------------------------------------------
@@ -481,16 +479,13 @@ typedef struct
 #define tOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM				tOCT_UINT32
 
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_UNINITIALIZE		0		
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_UNUSED				1		 	/* Not opened. */
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_IDLE				1		
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_NO_EXT_CLOCK		2		 	/* Never detect any clock. */
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_LOCKED				3		
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_UNLOCKED			4		
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_ERROR				5		
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_DISABLE			6		 	/* The actual PCB does not support this service. */
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_DISABLE			6		 	/* The actual PCB does not supporte this service. */
 #define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_LOSS_EXT_CLOCK		7		 	/* No more clock detected. */
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_UNRESERVED			8		 	/* Opened, but no process has reserved. */
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_RESERVED			9		 	/* Reserved, not yet active. */
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM_ACTIVE				10		
 
 /*****************************  METHODS  *************************************/
 /*-------------------------------------------------------------------------------------
@@ -1099,9 +1094,7 @@ typedef struct
 	ulState
  		Clock sync manager state
 	lClockError
- 		Accumulated error on the tracked clock's control loop
-	lLastMeasuredError
- 		The last clock error that got injected in the control loop
+ 		Curent error on the tracked clock's control loop
 	lDroppedCycles
  		Number of cycles (at ulPllFreqHz) that have been dropped by the control loop
  		This occurs when there a big gaps of the reference clock in the frequency
@@ -1120,14 +1113,12 @@ typedef struct
  		Clock source state
 	ulDacValue
  		Curent DAC value
-	ulOwnerProcessUid
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_MSG_HEADER							Header;
 	tOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM		ulState;
 	tOCT_INT32									lClockError;
-	tOCT_INT32									lLastMeasuredError;
 	tOCT_INT32									lDroppedCycles;
 	tOCT_UINT32									ulPllFreqHz;
 	tOCT_UINT32									ulPllFractionalFreqHz;
@@ -1135,7 +1126,6 @@ typedef struct
 	tOCT_UINT32									ulSyncLosseCnt;
 	tOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_STATE_ENUM	ulSourceState;
 	tOCT_UINT32									ulDacValue;
-	tOCTVC1_USER_ID_PROCESS_ENUM				ulOwnerProcessUid;
 
 } tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_STATS_RSP;
 

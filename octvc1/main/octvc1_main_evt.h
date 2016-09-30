@@ -17,7 +17,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B780 (2016/01/14)
 
 $Octasic_Revision: $
 
@@ -48,16 +48,16 @@ $Octasic_Revision: $
  Members:
 	Header
 	hProcess
-	ulProcessUserId
- 		Process User identifier. Value INVALID means no process running on this core.
+	ulProcessImageType
+ 		Process Type identifier. Value INVALID means no process running on this core.
 	ulProcessCpuUsagePercent
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_EVENT_HEADER			Header;
-	tOCT_UINT32						hProcess;
-	tOCTVC1_USER_ID_PROCESS_ENUM	ulProcessUserId;
-	tOCT_UINT32						ulProcessCpuUsagePercent;
+	tOCTVC1_EVENT_HEADER		Header;
+	tOCT_UINT32					hProcess;
+	tOCTVC1_PROCESS_TYPE_ENUM	ulProcessImageType;
+	tOCT_UINT32					ulProcessCpuUsagePercent;
 
 } tOCTVC1_MAIN_MSG_PROCESS_CPU_USAGE_REPORT_EVT;
 
@@ -74,28 +74,6 @@ typedef struct
 	tOCT_UINT32				hProcess;
 
 } tOCTVC1_MAIN_MSG_PROCESS_DUMP_EVT;
-
-/*-------------------------------------------------------------------------------------
-	tOCTVC1_MAIN_MSG_PROCESS_STATE_CHANGE_EVT
-
- Members:
-	Header
- 		OCTVC1 Event Header
-	hProcess
- 		Process handle identifier.
-	ulUserId
- 		Process user identifier
-	ulState
- 		Process new state
--------------------------------------------------------------------------------------*/
-typedef struct
-{
-	tOCTVC1_EVENT_HEADER			Header;
-	tOCT_UINT32						hProcess;
-	tOCTVC1_USER_ID_PROCESS_ENUM	ulUserId;
-	tOCTVC1_PROCESS_STATE_ENUM		ulState;
-
-} tOCTVC1_MAIN_MSG_PROCESS_STATE_CHANGE_EVT;
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_MAIN_MSG_API_SYSTEM_SESSION_HEARTBEAT_EVT

@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B780 (2016/01/14)
 
 $Octasic_Revision: $
 
@@ -61,18 +61,15 @@ $Octasic_Revision: $
 #define cOCTVC1_IRSC_MSG_APPLICATION_STATS_TAP_CID        ( 0x018 + cOCTVC1_IRSC_CID_BASE )
 #define cOCTVC1_IRSC_MSG_APPLICATION_START_TAP_CID        ( 0x019 + cOCTVC1_IRSC_CID_BASE )
 #define cOCTVC1_IRSC_MSG_APPLICATION_STOP_TAP_CID         ( 0x01a + cOCTVC1_IRSC_CID_BASE )
-#define cOCTVC1_IRSC_MSG_ROUTER_INFO_CID                  ( 0x01b + cOCTVC1_IRSC_CID_BASE )
-#define cOCTVC1_IRSC_MSG_ROUTER_STATS_CID                 ( 0x01c + cOCTVC1_IRSC_CID_BASE )
 
-#define cOCTVC1_IRSC_CID_MAX                              (( 0x01c + 1 ) & 0xFFF)
+#define cOCTVC1_IRSC_CID_MAX                              (( 0x01a + 1 ) & 0xFFF)
 
 /****************************************************************************
 	Event IDs
  ****************************************************************************/
-#define cOCTVC1_IRSC_MSG_PROCESS_DUMP_EID                 ( 0x0001 + cOCTVC1_IRSC_EID_BASE )
-#define cOCTVC1_IRSC_MSG_APPLICATION_TAP_DATA_REQUEST_EID ( 0x0002 + cOCTVC1_IRSC_EID_BASE )
+#define cOCTVC1_IRSC_MSG_PROCESS_DUMP_EID ( 0x0001 + cOCTVC1_IRSC_EID_BASE )
 
-#define cOCTVC1_IRSC_EID_MAX                              (( 0x0002 + 1 ) & 0xFFFF)
+#define cOCTVC1_IRSC_EID_MAX              (( 0x0001 + 1 ) & 0xFFFF)
 
 
 #endif /* __OCTVC1_IRSC_ID_H__ */

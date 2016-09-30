@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B780 (2016/01/14)
 
 $Revision: $
 
@@ -46,21 +46,21 @@ $Revision: $
 #define cOCTVC1_TAP_DIRECTION_ENUM_RX						1		
 
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_TAP_ID : 	TAP_ID : [ApplicationModuleId|Direction|Index].
- 	ModuleId (16bits)-> Application Module Id[tOCTVC1_MODULE_ID_ENUM|index] .
+	tOCTVC1_TAP_ID : 	TAP_ID : [ModuleId|Direction|Index].
+ 	ModuleId -> cOCTVC1_MODULE_ID_ENUM_ .
  	Direction -> cOCTVC1_TAP_DIRECTION_ENUM_ .
 -------------------------------------------------------------------------------------*/
 #define tOCTVC1_TAP_ID										tOCT_UINT32
 
-#define cOCTVC1_TAP_ID_MASK_MODULE_ID_BIT					0x0000FFFF	
-#define cOCTVC1_TAP_ID_MASK_MODULE_ID_BIT_OFFSET			16		
+#define cOCTVC1_TAP_ID_MASK_MODULE_ID_BIT					0x000000FF	
+#define cOCTVC1_TAP_ID_MASK_MODULE_ID_BIT_OFFSET			24		
 #define cOCTVC1_TAP_ID_MASK_MODULE_ID						((tOCT_UINT32)(cOCTVC1_TAP_ID_MASK_MODULE_ID_BIT<<cOCTVC1_TAP_ID_MASK_MODULE_ID_BIT_OFFSET) )	
 
 #define cOCTVC1_TAP_ID_MASK_DIRECTION_BIT					0x000000FF	
-#define cOCTVC1_TAP_ID_MASK_DIRECTION_BIT_OFFSET			8		
+#define cOCTVC1_TAP_ID_MASK_DIRECTION_BIT_OFFSET			16		
 #define cOCTVC1_TAP_ID_MASK_DIRECTION						((tOCT_UINT32)(cOCTVC1_TAP_ID_MASK_DIRECTION_BIT<<cOCTVC1_TAP_ID_MASK_DIRECTION_BIT_OFFSET) )	
 
-#define cOCTVC1_TAP_ID_MASK_INDEX_BIT						0x000000FF	
+#define cOCTVC1_TAP_ID_MASK_INDEX_BIT						0x0000FFFF	
 #define cOCTVC1_TAP_ID_MASK_INDEX_BIT_OFFSET				0		
 #define cOCTVC1_TAP_ID_MASK_INDEX							((tOCT_UINT32)(cOCTVC1_TAP_ID_MASK_INDEX_BIT<<cOCTVC1_TAP_ID_MASK_INDEX_BIT_OFFSET) )	
 

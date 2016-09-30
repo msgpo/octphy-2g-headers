@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B780 (2016/01/14)
 
 $Revision: $
 
@@ -65,7 +65,6 @@ $Revision: $
 #define cOCTVC1_LOG_PAYLOAD_TYPE_ENUM_DATA					0		
 #define cOCTVC1_LOG_PAYLOAD_TYPE_ENUM_STRING				1		
 #define cOCTVC1_LOG_PAYLOAD_TYPE_ENUM_RC					2		
-#define cOCTVC1_LOG_PAYLOAD_TYPE_ENUM_MODULE_DATA			3		
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_LOG_TRACE_MASK :
@@ -142,10 +141,10 @@ $Revision: $
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCT_UINT32	ulId;
-	tOCT_UINT32	ulTime;
-	tOCT_UINT32	hProcess;
-	tOCT_UINT32	ul_Type_Info_Length;
+	tOCTVC1_LOG_ID	ulId;
+	tOCT_UINT32		ulTime;
+	tOCT_UINT32		hProcess;
+	tOCT_UINT32		ul_Type_Info_Length;
 
 } tOCTVC1_LOG_HEADER;
 

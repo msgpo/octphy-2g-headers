@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B780 (2016/01/14)
 
 $Revision: $
 
@@ -67,18 +67,12 @@ $Revision: $
  	Message identifier - Module ID
 -------------------------------------------------------------------------------------*/
 #define cOCTVC1_MSG_MODULE_ID_BIT_OFFSET					16		
-#define cOCTVC1_MSG_MODULE_BIT_MASK							0x0000001F	
-
-/*-------------------------------------------------------------------------------------
- 	Message identifier - SUB Module ID
--------------------------------------------------------------------------------------*/
-#define cOCTVC1_MSG_SUB_MODULE_ID_BIT_OFFSET				21		
-#define cOCTVC1_MSG_SUB_MODULE_BIT_MASK						0x00000007	
+#define cOCTVC1_MSG_MODULE_BIT_MASK							0x000000FF	
 
 /*-------------------------------------------------------------------------------------
  	Message identifier - Module and MethodID
 -------------------------------------------------------------------------------------*/
-#define cOCTVC1_MSG_MODULE_AND_METHOD_BIT_MASK				((cOCTVC1_MSG_SUB_MODULE_BIT_MASK<<cOCTVC1_MSG_SUB_MODULE_ID_BIT_OFFSET)|(cOCTVC1_MSG_MODULE_BIT_MASK<<cOCTVC1_MSG_MODULE_ID_BIT_OFFSET)|(cOCTVC1_MSG_METHOD_BIT_MASK<<cOCTVC1_MSG_METHOD_ID_BIT_OFFSET))	
+#define cOCTVC1_MSG_MODULE_AND_METHOD_BIT_MASK				((cOCTVC1_MSG_MODULE_BIT_MASK<<cOCTVC1_MSG_MODULE_ID_BIT_OFFSET)|(cOCTVC1_MSG_METHOD_BIT_MASK<<cOCTVC1_MSG_METHOD_ID_BIT_OFFSET))	
 
 /*-------------------------------------------------------------------------------------
  	Message data length

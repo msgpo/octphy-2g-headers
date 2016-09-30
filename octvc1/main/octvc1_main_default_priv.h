@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B780 (2016/01/14)
 
 $Octasic_Revision: $
 
@@ -33,8 +33,6 @@ $Octasic_Revision: $
 #include "octvc1_main_default.h"
 
 /*****************************  COMMAND DEFAULT *****************************/
-
-/*****************************  MODULE_DATA  *************************************/
 
 #endif /* __OCTVC1_MAIN_DEFAULT_PRIV_H__ */
 

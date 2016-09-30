@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B780 (2016/01/14)
 
 $Revision: $
 
@@ -53,6 +53,7 @@ $Revision: $
 #define cOCTVC1_PROCESS_TYPE_ENUM_GSM_DL					((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+2) )	
 #define cOCTVC1_PROCESS_TYPE_ENUM_GSM_ULIM					((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+3) )	
 #define cOCTVC1_PROCESS_TYPE_ENUM_GSM_ULOM					((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+4) )	
+#define cOCTVC1_PROCESS_TYPE_ENUM_GSM_DECOMB				((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+5) )	
 #define cOCTVC1_PROCESS_IMAGE_NAME_MAX_LENGTH				63		 	/* Process image string length restriction. */
 
 /*-------------------------------------------------------------------------------------
@@ -126,8 +127,6 @@ typedef struct
  		Task's maximum cache miss in one execution
 	ulLastExecCacheMissCnt
  		Task's last execution cache miss count
-	ulTotalCacheMissCnt
- 		Task's last execution cache miss count
 	ulExecCnt
  		Number of times the task has been executed
 	ulDoneCnt
@@ -144,7 +143,6 @@ typedef struct
 	tOCT_UINT32						ulLastExecTimeUs;
 	tOCT_UINT32						ulMaxExecCacheMissCnt;
 	tOCT_UINT32						ulLastExecCacheMissCnt;
-	tOCT_UINT32						ulTotalCacheMissCnt;
 	tOCT_UINT32						ulExecCnt;
 	tOCT_UINT32						ulDoneCnt;
 	tOCT_UINT32						ulErrorCnt;

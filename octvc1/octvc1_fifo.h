@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.05.00-B780 (2016/01/14)
 
 $Revision: $
 
@@ -31,17 +31,10 @@ $Revision: $
 /************************  COMMON DEFINITIONS  *******************************/
 
 /*-------------------------------------------------------------------------------------
- 	Control process FIFO-ID definition
- 	Deprecated should use cOCTVC1_FIFO_ID_CONTROL
--------------------------------------------------------------------------------------*/
-
-#define cOCTVC1_FIFO_ID_MGW_CONTROL							0x00000000	
-
-/*-------------------------------------------------------------------------------------
  	Control process _FIFO-ID definition
 -------------------------------------------------------------------------------------*/
 
-#define cOCTVC1_FIFO_ID_CONTROL								0x00000000	
+#define cOCTVC1_FIFO_ID_MGW_CONTROL							0x00000000	
 
 /*-------------------------------------------------------------------------------------
  	Invalid _FIFO-ID
