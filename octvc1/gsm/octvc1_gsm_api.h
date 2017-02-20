@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.01-B1351 (2017/02/13)
 
 $Revision: $
 
@@ -270,6 +270,21 @@ $Revision: $
 
 #define cOCTVC1_GSM_TEST_MODE_ENUM_TEST_MODE_NONE			0		
 #define cOCTVC1_GSM_TEST_MODE_ENUM_TEST_MODE_TX				1		
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM : 	TX TEST MODE BURST SELECTION.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM				tOCT_UINT8
+
+#define cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_BURST_0		0		
+#define cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_BURST_1		1		
+#define cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_BURST_2		2		
+#define cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_BURST_3		3		
+#define cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_BURST_4		4		
+#define cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_BURST_5		5		
+#define cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_BURST_6		6		
+#define cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_BURST_7		7		
+#define cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_DATA_RAND		8		
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_MODULATION_ENUM : 	modulation types.
@@ -751,8 +766,7 @@ typedef struct
 	ulDataLength
 		Range:		[..cOCTVC1_GSM_DATA_CONTENT_SIZE_RAW_DI]
 	abyDataContent
- 		The data contents are an array of size usDataLength. The current implementation
- 		is incorrect.
+ 		The data contents are an array of size usDataLength.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -2561,13 +2575,17 @@ typedef struct
  		Test Mode None/TX
 	modulation
  		modulation type
+	abyBurstType
+		Default:	cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_DATA_RAND
+ 		Burst Type on Time Slots
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER			Header;
-	tOCTVC1_GSM_TRX_ID			TrxId;
-	tOCTVC1_GSM_TEST_MODE_ENUM	testModeVal;
-	tOCTVC1_GSM_MODULATION_ENUM	modulation;
+	tOCTVC1_MSG_HEADER						Header;
+	tOCTVC1_GSM_TRX_ID						TrxId;
+	tOCTVC1_GSM_TEST_MODE_ENUM				testModeVal;
+	tOCTVC1_GSM_MODULATION_ENUM				modulation;
+	tOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM	abyBurstType[cOCTVC1_GSM_TRX_MAX_TIMESLOTS];
 
 } tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD;
 

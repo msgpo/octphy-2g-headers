@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.01-B1351 (2017/02/13)
 
 $Octasic_Revision: $
 
@@ -57,8 +57,10 @@ $Octasic_Revision: $
 #define cOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CID     ( 0x015 + cOCTVC1_HW_CID_BASE )
 #define cOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_RX_CONFIG_CID ( 0x018 + cOCTVC1_HW_CID_BASE )
 #define cOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CONFIG_CID ( 0x019 + cOCTVC1_HW_CID_BASE )
+#define cOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CID   ( 0x01b + cOCTVC1_HW_CID_BASE )
+#define cOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CID ( 0x01c + cOCTVC1_HW_CID_BASE )
 
-#define cOCTVC1_HW_CID_MAX                                  (( 0x019 + 1 ) & 0xFFF)
+#define cOCTVC1_HW_CID_MAX                                  (( 0x01c + 1 ) & 0xFFF)
 
 /****************************************************************************
 	Event IDs

@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.01-B1351 (2017/02/13)
 
 $Octasic_Revision: $
 
@@ -758,6 +758,74 @@ extern const tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CONFIG_CMD *g_pOctDef_tOCT
 #define mOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CONFIG_CMD_DEF(pSt) \
     { \
         *pSt = *g_pOctDef_tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CONFIG_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CMD buf_tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   0, /* ulPortIndex */
+   0  /* ulAntennaIndex */
+};
+
+const tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CMD *g_pOctDef_tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CMD =
+    &buf_tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CMD *g_pOctDef_tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD buf_tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   0, /* ulPortIndex */
+   0, /* ulAntennaIndex */
+   0, /* lTxGaindB */
+   0, /* lRxGaindB */
+   0, /* ulTxPathDelayNs */
+   0  /* ulRxPathDelayNs */
+};
+
+const tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD *g_pOctDef_tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD =
+    &buf_tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD *g_pOctDef_tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD; \
     }
 
 

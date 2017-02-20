@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.01-B1351 (2017/02/13)
 
 $Revision: $
 
@@ -506,27 +506,6 @@ typedef struct
 	tOCT_UINT32	ulAttenuationdB;
 
 } tOCTVC1_HW_RF_PORT_ANTENNA_TX_CALIB;
-
-/*-------------------------------------------------------------------------------------
-	tOCTVC1_HW_RF_PORT_ANTENNA_PHYSICAL_MAPPING
-
- Members:
-	ulAntennaIndex
- 		Physical Antenna index
-	ulRxLogicalAntennaId
- 		RX Logical Antenna identifier
- 		May be set to cOCTVC1_HW_RF_PORT_ANTENNA_UNUSED_ID.
-	ulTxLogicalAntennaId
- 		TX Logical Antenna identifier
- 		May be set to cOCTVC1_HW_RF_PORT_ANTENNA_UNUSED_ID.
--------------------------------------------------------------------------------------*/
-typedef struct
-{
-	tOCTVC1_INDEX	ulAntennaIndex;
-	tOCT_UINT32		ulRxLogicalAntennaId;
-	tOCT_UINT32		ulTxLogicalAntennaId;
-
-} tOCTVC1_HW_RF_PORT_ANTENNA_PHYSICAL_MAPPING;
 
 /*-------------------------------------------------------------------------------------
  	Clock Sync Manager related definitions.
@@ -1482,6 +1461,111 @@ typedef struct
 	tOCT_INT32			lTxGaindB;
 
 } tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CONFIG_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulPortIndex
+ 		Unique RF port identifier
+	ulAntennaIndex
+ 		Antenna index
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_INDEX		ulPortIndex;
+	tOCTVC1_INDEX		ulAntennaIndex;
+
+} tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulPortIndex
+ 		Unique RF port identifier
+	ulAntennaIndex
+ 		Antenna index
+	ulInitializedFlag
+ 		Whether or not the values was initialized by the host application.
+	lTxGaindB
+ 		Q9 value.
+	lRxGaindB
+ 		Q9 value.
+	ulTxPathDelayNs
+ 		TX path delay in nanosecond.
+	ulRxPathDelayNs
+ 		RX path delay in nanosecond.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_INDEX		ulPortIndex;
+	tOCTVC1_INDEX		ulAntennaIndex;
+	tOCT_BOOL32			ulInitializedFlag;
+	tOCT_INT32			lTxGaindB;
+	tOCT_INT32			lRxGaindB;
+	tOCT_UINT32			ulTxPathDelayNs;
+	tOCT_UINT32			ulRxPathDelayNs;
+
+} tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD
+ 		Allow the host application to inform the target about
+ 		few characteristics of the associated front-end.
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulPortIndex
+ 		Unique RF port identifier
+	ulAntennaIndex
+ 		Antenna index
+	lTxGaindB
+ 		Q9 value.
+	lRxGaindB
+ 		Q9 value.
+	ulTxPathDelayNs
+ 		TX path delay in nanosecond.
+	ulRxPathDelayNs
+ 		RX path delay in nanosecond.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_INDEX		ulPortIndex;
+	tOCTVC1_INDEX		ulAntennaIndex;
+	tOCT_INT32			lTxGaindB;
+	tOCT_INT32			lRxGaindB;
+	tOCT_UINT32			ulTxPathDelayNs;
+	tOCT_UINT32			ulRxPathDelayNs;
+
+} tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulPortIndex
+ 		Unique RF port identifier
+	ulAntennaIndex
+ 		Antenna index
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_INDEX		ulPortIndex;
+	tOCTVC1_INDEX		ulAntennaIndex;
+
+} tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_RSP;
 
 
 /***************  INCLUDE FILES WITH DEPENDENCIES ON THIS FILE  **************/

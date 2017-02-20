@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.01-B1351 (2017/02/13)
 
 $Octasic_Revision: $
 
@@ -2607,7 +2607,17 @@ const tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD buf_tOCTVC1_GSM_MSG_TRX_MODIFY_TE
        }
    },
    0, /* testModeVal */
-   0  /* modulation */
+   0, /* modulation */
+   { /* abyBurstType */
+       cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_DATA_RAND, /* abyBurstType[0] */
+       cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_DATA_RAND, /* abyBurstType[1] */
+       cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_DATA_RAND, /* abyBurstType[2] */
+       cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_DATA_RAND, /* abyBurstType[3] */
+       cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_DATA_RAND, /* abyBurstType[4] */
+       cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_DATA_RAND, /* abyBurstType[5] */
+       cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_DATA_RAND, /* abyBurstType[6] */
+       cOCTVC1_GSM_TEST_MODE_BURST_TYPE_ENUM_DATA_RAND  /* abyBurstType[7] */
+   }
 };
 
 const tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD =
