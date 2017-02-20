@@ -2,7 +2,7 @@
 
 File: octvc1_api_swap.h	
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.	
+Copyright (c) 2017 Octasic Inc. All rights reserved.	
 
 Description:	
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)	
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)	
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/	
 #ifndef __OCTVC1_API_SWAP_H__
@@ -51,11 +51,21 @@ extern "C" {
 #endif /* _OCT_ENDIAN_TYPE_LE_ */
 
 #if defined( _OCT_ENDIAN_TYPE_LE_ )
+#define mOCTVC1_API_SESSION_EVT_SYSTEM_MODULE_MASK_SWAP( pType ){ \
+		*((tOCT_UINT32 *)pType) = mOCT_SWAP32_IF_LE( *((tOCT_UINT32 *)pType) ); }
+#else
+
+#define mOCTVC1_API_SESSION_EVT_SYSTEM_MODULE_MASK_SWAP( pType )
+
+#endif /* _OCT_ENDIAN_TYPE_LE_ */
+
+#if defined( _OCT_ENDIAN_TYPE_LE_ )
 #define mOCTVC1_API_SESSION_EVT_INFO_SWAP( _f_pParms ){ 	tOCTVC1_API_SESSION_EVT_INFO * pOCTVC1_API_SESSION_EVT_INFO = (_f_pParms); SWAP_UNUSED(pOCTVC1_API_SESSION_EVT_INFO)\
 	((tOCTVC1_API_SESSION_EVT_INFO *)pOCTVC1_API_SESSION_EVT_INFO)->ulEvtActiveFlag = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_API_SESSION_EVT_INFO *)pOCTVC1_API_SESSION_EVT_INFO)->ulEvtActiveFlag); \
 	((tOCTVC1_API_SESSION_EVT_INFO *)pOCTVC1_API_SESSION_EVT_INFO)->lEvtEnablerCnt = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_API_SESSION_EVT_INFO *)pOCTVC1_API_SESSION_EVT_INFO)->lEvtEnablerCnt); \
+	{ mOCTVC1_API_SESSION_EVT_SYSTEM_MODULE_MASK_SWAP( &((tOCTVC1_API_SESSION_EVT_INFO *)pOCTVC1_API_SESSION_EVT_INFO)->ulSystemEvtMask ); }  \
 }
 #else
 #define mOCTVC1_API_SESSION_EVT_INFO_SWAP( pOCTVC1_API_SESSION_EVT_INFO )

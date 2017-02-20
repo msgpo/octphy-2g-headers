@@ -2,7 +2,7 @@
 
 File: OCTVC1_MAIN_API.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the MAIN API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
 
 $Revision: $
 
@@ -341,6 +341,33 @@ typedef struct
  	Main Module Data Definitions
 -------------------------------------------------------------------------------------*/
 #define cOCTVC1_MAIN_MODULE_DATA_IPC						((0x0001)|(cOCTVC1_MODULE_ID_ENUM_MAIN<<cOCTVC1_MODULE_ID_BIT_OFFSET))	
+
+/*-------------------------------------------------------------------------------------
+ 	Licensing Definitions
+-------------------------------------------------------------------------------------*/
+#define cOCTVC1_MAIN_LICENSING_FEATURE_MAX_STRING_LENGTH	63		 	/* Maximum length, including trailing zero that a licensed feature or module */
+ 																		/* name can have, in bytes. */
+
+/*-------------------------------------------------------------------------------------
+ 	Licensing feature types.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_MAIN_LICENSING_FEATURE_TYPE_ENUM			tOCT_UINT32
+
+#define cOCTVC1_MAIN_LICENSING_FEATURE_TYPE_ENUM_BOOLEAN	0x1		
+#define cOCTVC1_MAIN_LICENSING_FEATURE_TYPE_ENUM_COUNT		0x2		
+
+/*-------------------------------------------------------------------------------------
+ 	Licensing feature types.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_MAIN_LICENSING_STATUS_ENUM					tOCT_UINT32
+
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_NO_LICENSE_FILE	0		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_ACTIVE			1		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_LEGACY			2		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_INACTIVE			3		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_FILE_ERROR		4		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_ITEM_ERROR		5		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_SYSTEM_ERROR		6		
 
 /*****************************  METHODS  *************************************/
 /*-------------------------------------------------------------------------------------
@@ -804,7 +831,7 @@ typedef struct
 	hFile
 		Default:	cOCTVC1_HANDLE_INVALID
 	ulNumByteToWrite
-		Default:	1
+ 		MUST be a multiple of 16 bytes. Except for the last write to the file.
 	abyData
 -------------------------------------------------------------------------------------*/
 typedef struct
@@ -823,6 +850,7 @@ typedef struct
 	Header
  		OCTVC1 Message Header
 	ulNumByteWritten
+ 		MUST be a multiple of 16 bytes, up to last write.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -841,6 +869,7 @@ typedef struct
 		Default:	cOCTVC1_HANDLE_INVALID
 	ulMaxNumByteToRead
 		Default:	cOCTVC1_MAIN_FILE_MAX_DATA_BYTE_SIZE
+ 		MUST be a multiple of 16 bytes.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -1204,7 +1233,6 @@ typedef struct
 	IndexGet
  		Object cursor
 	IndexList
- 		Object name list.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -1306,12 +1334,16 @@ typedef struct
 	ulEvtActiveFlag
 		Default:	cOCTVC1_DO_NOT_MODIFY
  		Event activate flag
+	ulSystemEvtMask
+		Default:	cOCTVC1_DO_NOT_MODIFY
+ 		System module enabled events on this session
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER	Header;
-	tOCTVC1_INDEX		ulSessionIndex;
-	tOCT_BOOL32			ulEvtActiveFlag;
+	tOCTVC1_MSG_HEADER							Header;
+	tOCTVC1_INDEX								ulSessionIndex;
+	tOCT_BOOL32									ulEvtActiveFlag;
+	tOCTVC1_API_SESSION_EVT_SYSTEM_MODULE_MASK	ulSystemEvtMask;
 
 } tOCTVC1_MAIN_MSG_API_SYSTEM_MODIFY_SESSION_EVT_CMD;
 
@@ -1897,6 +1929,115 @@ typedef struct
 	tOCT_UINT32			ulModuleId;
 
 } tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LICENSING_STATS_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_MAIN_MSG_LICENSING_STATS_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LICENSING_STATS_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulStatus
+	ulFeatureCount
+ 		Number of knowned features.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER					Header;
+	tOCTVC1_MAIN_LICENSING_STATUS_ENUM	ulStatus;
+	tOCT_UINT32							ulFeatureCount;
+
+} tOCTVC1_MAIN_MSG_LICENSING_STATS_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulLicenseId
+ 		License identifier.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	ulLicenseId;
+
+} tOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulLicenseId
+	ulFeatureType
+	ulLicenseValue
+ 		Interpretation depends on feature type specified in ulFeatureType parameter:
+ 		BOOLEAN: 1 or 0, whether the feature is allowed or not.
+ 		COUNT: Maximum number of times the feature can be used.
+	ulCurrentCount
+ 		If feature is of type "COUNT", this value will indicate the current usage of
+ 		the feature. Otherwise
+ 		this field will be set to 0.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER							Header;
+	tOCTVC1_HANDLE_OBJECT						ulLicenseId;
+	tOCTVC1_MAIN_LICENSING_FEATURE_TYPE_ENUM	ulFeatureType;
+	tOCT_UINT32									ulLicenseValue;
+	tOCT_UINT32									ulCurrentCount;
+
+} tOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD
+ 		List the cmd that are monitored
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ObjectCursor
+ 		Object cursor
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER					Header;
+	tOCTVC1_CURSOR_HANDLE_OBJECT_GET	ObjectCursor;
+
+} tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ObjectCursor
+ 		Object cursor
+	ObjectList
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER					Header;
+	tOCTVC1_CURSOR_HANDLE_OBJECT_GET	ObjectCursor;
+	tOCTVC1_LIST_HANDLE_OBJECT_GET		ObjectList;
+
+} tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_RSP;
 
 
 /*****************************  MODULE_DATA  *************************************/

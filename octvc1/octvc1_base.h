@@ -2,7 +2,7 @@
 
 File: OCTVC1_BASE.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the OCTVC1 API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
 
 $Octasic_Revision: $
 
@@ -55,7 +55,6 @@ $Octasic_Revision: $
 	Module unique identifiers
  ****************************************************************************/
 #define cOCTVC1_GENERIC_UID                     ( 0x00 )
-#define cOCTVC1_LICENSING_UID                   ( 0x04 )
 #define cOCTVC1_PKT_API_UID                     ( 0x02 )
 
 /****************************************************************************
@@ -67,9 +66,6 @@ $Octasic_Revision: $
 
 /* Module: PKT_API */
 #define cOCTVC1_PKT_API_RC_BASE                 ( (cOCTVC1_PKT_API_UID << 16) + cOCTVC1_RC_BASE )
-
-/* Module: LICENSING */
-#define cOCTVC1_LICENSING_RC_BASE               ( (cOCTVC1_LICENSING_UID << 16) + cOCTVC1_RC_BASE )
 
 #endif /* __OCTVC1_BASE_H__ */
 

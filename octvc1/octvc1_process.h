@@ -2,7 +2,7 @@
 
 File: OCTVC1_PROCESS.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
 
 $Revision: $
 
@@ -52,7 +52,9 @@ $Revision: $
 #define cOCTVC1_PROCESS_TYPE_ENUM_GSM_SCHED					((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+1) )	
 #define cOCTVC1_PROCESS_TYPE_ENUM_GSM_DL					((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+2) )	
 #define cOCTVC1_PROCESS_TYPE_ENUM_GSM_ULIM					((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+3) )	
-#define cOCTVC1_PROCESS_TYPE_ENUM_GSM_ULOM					((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+4) )	
+#define cOCTVC1_PROCESS_TYPE_ENUM_GSM_ULEQ					((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+4) )	
+#define cOCTVC1_PROCESS_TYPE_ENUM_GSM_ULOM					((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+5) )	
+#define cOCTVC1_PROCESS_TYPE_ENUM_GSM_DECOMB				((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+6) )	
 #define cOCTVC1_PROCESS_IMAGE_NAME_MAX_LENGTH				63		 	/* Process image string length restriction. */
 
 /*-------------------------------------------------------------------------------------

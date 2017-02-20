@@ -1,7 +1,7 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
 
 File: OCTVC1_HW_EVT.h
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the HW API.
 
@@ -17,7 +17,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
 
 $Octasic_Revision: $
 
@@ -54,6 +54,80 @@ typedef struct
 	tOCTVC1_HW_CPU_CORE_MASK	ulCoreHaltMask;
 
 } tOCTVC1_HW_MSG_CPU_CORE_EXEC_REPORT_EVT;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_ANTENNA_RX_CONFIG_STATUS_CHANGE_EVT
+
+ Members:
+	Header
+	ulPortIndex
+ 		RF PORT index
+	ulAntennaIndex
+ 		Antenna index
+	RxConfig
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_EVENT_HEADER					Header;
+	tOCTVC1_INDEX							ulPortIndex;
+	tOCTVC1_INDEX							ulAntennaIndex;
+	tOCTVC1_HW_RF_PORT_ANTENNA_RX_CONFIG	RxConfig;
+
+} tOCTVC1_HW_MSG_RF_PORT_ANTENNA_RX_CONFIG_STATUS_CHANGE_EVT;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_ANTENNA_TX_CONFIG_STATUS_CHANGE_EVT
+
+ Members:
+	Header
+	ulPortIndex
+ 		RF PORT index
+	ulAntennaIndex
+ 		Antenna index
+	TxConfig
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_EVENT_HEADER					Header;
+	tOCTVC1_INDEX							ulPortIndex;
+	tOCTVC1_INDEX							ulAntennaIndex;
+	tOCTVC1_HW_RF_PORT_ANTENNA_TX_CONFIG	TxConfig;
+
+} tOCTVC1_HW_MSG_RF_PORT_ANTENNA_TX_CONFIG_STATUS_CHANGE_EVT;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_STATUS_CHANGE_EVT
+
+ Members:
+	Header
+	ulPortIndex
+ 		Unique RF port identifier
+	ulInServiceFlag
+ 		Weather or not the RF_PORT is in service.
+	ulRadioStandard
+ 		Radio standard
+	RxFrequency
+ 		Current Rx frequency
+	TxFrequency
+ 		Current Tx frequency
+	ulBandwidth
+ 		Current Bandwidth (LTE)
+	aRxConfig
+	aTxConfig
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_EVENT_HEADER					Header;
+	tOCTVC1_INDEX							ulPortIndex;
+	tOCT_BOOL32								ulInServiceFlag;
+	tOCTVC1_RADIO_STANDARD_ENUM				ulRadioStandard;
+	tOCTVC1_RADIO_FREQUENCY_VALUE			RxFrequency;
+	tOCTVC1_RADIO_FREQUENCY_VALUE			TxFrequency;
+	tOCTVC1_RADIO_STANDARD_BANDWIDTH_ENUM	ulBandwidth;
+	tOCTVC1_HW_RF_PORT_ANTENNA_RX_CONFIG	aRxConfig[cOCTVC1_HW_RF_PORT_MAX_ANTENNA];
+	tOCTVC1_HW_RF_PORT_ANTENNA_TX_CONFIG	aTxConfig[cOCTVC1_HW_RF_PORT_MAX_ANTENNA];
+
+} tOCTVC1_HW_MSG_RF_PORT_STATUS_CHANGE_EVT;
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_STATUS_CHANGE_EVT

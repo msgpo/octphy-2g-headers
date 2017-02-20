@@ -2,7 +2,7 @@
 
 File: OCTVC1_MODULE.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
 
 $Revision: $
 
@@ -54,8 +54,8 @@ $Revision: $
 #define cOCTVC1_MODULE_ID_ENUM_MAIN							0x01	
 #define cOCTVC1_MODULE_ID_ENUM_PKT_API						0x02	
 #define cOCTVC1_MODULE_ID_ENUM_CTRL							0x03	
-#define cOCTVC1_MODULE_ID_ENUM_LICENSING					0x04	
-#define cOCTVC1_MODULE_ID_ENUM_TEST							0x05	
+#define cOCTVC1_MODULE_ID_ENUM_RESERVED						0x04	
+#define cOCTVC1_MODULE_ID_ENUM_JOB							0x05	
 #define cOCTVC1_MODULE_ID_ENUM_HW							0x06	
 #define cOCTVC1_MODULE_ID_ENUM_IRSC							0x07	
 
@@ -67,9 +67,12 @@ $Revision: $
 #define cOCTVC1_MODULE_ID_ENUM_SDR							0x0A	
 #define cOCTVC1_MODULE_ID_ENUM_GSM							0x0B	
 #define cOCTVC1_MODULE_ID_ENUM_LTE							0x0C	
-#define cOCTVC1_MODULE_ID_ENUM_UMTS							0x0D	
+#define cOCTVC1_MODULE_ID_ENUM_3G							0x0D	
 #define cOCTVC1_MODULE_ID_ENUM_RUS							0x0E	
-#define cOCTVC1_MODULE_ID_ENUM_SDR_TOOLKIT					0x0F	
+#define cOCTVC1_MODULE_ID_ENUM_LIB_TOOLKIT					0x0F	
+#define cOCTVC1_MODULE_ID_ENUM_UE3G							0x10	
+#define cOCTVC1_MODULE_ID_ENUM_TOOLBOX						0x11	
+#define cOCTVC1_MODULE_ID_ENUM_LTE_UE						0x12	
 
 #define cOCTVC1_MODULE_ID_BIT_OFFSET						24		
 #define cOCTVC1_MODULE_ID_BIT_MASK							0xFF	

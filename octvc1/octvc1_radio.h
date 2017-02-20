@@ -2,7 +2,7 @@
 
 File: OCTVC1_RADIO.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
 
 $Revision: $
 
@@ -38,6 +38,19 @@ $Revision: $
  	Radio Standard Identifiers
 -------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------
+	tOCTVC1_RADIO_FREQ_UNIT_ENUM :
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_RADIO_FREQ_UNIT_ENUM						tOCT_UINT32
+
+#define cOCTVC1_RADIO_FREQ_UNIT_ENUM_HZ						0		 	/* Frequency unit is in hertz. */
+#define cOCTVC1_RADIO_FREQ_UNIT_ENUM_KHZ					1		 	/* Frequency unit is in kilohertz. */
+#define cOCTVC1_RADIO_FREQ_UNIT_ENUM_MHZ					2		 	/* Frequency unit is in megahertz. */
+#define cOCTVC1_RADIO_FREQ_UNIT_ENUM_GHZ					3		 	/* Frequency unit is in gigahertz. */
+
+/*-------------------------------------------------------------------------------------
+ 	Radio Standard Identifiers
+-------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------
 	tOCTVC1_RADIO_STANDARD_ENUM :
 -------------------------------------------------------------------------------------*/
 #define tOCTVC1_RADIO_STANDARD_ENUM							tOCT_UINT32
@@ -45,7 +58,8 @@ $Revision: $
 #define cOCTVC1_RADIO_STANDARD_ENUM_GSM						0		
 #define cOCTVC1_RADIO_STANDARD_ENUM_UMTS					1		
 #define cOCTVC1_RADIO_STANDARD_ENUM_LTE						2		
-#define cOCTVC1_RADIO_STANDARD_ENUM_CUSTOM					3		
+#define cOCTVC1_RADIO_STANDARD_ENUM_CDMA2000				3		
+#define cOCTVC1_RADIO_STANDARD_ENUM_CUSTOM					4		
 #define cOCTVC1_RADIO_STANDARD_ENUM_INVALID					0xCAFEDECA	
 
 /*-------------------------------------------------------------------------------------
@@ -184,6 +198,38 @@ $Revision: $
 #define cOCTVC1_RADIO_STANDARD_FREQ_BAND_LTE_ENUM_INVALID	0xCAFEDECA	
 
 /*-------------------------------------------------------------------------------------
+ 	Radio Standard CDMA2000 Frequency Band Identifiers
+-------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM :
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM			tOCT_UINT32
+
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_0		0		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_1		1		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_2		2		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_3		3		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_4		4		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_5		5		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_6		6		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_7		7		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_8		8		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_9		9		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_10		10		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_11		11		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_12		12		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_13		13		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_14		14		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_15		15		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_16		16		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_18		18		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_19		19		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_20		20		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_21		21		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_LAST		22		
+#define cOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_INVALID	0xCAFEDECA	
+
+/*-------------------------------------------------------------------------------------
  	Radio Standard Frequency Band Identifiers
 -------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------
@@ -202,6 +248,24 @@ typedef struct
 	tOCT_UINT32					ulBandNumber;
 
 } tOCTVC1_RADIO_STANDARD_FREQ_BAND_ID;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_RADIO_FREQUENCY_VALUE
+
+ Members:
+	ulUnit
+		Default:	cOCTVC1_RADIO_FREQ_UNIT_ENUM_KHZ
+ 		Frequency unity: Hz,Kz,Mz
+	ulValue
+		Default:	0
+ 		Frequency value.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_RADIO_FREQ_UNIT_ENUM	ulUnit;
+	tOCT_UINT32						ulValue;
+
+} tOCTVC1_RADIO_FREQUENCY_VALUE;
 
 /*-------------------------------------------------------------------------------------
  	Radio Configiguration Script Identifiers

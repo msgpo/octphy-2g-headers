@@ -2,7 +2,7 @@
 
 File: OCTVC1_GSM_API.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the GSM API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
 
 $Revision: $
 
@@ -43,6 +43,7 @@ $Revision: $
 
 #include "octvc1_gsm_id.h"
 #include "octvc1_gsm_rc.h"
+#include "octvc1_gsm_lic.h"
 
 /************************  COMMON DEFINITIONS  *******************************/
 
@@ -78,12 +79,14 @@ $Revision: $
 #define cOCTVC1_GSM_TIMESLOT_MAX_SUBCHANNEL					(cOCTVC1_GSM_TIMESLOT_MAX_SUBCHANNEL_NUMBER+2)	 	/* This is the number of subchannels associated with a timeslot. */
 #define cOCTVC1_GSM_MAX_FRAME_COUNT							2715647	 	/* Max frame tick count. */
 #define cOCTVC1_GSM_DATA_CONTENT_SIZE						460		 	/* Data content buffer size in bytes. */
+#define cOCTVC1_GSM_DATA_CONTENT_SIZE_RAW_DI				464		 	/* Data content buffer size in bytes for RAW Data Indication. */
 #define cOCTVC1_GSM_RATE_LIST_SIZE							4		 	/* Rate list size. */
 #define cOCTVC1_GSM_RACH_IND_MSG_SIZE						32		 	/* RACH indication content buffer size. */
 #define cOCTVC1_GSM_TRX_ID_LIST_MAX_ENTRY					32		 	/* Maximum number of TRX_ID per list. */
 #define cOCTVC1_GSM_PHYSICAL_CHANNEL_ID_LIST_MAX_ENTRY		32		 	/* Maximum number of PHYSICAL_CHANNEL_ID per list. */
 #define cOCTVC1_GSM_LOGICAL_CHANNEL_ID_LIST_MAX_ENTRY		128		 	/* Maximum number of LOGICAL_CHANNEL_ID per list. */
 #define cOCTVC1_GSM_CIPHER_KEY_LENGTH						8		 	/* Cipher key bytes count. */
+#define cOCTVC1_GSM_MAX_PDCH_DATA_BLOCKS					2		 	/* Max PDTCH Data Blocks for All MCS. */
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_CMI_PHASE_ENUM : 	CMI phase.
@@ -187,6 +190,24 @@ $Revision: $
 #define cOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM_ALL				cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_ALL	
 
 /*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_ID_STUB_MODE_ENUM : 	Sub Channel Direction.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_GSM_ID_STUB_MODE_ENUM						tOCT_UINT8
+
+#define cOCTVC1_GSM_ID_STUB_MODE_ENUM_NONE					0		
+#define cOCTVC1_GSM_ID_STUB_MODE_ENUM_IQ_DATA_CAPTURE		1		
+#define cOCTVC1_GSM_ID_STUB_MODE_ENUM_IQ_DATA_STUB			2		
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_STUB_MODE_ENUM : 	Sub Channel Direction.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_GSM_STUB_MODE_ENUM							tOCT_UINT8
+
+#define cOCTVC1_GSM_STUB_MODE_ENUM_NONE						cOCTVC1_GSM_ID_STUB_MODE_ENUM_NONE	
+#define cOCTVC1_GSM_STUB_MODE_ENUM_IQ_DATA_CAPTURE			cOCTVC1_GSM_ID_STUB_MODE_ENUM_IQ_DATA_CAPTURE	
+#define cOCTVC1_GSM_STUB_MODE_ENUM_IQ_DATA_STUB				cOCTVC1_GSM_ID_STUB_MODE_ENUM_IQ_DATA_STUB	
+
+/*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM : 	Sub Channel number.
 -------------------------------------------------------------------------------------*/
 #define tOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM					tOCT_UINT8
@@ -251,6 +272,14 @@ $Revision: $
 #define cOCTVC1_GSM_TEST_MODE_ENUM_TEST_MODE_TX				1		
 
 /*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MODULATION_ENUM : 	modulation types.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_GSM_MODULATION_ENUM							tOCT_UINT8
+
+#define cOCTVC1_GSM_MODULATION_ENUM_GMSK					0		
+#define cOCTVC1_GSM_MODULATION_ENUM_EPSK					1		
+
+/*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_BURST_TYPE_ENUM : 	Burst type.
 -------------------------------------------------------------------------------------*/
 #define tOCTVC1_GSM_BURST_TYPE_ENUM							tOCT_UINT32
@@ -267,15 +296,17 @@ $Revision: $
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM : 	Timeslot channel type.
 -------------------------------------------------------------------------------------*/
-#define tOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM									tOCT_UINT32
+#define tOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM										tOCT_UINT32
 
-#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_EMPTY								0		
-#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_TCHF_FACCHF_SACCHTF				1		
-#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_TCHH_FACCHH_SACCHTH				2		
-#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_FCCH_SCH_BCCH_CCCH					3		
-#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_FCCH_SCH_BCCH_CCCH_SDCCH4_SACCHC4	4		
-#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_SDCCH8_SACCHC8						5		
-#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_PDTCHF_PACCHF_PTCCHF				6		
+#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_EMPTY										0		
+#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_TCHF_FACCHF_SACCHTF						1		
+#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_TCHH_FACCHH_SACCHTH						2		
+#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_FCCH_SCH_BCCH_CCCH							3		
+#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_FCCH_SCH_BCCH_CCCH_SDCCH4_SACCHC4			4		
+#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_SDCCH8_SACCHC8								5		
+#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_FCCH_SCH_BCCH_CCCH_SDCCH4_CBCH_SACCHC4		6		
+#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_SDCCH8_CBCH_SACCHC8						7		
+#define cOCTVC1_GSM_LOGICAL_CHANNEL_COMBINATION_ENUM_PDTCHF_PACCHF_PTCCHF						8		
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_PAYLOAD_TYPE_ENUM :
@@ -423,11 +454,21 @@ typedef struct
 	ulTxAttndB
 		Range:		[0..359]
  		Tx attenuation Db. (in 1/4 dB)
+	ulTxAntennaId
+		Range:		[0..1]
+		Default:	0
+ 		TX Antenna Index
+	ulRxAntennaId
+		Range:		[0..1]
+		Default:	0
+ 		RX Antenna Index
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCT_UINT32	ulRxGainDb;
 	tOCT_UINT32	ulTxAttndB;
+	tOCT_UINT32	ulTxAntennaId;
+	tOCT_UINT32	ulRxAntennaId;
 
 } tOCTVC1_GSM_RF_CONFIG;
 
@@ -441,9 +482,10 @@ typedef struct
 		Default:	0
 	usArfcn
 	usBcchArfcn
+	usCentreArfcn
 	usHsn
 	usMaio
-	usReserve
+	ausReserve
 	ulHoppingFlag
 	ulHoppingListLength
 	ausHoppingList
@@ -454,9 +496,10 @@ typedef struct
 	tOCT_UINT16									usTsc;
 	tOCT_UINT16									usArfcn;
 	tOCT_UINT16									usBcchArfcn;
+	tOCT_UINT16									usCentreArfcn;
 	tOCT_UINT16									usHsn;
 	tOCT_UINT16									usMaio;
-	tOCT_UINT16									usReserve;
+	tOCT_UINT16									ausReserve[2];
 	tOCT_BOOL32									ulHoppingFlag;
 	tOCT_UINT32									ulHoppingListLength;
 	tOCT_UINT16									ausHoppingList[cOCTVC1_GSM_HOPPING_LIST_MAX_ENTRY];
@@ -552,25 +595,23 @@ typedef struct
 } tOCTVC1_GSM_CIPHER_CONFIG;
 
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_GSM_BUFF_ADDR
+	tOCTVC1_GSM_STUB_STATUS
  		Buffer address
 
  Members:
-	IQ_SAMPLE_ADDR
-		Range:		[0..2147483647]
+	byTimeslotUsed
+		Range:		[0..65536]
 		Default:	0
  		Adress of Real Pointer
-	IQ_SAMPLE_ADDR_RACH
-		Range:		[0..2147483647]
-		Default:	0
- 		Adress of Real Pointer
+	byStubMode
+ 		STUB_MODE_ENUM.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCT_UINT32	IQ_SAMPLE_ADDR;
-	tOCT_UINT32	IQ_SAMPLE_ADDR_RACH;
+	tOCT_UINT16					byTimeslotUsed;
+	tOCTVC1_GSM_STUB_MODE_ENUM	byStubMode;
 
-} tOCTVC1_GSM_BUFF_ADDR;
+} tOCTVC1_GSM_STUB_STATUS;
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_STUB_CHANNEL_ID
@@ -582,15 +623,19 @@ typedef struct
 	bySubChannelNb
 		Default:	cOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM_0
  		Sub-Channel number.
-	CHANNEL_TYPE
+	bySAPI
 		Default:	cOCTVC1_GSM_SAPI_ENUM_TCHF
  		CHANNEL_TYPE.
+	byStubMode
+		Default:	cOCTVC1_GSM_STUB_MODE_ENUM_NONE
+ 		STUB_MODE_ENUM.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM	byTimeslotNb;
 	tOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM	bySubChannelNb;
-	tOCTVC1_GSM_SAPI_ENUM				CHANNEL_TYPE;
+	tOCTVC1_GSM_SAPI_ENUM				bySAPI;
+	tOCTVC1_GSM_STUB_MODE_ENUM			byStubMode;
 
 } tOCTVC1_GSM_STUB_CHANNEL_ID;
 
@@ -683,7 +728,7 @@ typedef struct
  		The data contents are an array of size usDataLength. The current implementation
  		is incorrect.
 	abyEgprsCrc
- 		EGPRS CRC Status for Max TWO Blocks.
+ 		EGPRS CRC Status for Max PDCH Data Blocks.
 	abyPadding
 -------------------------------------------------------------------------------------*/
 typedef struct
@@ -692,7 +737,7 @@ typedef struct
 	tOCTVC1_GSM_PAYLOAD_TYPE_ENUM	ulPayloadType;
 	tOCT_UINT32						ulDataLength;
 	tOCT_UINT8						abyDataContent[cOCTVC1_GSM_DATA_CONTENT_SIZE];
-	tOCT_UINT8						abyEgprsCrc[2];
+	tOCT_UINT8						abyEgprsCrc[cOCTVC1_GSM_MAX_PDCH_DATA_BLOCKS];
 	tOCT_UINT8						abyPadding[6];
 
 } tOCTVC1_GSM_LOGICAL_CHANNEL_DATA;
@@ -704,7 +749,7 @@ typedef struct
 	ulFrameNumber
 		Range:		[..cOCTVC1_GSM_MAX_FRAME_COUNT]
 	ulDataLength
-		Range:		[..cOCTVC1_GSM_DATA_CONTENT_SIZE]
+		Range:		[..cOCTVC1_GSM_DATA_CONTENT_SIZE_RAW_DI]
 	abyDataContent
  		The data contents are an array of size usDataLength. The current implementation
  		is incorrect.
@@ -713,7 +758,7 @@ typedef struct
 {
 	tOCT_UINT32	ulFrameNumber;
 	tOCT_UINT32	ulDataLength;
-	tOCT_UINT8	abyDataContent[cOCTVC1_GSM_DATA_CONTENT_SIZE];
+	tOCT_UINT8	abyDataContent[cOCTVC1_GSM_DATA_CONTENT_SIZE_RAW_DI];
 
 } tOCTVC1_GSM_LOGICAL_CHANNEL_RAW_DATA;
 
@@ -727,8 +772,8 @@ typedef struct
 	sBurstTiming4x
 	usBERCnt
 	usBERTotalBitCnt
-	usRxQualFullUp
-	usRxLevelFullUp
+	uLReserved0
+	uLReserved1
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -738,8 +783,8 @@ typedef struct
 	tOCT_INT16	sBurstTiming4x;
 	tOCT_UINT16	usBERCnt;
 	tOCT_UINT16	usBERTotalBitCnt;
-	tOCT_UINT16	usRxQualFullUp;
-	tOCT_UINT16	usRxLevelFullUp;
+	tOCT_UINT16	uLReserved0;
+	tOCT_UINT16	uLReserved1;
 
 } tOCTVC1_GSM_MEASUREMENT_INFO;
 
@@ -756,6 +801,7 @@ typedef struct
 	usTrSqErrCnt
 	usTrSqTotalBitCnt
 	sFreqErrHz
+	usReserved
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -768,6 +814,7 @@ typedef struct
 	tOCT_UINT16	usTrSqErrCnt;
 	tOCT_UINT16	usTrSqTotalBitCnt;
 	tOCT_INT16	sFreqErrHz;
+	tOCT_UINT16	usReserved;
 
 } tOCTVC1_GSM_RAW_MEASUREMENT_INFO;
 
@@ -806,8 +853,8 @@ typedef struct
 	tOCT_UINT32										ulTchDataCrcPassCount;
 	tOCT_UINT32										ulTchDataCrcFailCount;
 	tOCT_UINT32										ulRachCount;
-	tOCT_UINT32										aulPdtchCrcPassCount[2];
-	tOCT_UINT32										aulPdtchCrcFailCount[2];
+	tOCT_UINT32										aulPdtchCrcPassCount[cOCTVC1_GSM_MAX_PDCH_DATA_BLOCKS];
+	tOCT_UINT32										aulPdtchCrcFailCount[cOCTVC1_GSM_MAX_PDCH_DATA_BLOCKS];
 
 } tOCTVC1_GSM_PHYSICAL_STATUS;
 
@@ -2398,7 +2445,7 @@ typedef struct
 } tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_RSP;
 
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD
+	tOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_CMD
 
  Members:
 	Header
@@ -2411,26 +2458,26 @@ typedef struct
 	tOCTVC1_MSG_HEADER	Header;
 	tOCTVC1_GSM_TRX_ID	TrxId;
 
-} tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD;
+} tOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_CMD;
 
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_RSP
+	tOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_RSP
 
  Members:
 	Header
  		OCTVC1 Message Header
 	TrxId
  		Unique TRX identifier
-	BuffADDR
- 		Buf Address pointer
+	StubStatus
+ 		stub timeslot status bitwise
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_MSG_HEADER		Header;
 	tOCTVC1_GSM_TRX_ID		TrxId;
-	tOCTVC1_GSM_BUFF_ADDR	BuffADDR;
+	tOCTVC1_GSM_STUB_STATUS	StubStatus;
 
-} tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_RSP;
+} tOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_RSP;
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD
@@ -2476,6 +2523,8 @@ typedef struct
  		Timeslot number.
 	bySubChannelNb
  		Sub-Channel number.
+	byStubMode
+ 		STUB_MODE_ENUM.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -2483,6 +2532,7 @@ typedef struct
 	tOCTVC1_GSM_TRX_ID					TrxId;
 	tOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM	byTimeslotNb;
 	tOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM	bySubChannelNb;
+	tOCTVC1_GSM_STUB_MODE_ENUM			byStubMode;
 
 } tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD;
 
@@ -2509,12 +2559,15 @@ typedef struct
  		Unique TRX identifier
 	testModeVal
  		Test Mode None/TX
+	modulation
+ 		modulation type
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_MSG_HEADER			Header;
 	tOCTVC1_GSM_TRX_ID			TrxId;
 	tOCTVC1_GSM_TEST_MODE_ENUM	testModeVal;
+	tOCTVC1_GSM_MODULATION_ENUM	modulation;
 
 } tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD;
 
@@ -2555,11 +2608,14 @@ typedef struct
  		OCTVC1 Message Header
 	testModeVal
  		Test Mode None/TX
+	modulation
+ 		modulation type
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_MSG_HEADER			Header;
 	tOCTVC1_GSM_TEST_MODE_ENUM	testModeVal;
+	tOCTVC1_GSM_MODULATION_ENUM	modulation;
 
 } tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_RSP;
 

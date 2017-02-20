@@ -2,7 +2,7 @@
 
 File: OCTVC1_CTRL_VERSION.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the version of the CTRL API interface.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
 
 $Octasic_Revision: $
 
@@ -38,7 +38,7 @@ $Octasic_Revision: $
 #define cOCTVC1_CTRL_VERSION_MAJOR		2
 #define cOCTVC1_CTRL_VERSION_MINOR		7
 #define cOCTVC1_CTRL_VERSION_MAINTENANCE	0
-#define cOCTVC1_CTRL_VERSION_BUILD		1039
+#define cOCTVC1_CTRL_VERSION_BUILD		1314
 
 #define cOCTVC1_CTRL_VERSION_ID                 ( (cOCTVC1_CTRL_VERSION_MAJOR << 25) + \
                                                   (cOCTVC1_CTRL_VERSION_MINOR << 18) + \

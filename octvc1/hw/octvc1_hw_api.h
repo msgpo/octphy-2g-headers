@@ -2,7 +2,7 @@
 
 File: OCTVC1_HW_API.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the HW API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
 
 $Revision: $
 
@@ -65,12 +65,24 @@ $Revision: $
 #define cOCTVC1_HW_PCB_INFO_SOURCE_ENUM_INI_FILE			3		
 
 /*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_PCB_INFO_SIGNED_STATE_ENUM :
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_HW_PCB_INFO_SIGNED_STATE_ENUM				tOCT_UINT32
+
+#define cOCTVC1_HW_PCB_INFO_SIGNED_STATE_ENUM_SIGNED_OK		0x40000000	
+#define cOCTVC1_HW_PCB_INFO_SIGNED_STATE_ENUM_SIGNED_ERROR	0x80000000	
+
+/*-------------------------------------------------------------------------------------
  	PCB information state.
 -------------------------------------------------------------------------------------*/
-#define tOCTVC1_HW_PCB_INFO_STATE_ENUM						tOCT_UINT32
+#define tOCTVC1_HW_PCB_INFO_STATE_ENUM								tOCT_UINT32
 
-#define cOCTVC1_HW_PCB_INFO_STATE_ENUM_PARSED_ERROR			0		
-#define cOCTVC1_HW_PCB_INFO_STATE_ENUM_PARSED_OK			1		
+#define cOCTVC1_HW_PCB_INFO_STATE_ENUM_PARSED_ERROR					0		
+#define cOCTVC1_HW_PCB_INFO_STATE_ENUM_PARSED_OK					1		
+#define cOCTVC1_HW_PCB_INFO_STATE_ENUM_PARSED_OK_SIGNED				((tOCT_UINT32)(1|cOCTVC1_HW_PCB_INFO_SIGNED_STATE_ENUM_SIGNED_OK) )	
+#define cOCTVC1_HW_PCB_INFO_STATE_ENUM_PARSED_OK_SIGNED_ERROR		((tOCT_UINT32)(1|cOCTVC1_HW_PCB_INFO_SIGNED_STATE_ENUM_SIGNED_ERROR) )	
+#define cOCTVC1_HW_PCB_INFO_STATE_ENUM_PARSED_ERROR_SIGNED			((tOCT_UINT32)(0|cOCTVC1_HW_PCB_INFO_SIGNED_STATE_ENUM_SIGNED_OK) )	
+#define cOCTVC1_HW_PCB_INFO_STATE_ENUM_PARSED_ERROR_SIGNED_ERROR	((tOCT_UINT32)(0|cOCTVC1_HW_PCB_INFO_SIGNED_STATE_ENUM_SIGNED_ERROR) )	
 
 /*-------------------------------------------------------------------------------------
  	PCB max field definitions.
@@ -382,6 +394,50 @@ typedef struct
 /*-------------------------------------------------------------------------------------
  	RF_PORT related definitions.
 -------------------------------------------------------------------------------------*/
+#define cOCTVC1_HW_RF_PORT_MAX_ANTENNA						2		 	/* Maximum number of antenna per RF_PORT. */
+#define cOCTVC1_HW_RF_PORT_ANTENNA_MAX_TX_CALIB				20		 	/* Maximum number of TX calibration per RF_PORT antenna. */
+#define cOCTVC1_HW_RF_PORT_ANTENNA_UNUSED_ID				0xFFFFFFFF	 	/* Specify that this antenna is not used. */
+
+/*-------------------------------------------------------------------------------------
+ 	RF port antenna calibration state.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_HW_RF_PORT_ANTENNA_CALIB_STATE_ENUM				tOCT_UINT32
+
+#define cOCTVC1_HW_RF_PORT_ANTENNA_CALIB_STATE_ENUM_UNAVAILABLE		0		
+#define cOCTVC1_HW_RF_PORT_ANTENNA_CALIB_STATE_ENUM_INACTIVE		1		
+#define cOCTVC1_HW_RF_PORT_ANTENNA_CALIB_STATE_ENUM_ACTIVE			2		
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_RF_PORT_ANTENNA_RX_CONFIG
+
+ Members:
+	ulEnableFlag
+	lRxGaindB
+ 		Q9 value, (1 dB step) Minimum value is:0 Maximum value is:73 (* 512)
+	ulRxGainMode
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCT_BOOL32								ulEnableFlag;
+	tOCT_INT32								lRxGaindB;
+	tOCTVC1_RADIO_RX_GAIN_CTRL_MODE_ENUM	ulRxGainMode;
+
+} tOCTVC1_HW_RF_PORT_ANTENNA_RX_CONFIG;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_RF_PORT_ANTENNA_TX_CONFIG
+
+ Members:
+	ulEnableFlag
+	lTxGaindB
+ 		Q9 value, Minimum value is:-89.75 Maximum value is:0
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCT_BOOL32	ulEnableFlag;
+	tOCT_INT32	lTxGaindB;
+
+} tOCTVC1_HW_RF_PORT_ANTENNA_TX_CONFIG;
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_HW_RF_PORT_RX_STATS
@@ -396,16 +452,16 @@ typedef struct
  		Average byte receive per seconds
 	ulRxAveragePeriodUs
  		Average Time in micro second between two receive
-	ulFrequencyKhz
- 		Current frequency in Khz
+	Frequency
+ 		Current frequency
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCT_UINT32	ulRxByteCnt;
-	tOCT_UINT32	ulRxOverflowCnt;
-	tOCT_UINT32	ulRxAverageBytePerSecond;
-	tOCT_UINT32	ulRxAveragePeriodUs;
-	tOCT_UINT32	ulFrequencyKhz;
+	tOCT_UINT32						ulRxByteCnt;
+	tOCT_UINT32						ulRxOverflowCnt;
+	tOCT_UINT32						ulRxAverageBytePerSecond;
+	tOCT_UINT32						ulRxAveragePeriodUs;
+	tOCTVC1_RADIO_FREQUENCY_VALUE	Frequency;
 
 } tOCTVC1_HW_RF_PORT_RX_STATS;
 
@@ -422,18 +478,55 @@ typedef struct
  		Average byte receive per seconds
 	ulTxAveragePeriodUs
  		Average Time in micro second between two send
-	ulFrequencyKhz
- 		Current frequency in Khz
+	Frequency
+ 		Current frequency
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCT_UINT32	ulTxByteCnt;
-	tOCT_UINT32	ulTxUnderflowCnt;
-	tOCT_UINT32	ulTxAverageBytePerSecond;
-	tOCT_UINT32	ulTxAveragePeriodUs;
-	tOCT_UINT32	ulFrequencyKhz;
+	tOCT_UINT32						ulTxByteCnt;
+	tOCT_UINT32						ulTxUnderflowCnt;
+	tOCT_UINT32						ulTxAverageBytePerSecond;
+	tOCT_UINT32						ulTxAveragePeriodUs;
+	tOCTVC1_RADIO_FREQUENCY_VALUE	Frequency;
 
 } tOCTVC1_HW_RF_PORT_TX_STATS;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_RF_PORT_ANTENNA_TX_CALIB
+
+ Members:
+	ulFrequencyMhz
+ 		Frequency in Mhz
+	ulAttenuationdB
+ 		Attenuation in dB.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCT_UINT32	ulFrequencyMhz;
+	tOCT_UINT32	ulAttenuationdB;
+
+} tOCTVC1_HW_RF_PORT_ANTENNA_TX_CALIB;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_RF_PORT_ANTENNA_PHYSICAL_MAPPING
+
+ Members:
+	ulAntennaIndex
+ 		Physical Antenna index
+	ulRxLogicalAntennaId
+ 		RX Logical Antenna identifier
+ 		May be set to cOCTVC1_HW_RF_PORT_ANTENNA_UNUSED_ID.
+	ulTxLogicalAntennaId
+ 		TX Logical Antenna identifier
+ 		May be set to cOCTVC1_HW_RF_PORT_ANTENNA_UNUSED_ID.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_INDEX	ulAntennaIndex;
+	tOCT_UINT32		ulRxLogicalAntennaId;
+	tOCT_UINT32		ulTxLogicalAntennaId;
+
+} tOCTVC1_HW_RF_PORT_ANTENNA_PHYSICAL_MAPPING;
 
 /*-------------------------------------------------------------------------------------
  	Clock Sync Manager related definitions.
@@ -984,18 +1077,14 @@ typedef struct
  		RF PORT index
 	ulAntennaIndex
  		Antenna index
-	ulEnableFlag
-	lRxGaindB
-	ulRxGainMode
+	RxConfig
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_MSG_HEADER						Header;
 	tOCTVC1_INDEX							ulPortIndex;
 	tOCTVC1_INDEX							ulAntennaIndex;
-	tOCT_BOOL32								ulEnableFlag;
-	tOCT_INT32								lRxGaindB;
-	tOCTVC1_RADIO_RX_GAIN_CTRL_MODE_ENUM	ulRxGainMode;
+	tOCTVC1_HW_RF_PORT_ANTENNA_RX_CONFIG	RxConfig;
 
 } tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_RX_CONFIG_RSP;
 
@@ -1028,19 +1117,104 @@ typedef struct
  		RF PORT index
 	ulAntennaIndex
  		Antenna index
-	ulEnableFlag
-	lTxGaindB
- 		Q9 value
+	TxConfig
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER						Header;
+	tOCTVC1_INDEX							ulPortIndex;
+	tOCTVC1_INDEX							ulAntennaIndex;
+	tOCTVC1_HW_RF_PORT_ANTENNA_TX_CONFIG	TxConfig;
+
+} tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_TX_CONFIG_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_TX_CALIB_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulPortIndex
+ 		RF PORT index
+	ulAntennaIndex
+ 		Antenna index
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_MSG_HEADER	Header;
 	tOCTVC1_INDEX		ulPortIndex;
 	tOCTVC1_INDEX		ulAntennaIndex;
-	tOCT_BOOL32			ulEnableFlag;
-	tOCT_INT32			lTxGaindB;
 
-} tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_TX_CONFIG_RSP;
+} tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_TX_CALIB_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_TX_CALIB_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulPortIndex
+ 		RF PORT index
+	ulAntennaIndex
+ 		Antenna index
+	ulCalibState
+ 		Set to UNAVAILABLE when the calibrations are not present.
+ 		Set to ACTIVE when the calibration is enable by the configuration file.
+	ulCalibCnt
+ 		Number of valid calibration in 'aCalib' array
+	aCalib
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER							Header;
+	tOCTVC1_INDEX								ulPortIndex;
+	tOCTVC1_INDEX								ulAntennaIndex;
+	tOCTVC1_HW_RF_PORT_ANTENNA_CALIB_STATE_ENUM	ulCalibState;
+	tOCT_UINT32									ulCalibCnt;
+	tOCTVC1_HW_RF_PORT_ANTENNA_TX_CALIB			aCalib[cOCTVC1_HW_RF_PORT_ANTENNA_MAX_TX_CALIB];
+
+} tOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_TX_CALIB_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CALIB_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulPortIndex
+ 		RF PORT index
+	ulAntennaIndex
+ 		Antenna index
+	ulActivateFlag
+ 		Weather or not to activate the calibration.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_INDEX		ulPortIndex;
+	tOCTVC1_INDEX		ulAntennaIndex;
+	tOCT_BOOL32			ulActivateFlag;
+
+} tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CALIB_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CALIB_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulPortIndex
+ 		RF PORT index
+	ulAntennaIndex
+ 		Antenna index
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_INDEX		ulPortIndex;
+	tOCTVC1_INDEX		ulAntennaIndex;
+
+} tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CALIB_RSP;
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_CMD
@@ -1114,13 +1288,15 @@ typedef struct
 	ulSlipCnt
  		Number of times values exceeded the synchronization threshold while in the sync
  		state
-	ulSyncLosseCnt
+	ulSyncLossCnt
  		Number of times the clock manager left the synchronized state
 	ulSourceState
  		Clock source state
 	ulDacValue
  		Curent DAC value
 	ulOwnerProcessUid
+	ulFrequencyCorrectionFlag
+ 		Set to cOCT_TRUE when frequency correction is applied
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -1132,10 +1308,11 @@ typedef struct
 	tOCT_UINT32									ulPllFreqHz;
 	tOCT_UINT32									ulPllFractionalFreqHz;
 	tOCT_UINT32									ulSlipCnt;
-	tOCT_UINT32									ulSyncLosseCnt;
+	tOCT_UINT32									ulSyncLossCnt;
 	tOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_STATE_ENUM	ulSourceState;
 	tOCT_UINT32									ulDacValue;
 	tOCTVC1_USER_ID_PROCESS_ENUM				ulOwnerProcessUid;
+	tOCT_BOOL32									ulFrequencyCorrectionFlag;
 
 } tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_STATS_RSP;
 
@@ -1204,6 +1381,107 @@ typedef struct
 	tOCTVC1_MSG_HEADER	Header;
 
 } tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_RX_CONFIG_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulPortIndex
+ 		RF PORT index
+	ulAntennaIndex
+ 		Antenna index
+	ulRelativeGainFlag
+ 		Weather or not the following 'lRxGaindB' is relative of absolute value.
+ 		TRUE: mean that the 'lRxGaindB' will be added to the current configured value.
+	lRxGaindB
+		Range:		[..]
+		Default:	cOCTVC1_DO_NOT_MODIFY
+ 		Q9 value, (1 dB step) Minimum value is:0 Maximum value is:73 dB (37376 in Q9)
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_INDEX		ulPortIndex;
+	tOCTVC1_INDEX		ulAntennaIndex;
+	tOCT_BOOL32			ulRelativeGainFlag;
+	tOCT_INT32			lRxGaindB;
+
+} tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_RX_CONFIG_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_RX_CONFIG_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulPortIndex
+ 		RF PORT index
+	ulAntennaIndex
+ 		Antenna index
+	lRxGaindB
+ 		Q9 value, (1 dB step) Minimum value is:0 Maximum value is:73 (* 512)
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_INDEX		ulPortIndex;
+	tOCTVC1_INDEX		ulAntennaIndex;
+	tOCT_INT32			lRxGaindB;
+
+} tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_RX_CONFIG_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CONFIG_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulPortIndex
+ 		RF PORT index
+	ulAntennaIndex
+ 		Antenna index
+	ulRelativeGainFlag
+ 		Weather or not the following 'lTxGaindB' is relative of absolute value.
+ 		TRUE: mean that the 'lRxGaindB' will be added to the current configured value.
+	lTxGaindB
+		Range:		[..]
+		Default:	cOCTVC1_DO_NOT_MODIFY
+ 		Q9 value, Minimum value is:-89.75 (-45952 in Q9) Maximum value is:0 allow step
+ 		is 0.25 (128 in Q9)
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_INDEX		ulPortIndex;
+	tOCTVC1_INDEX		ulAntennaIndex;
+	tOCT_BOOL32			ulRelativeGainFlag;
+	tOCT_INT32			lTxGaindB;
+
+} tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CONFIG_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CONFIG_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulPortIndex
+ 		RF PORT index
+	ulAntennaIndex
+ 		Antenna index
+	lTxGaindB
+ 		Q9 value, Minimum value is:-89.75 Maximum value is:0
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_INDEX		ulPortIndex;
+	tOCTVC1_INDEX		ulAntennaIndex;
+	tOCT_INT32			lTxGaindB;
+
+} tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CONFIG_RSP;
 
 
 /***************  INCLUDE FILES WITH DEPENDENCIES ON THIS FILE  **************/

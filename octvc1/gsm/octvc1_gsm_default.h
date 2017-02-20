@@ -2,7 +2,7 @@
 
 File: OCTVC1_GSM_DEFAULT.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the GSM API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
 
 $Octasic_Revision: $
 
@@ -62,9 +62,13 @@ const tOCTVC1_GSM_MSG_TRX_OPEN_CMD buf_tOCTVC1_GSM_MSG_TRX_OPEN_CMD =
        0, /* usTsc */
        0, /* usArfcn */
        0, /* usBcchArfcn */
+       0, /* usCentreArfcn */
        0, /* usHsn */
        0, /* usMaio */
-       0, /* usReserve */
+       { /* ausReserve */
+           0, /* ausReserve[0] */
+           0  /* ausReserve[1] */
+       },
        0, /* ulHoppingFlag */
        0, /* ulHoppingListLength */
        { /* ausHoppingList */
@@ -136,7 +140,9 @@ const tOCTVC1_GSM_MSG_TRX_OPEN_CMD buf_tOCTVC1_GSM_MSG_TRX_OPEN_CMD =
    },
    { /* RfConfig */
        70, /* ulRxGainDb */
-       0  /* ulTxAttndB */
+       0, /* ulTxAttndB */
+       0, /* ulTxAntennaId */
+       0  /* ulRxAntennaId */
    }
 };
 
@@ -334,9 +340,13 @@ const tOCTVC1_GSM_MSG_TRX_MODIFY_CMD buf_tOCTVC1_GSM_MSG_TRX_MODIFY_CMD =
        (cOCTVC1_DO_NOT_MODIFY & 0xFFFF), /* usTsc */
        (cOCTVC1_DO_NOT_MODIFY & 0xFFFF), /* usArfcn */
        (cOCTVC1_DO_NOT_MODIFY & 0xFFFF), /* usBcchArfcn */
+       (cOCTVC1_DO_NOT_MODIFY & 0xFFFF), /* usCentreArfcn */
        (cOCTVC1_DO_NOT_MODIFY & 0xFFFF), /* usHsn */
        (cOCTVC1_DO_NOT_MODIFY & 0xFFFF), /* usMaio */
-       (cOCTVC1_DO_NOT_MODIFY & 0xFFFF), /* usReserve */
+       { /* ausReserve */
+           (cOCTVC1_DO_NOT_MODIFY & 0xFFFF), /* ausReserve[0] */
+           (cOCTVC1_DO_NOT_MODIFY & 0xFFFF)  /* ausReserve[1] */
+       },
        cOCTVC1_DO_NOT_MODIFY, /* ulHoppingFlag */
        cOCTVC1_DO_NOT_MODIFY, /* ulHoppingListLength */
        { /* ausHoppingList */
@@ -1874,7 +1884,9 @@ const tOCTVC1_GSM_MSG_TRX_MODIFY_RF_CMD buf_tOCTVC1_GSM_MSG_TRX_MODIFY_RF_CMD =
    },
    { /* RfConfig */
        cOCTVC1_DO_NOT_MODIFY, /* ulRxGainDb */
-       cOCTVC1_DO_NOT_MODIFY  /* ulTxAttndB */
+       cOCTVC1_DO_NOT_MODIFY, /* ulTxAttndB */
+       cOCTVC1_DO_NOT_MODIFY, /* ulTxAntennaId */
+       cOCTVC1_DO_NOT_MODIFY  /* ulRxAntennaId */
    }
 };
 
@@ -2449,16 +2461,16 @@ extern const tOCTVC1_GSM_MSG_TRX_REQUEST_LOGICAL_CHANNEL_CMU_LOOPBACK_TEST_CMD *
 
 
 /*--------------------------------------------------------------------------
-    tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD
+    tOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_CMD
 ----------------------------------------------------------------------------*/
 #ifdef OCTVC1_OPT_DECLARE_DEFAULTS
 
-const tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD buf_tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD =
+const tOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_CMD buf_tOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_CMD =
 {
    { /* Header */
-       ((sizeof(tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       ((sizeof(tOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
        0, /* ulTransactionId */
-       ((cOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       ((cOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
        0, /* ulSessionId */
        0, /* ulReturnCode */
        0  /* ulUserInfo */
@@ -2473,16 +2485,16 @@ const tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD buf_tOCTVC1_GSM_MSG_TR
    }
 };
 
-const tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD =
-    &buf_tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD;
+const tOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_CMD =
+    &buf_tOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_CMD;
 
 #else /* OCTVC1_OPT_DECLARE_DEFAULTS */
-extern const tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD;
+extern const tOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_CMD;
 #endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
 
-#define mOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD_DEF(pSt) \
+#define mOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_CMD_DEF(pSt) \
     { \
-        *pSt = *g_pOctDef_tOCTVC1_GSM_MSG_TRX_REQUEST_STUBB_LOOPBACK_TEST_CMD; \
+        *pSt = *g_pOctDef_tOCTVC1_GSM_MSG_TRX_INFO_STUBB_LOOPBACK_TEST_CMD; \
     }
 
 
@@ -2512,7 +2524,8 @@ const tOCTVC1_GSM_MSG_TRX_START_STUBB_LOOPBACK_TEST_CMD buf_tOCTVC1_GSM_MSG_TRX_
    { /* STUB_CHANNEL_ID */
        cOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM_0, /* byTimeslotNb */
        cOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM_0, /* bySubChannelNb */
-       cOCTVC1_GSM_SAPI_ENUM_TCHF  /* CHANNEL_TYPE */
+       cOCTVC1_GSM_SAPI_ENUM_TCHF, /* bySAPI */
+       cOCTVC1_GSM_STUB_MODE_ENUM_NONE  /* byStubMode */
    }
 };
 
@@ -2553,7 +2566,8 @@ const tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD buf_tOCTVC1_GSM_MSG_TRX_S
        }
    },
    0, /* byTimeslotNb */
-   0  /* bySubChannelNb */
+   0, /* bySubChannelNb */
+   0  /* byStubMode */
 };
 
 const tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CMD =
@@ -2592,7 +2606,8 @@ const tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD buf_tOCTVC1_GSM_MSG_TRX_MODIFY_TE
            0  /* abyPad[2] */
        }
    },
-   0  /* testModeVal */
+   0, /* testModeVal */
+   0  /* modulation */
 };
 
 const tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CMD =

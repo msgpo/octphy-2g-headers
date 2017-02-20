@@ -2,7 +2,7 @@
 
 File: OCTVC1_MAIN_DEFAULT.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the MAIN API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1314 (2017/01/18)
 
 $Octasic_Revision: $
 
@@ -496,7 +496,7 @@ const tOCTVC1_MAIN_MSG_FILE_WRITE_CMD buf_tOCTVC1_MAIN_MSG_FILE_WRITE_CMD =
        0  /* ulUserInfo */
    },
    cOCTVC1_HANDLE_INVALID, /* hFile */
-   1, /* ulNumByteToWrite */
+   0, /* ulNumByteToWrite */
    { /* abyData */
        0, /* abyData[0..1199] */
    }
@@ -920,7 +920,8 @@ const tOCTVC1_MAIN_MSG_API_SYSTEM_MODIFY_SESSION_EVT_CMD buf_tOCTVC1_MAIN_MSG_AP
        0  /* ulUserInfo */
    },
    cOCTVC1_API_SESSION_INDEX_CURRENT_TRANSPORT, /* ulSessionIndex */
-   cOCTVC1_DO_NOT_MODIFY  /* ulEvtActiveFlag */
+   cOCTVC1_DO_NOT_MODIFY, /* ulEvtActiveFlag */
+   cOCTVC1_DO_NOT_MODIFY  /* ulSystemEvtMask */
 };
 
 const tOCTVC1_MAIN_MSG_API_SYSTEM_MODIFY_SESSION_EVT_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_API_SYSTEM_MODIFY_SESSION_EVT_CMD =
@@ -1470,6 +1471,101 @@ extern const tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD *g_pOctDef_tOCTVC1_MAI
 #define mOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD_DEF(pSt) \
     { \
         *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_LICENSING_STATS_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_LICENSING_STATS_CMD buf_tOCTVC1_MAIN_MSG_LICENSING_STATS_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_LICENSING_STATS_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_LICENSING_STATS_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   }
+};
+
+const tOCTVC1_MAIN_MSG_LICENSING_STATS_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_LICENSING_STATS_CMD =
+    &buf_tOCTVC1_MAIN_MSG_LICENSING_STATS_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_LICENSING_STATS_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_LICENSING_STATS_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_LICENSING_STATS_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_LICENSING_STATS_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CMD buf_tOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   0  /* ulLicenseId */
+};
+
+const tOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CMD =
+    &buf_tOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD buf_tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* ObjectCursor */
+       0, /* hObject */
+       cOCTVC1_OBJECT_CURSOR_ENUM_FIRST  /* ulGetMode */
+   }
+};
+
+const tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD =
+    &buf_tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD; \
     }
 
 
