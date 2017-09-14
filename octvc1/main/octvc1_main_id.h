@@ -2,7 +2,7 @@
 
 File: OCTVC1_MAIN_ID.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the identifiers for the MAIN API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
 
 $Octasic_Revision: $
 
@@ -81,8 +81,11 @@ $Octasic_Revision: $
 #define cOCTVC1_MAIN_MSG_LOG_STOP_STREAM_CID                     ( 0x030 + cOCTVC1_MAIN_CID_BASE )
 #define cOCTVC1_MAIN_MSG_APPLICATION_START_MODULE_CID            ( ( 0x031 + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
 #define cOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CID             ( ( 0x032 + cOCTVC1_MAIN_CID_BASE )| cOCTVC1_MSG_LONG_PROCESSING_FLAG  ) 
+#define cOCTVC1_MAIN_MSG_LICENSING_STATS_CID                     ( 0x035 + cOCTVC1_MAIN_CID_BASE )
+#define cOCTVC1_MAIN_MSG_LICENSING_INFO_FEATURES_CID             ( 0x036 + cOCTVC1_MAIN_CID_BASE )
+#define cOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CID             ( 0x037 + cOCTVC1_MAIN_CID_BASE )
 
-#define cOCTVC1_MAIN_CID_MAX                                     (( 0x032 + 1 ) & 0xFFF)
+#define cOCTVC1_MAIN_CID_MAX                                     (( 0x037 + 1 ) & 0xFFF)
 
 /****************************************************************************
 	Event IDs

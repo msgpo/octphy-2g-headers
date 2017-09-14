@@ -2,7 +2,7 @@
 
 File: OCTVC1_HW_API_PRIV.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the HW API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
 
 $Revision: $
 
@@ -100,6 +100,8 @@ typedef struct
 		Default:	10
  		Maximum allowed delta to consider that the clock manager is synchronized to its
  		reference.
+	ulFrequencyCorrectionFlag
+ 		Set to cOCT_TRUE when frequency correction should be applied.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -107,6 +109,7 @@ typedef struct
 	tOCT_UINT32			ulDacInitValue;
 	tOCT_UINT32			ulSyncWindowSize;
 	tOCT_INT32			lSyncThreshold;
+	tOCT_BOOL32			ulFrequencyCorrectionFlag;
 
 } tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD;
 

@@ -2,7 +2,7 @@
 
 File: OCTVC1_IRSC_DEFAULT.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the IRSC API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
 
 $Octasic_Revision: $
 
@@ -936,6 +936,36 @@ extern const tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTE
 #define mOCTVC1_IRSC_MSG_ROUTER_STATS_CMD_DEF(pSt) \
     { \
         *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD buf_tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   }
+};
+
+const tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD =
+    &buf_tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD; \
     }
 
 

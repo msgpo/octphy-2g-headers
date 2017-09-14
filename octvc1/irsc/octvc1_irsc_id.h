@@ -2,7 +2,7 @@
 
 File: OCTVC1_IRSC_ID.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the identifiers for the IRSC API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
 
 $Octasic_Revision: $
 
@@ -63,8 +63,9 @@ $Octasic_Revision: $
 #define cOCTVC1_IRSC_MSG_APPLICATION_STOP_TAP_CID         ( 0x01a + cOCTVC1_IRSC_CID_BASE )
 #define cOCTVC1_IRSC_MSG_ROUTER_INFO_CID                  ( 0x01b + cOCTVC1_IRSC_CID_BASE )
 #define cOCTVC1_IRSC_MSG_ROUTER_STATS_CID                 ( 0x01c + cOCTVC1_IRSC_CID_BASE )
+#define cOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CID     ( 0x01d + cOCTVC1_IRSC_CID_BASE )
 
-#define cOCTVC1_IRSC_CID_MAX                              (( 0x01c + 1 ) & 0xFFF)
+#define cOCTVC1_IRSC_CID_MAX                              (( 0x01d + 1 ) & 0xFFF)
 
 /****************************************************************************
 	Event IDs

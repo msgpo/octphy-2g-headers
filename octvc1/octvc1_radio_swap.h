@@ -2,7 +2,7 @@
 
 File: octvc1_radio_swap.h	
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.	
+Copyright (c) 2017 Octasic Inc. All rights reserved.	
 
 Description:	
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)	
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)	
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/	
 #ifndef __OCTVC1_RADIO_SWAP_H__
@@ -34,6 +34,15 @@ extern "C" {
 
 /*********************************  MACROS  **********************************/
 
+
+#if defined( _OCT_ENDIAN_TYPE_LE_ )
+#define mOCTVC1_RADIO_FREQ_UNIT_ENUM_SWAP( pType ){ \
+		*((tOCT_UINT32 *)pType) = mOCT_SWAP32_IF_LE( *((tOCT_UINT32 *)pType) ); }
+#else
+
+#define mOCTVC1_RADIO_FREQ_UNIT_ENUM_SWAP( pType )
+
+#endif /* _OCT_ENDIAN_TYPE_LE_ */
 
 #if defined( _OCT_ENDIAN_TYPE_LE_ )
 #define mOCTVC1_RADIO_STANDARD_ENUM_SWAP( pType ){ \
@@ -72,6 +81,15 @@ extern "C" {
 #endif /* _OCT_ENDIAN_TYPE_LE_ */
 
 #if defined( _OCT_ENDIAN_TYPE_LE_ )
+#define mOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_SWAP( pType ){ \
+		*((tOCT_UINT32 *)pType) = mOCT_SWAP32_IF_LE( *((tOCT_UINT32 *)pType) ); }
+#else
+
+#define mOCTVC1_RADIO_STANDARD_FREQ_BAND_CDMA2000_ENUM_SWAP( pType )
+
+#endif /* _OCT_ENDIAN_TYPE_LE_ */
+
+#if defined( _OCT_ENDIAN_TYPE_LE_ )
 #define mOCTVC1_RADIO_STANDARD_FREQ_BAND_ID_SWAP( _f_pParms ){ 	tOCTVC1_RADIO_STANDARD_FREQ_BAND_ID * pOCTVC1_RADIO_STANDARD_FREQ_BAND_ID = (_f_pParms); SWAP_UNUSED(pOCTVC1_RADIO_STANDARD_FREQ_BAND_ID)\
 	{ mOCTVC1_RADIO_STANDARD_ENUM_SWAP( &((tOCTVC1_RADIO_STANDARD_FREQ_BAND_ID *)pOCTVC1_RADIO_STANDARD_FREQ_BAND_ID)->ulStandard ); }  \
 	((tOCTVC1_RADIO_STANDARD_FREQ_BAND_ID *)pOCTVC1_RADIO_STANDARD_FREQ_BAND_ID)->ulBandNumber = \
@@ -79,6 +97,16 @@ extern "C" {
 }
 #else
 #define mOCTVC1_RADIO_STANDARD_FREQ_BAND_ID_SWAP( pOCTVC1_RADIO_STANDARD_FREQ_BAND_ID )
+#endif /* _OCT_ENDIAN_TYPE_LE_ */
+
+#if defined( _OCT_ENDIAN_TYPE_LE_ )
+#define mOCTVC1_RADIO_FREQUENCY_VALUE_SWAP( _f_pParms ){ 	tOCTVC1_RADIO_FREQUENCY_VALUE * pOCTVC1_RADIO_FREQUENCY_VALUE = (_f_pParms); SWAP_UNUSED(pOCTVC1_RADIO_FREQUENCY_VALUE)\
+	{ mOCTVC1_RADIO_FREQ_UNIT_ENUM_SWAP( &((tOCTVC1_RADIO_FREQUENCY_VALUE *)pOCTVC1_RADIO_FREQUENCY_VALUE)->ulUnit ); }  \
+	((tOCTVC1_RADIO_FREQUENCY_VALUE *)pOCTVC1_RADIO_FREQUENCY_VALUE)->ulValue = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_RADIO_FREQUENCY_VALUE *)pOCTVC1_RADIO_FREQUENCY_VALUE)->ulValue); \
+}
+#else
+#define mOCTVC1_RADIO_FREQUENCY_VALUE_SWAP( pOCTVC1_RADIO_FREQUENCY_VALUE )
 #endif /* _OCT_ENDIAN_TYPE_LE_ */
 
 #if defined( _OCT_ENDIAN_TYPE_LE_ )

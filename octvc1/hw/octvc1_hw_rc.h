@@ -2,7 +2,7 @@
 
 File: OCTVC1_HW_RC.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the return codes for the HW API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
 
 $Octasic_Revision: $
 
@@ -55,6 +55,8 @@ $Octasic_Revision: $
 #define cOCTVC1_HW_RC_RF_PORT_ANTENNA_UNUSED				 ( 0x0002 + cOCTVC1_HW_RF_PORT_RC_BASE )
 #define cOCTVC1_HW_RC_RF_PORT_ANTENNA_INTERNAL_ERROR		 ( 0x0003 + cOCTVC1_HW_RF_PORT_RC_BASE )
 #define cOCTVC1_HW_RC_RF_PORT_ANTENNA_CANNOT_MODIFY			 ( 0x0004 + cOCTVC1_HW_RF_PORT_RC_BASE )
+#define cOCTVC1_HW_RC_RF_PORT_TX_CALIBRATION_NOT_AVAILABLE	 ( 0x0005 + cOCTVC1_HW_RF_PORT_RC_BASE )
+#define cOCTVC1_HW_RC_RF_PORT_ANTENNA_RX_AGC_MODE			 ( 0x0006 + cOCTVC1_HW_RF_PORT_RC_BASE )
 
 /****************************************************************************
 	CLOCK_SYNC_MGR return codes
@@ -71,6 +73,15 @@ $Octasic_Revision: $
 #define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_DAC_CLOSE_ERROR		 ( 0x0007 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
 #define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_STATS_ERROR			 ( 0x0008 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
 #define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_NOT_SUPPORTED			 ( 0x0009 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
+#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_NOT_OPENED				 ( 0x000A + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
+
+/****************************************************************************
+	Validate return codes
+ ****************************************************************************/
+#define cOCTVC1_HW_AUTO_VALIDATE_RC_BASE					 ( 0xF000 + cOCTVC1_HW_RC_BASE )
+
+#define cOCTVC1_HW_RC_RF_PORT_ANTENNA_RX_CONFIG_MODIFY_INVALID_RX_GAIND_B	 ( 0x1 + cOCTVC1_HW_AUTO_VALIDATE_RC_BASE )
+#define cOCTVC1_HW_RC_RF_PORT_ANTENNA_TX_CONFIG_MODIFY_INVALID_TX_GAIND_B	 ( 0x2 + cOCTVC1_HW_AUTO_VALIDATE_RC_BASE )
 
 #endif /* OCTVC1_HW_RC_H__ */
 

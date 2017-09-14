@@ -2,7 +2,7 @@
 
 File: OCTVC1_HW_ID_PRIV.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the identifiers for the HW API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
 
 $Octasic_Revision: $
 
@@ -35,9 +35,9 @@ $Octasic_Revision: $
 /****************************************************************************
 	Command IDs
  ****************************************************************************/
-#define cOCTVC1_HW_MSG_ETH_PORT_RESTRICTED_UNBLOCK_CID    ( 0x008 + cOCTVC1_HW_CID_BASE )
-#define cOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CID   ( 0x016 + cOCTVC1_HW_CID_BASE )
-#define cOCTVC1_HW_MSG_CLOCK_SYNC_MGR_STOP_SYNCHRO_CID    ( 0x017 + cOCTVC1_HW_CID_BASE )
+#define cOCTVC1_HW_MSG_ETH_PORT_RESTRICTED_UNBLOCK_CID      ( 0x008 + cOCTVC1_HW_CID_BASE )
+#define cOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CID     ( 0x016 + cOCTVC1_HW_CID_BASE )
+#define cOCTVC1_HW_MSG_CLOCK_SYNC_MGR_STOP_SYNCHRO_CID      ( 0x017 + cOCTVC1_HW_CID_BASE )
 
 /****************************************************************************
 	Event IDs

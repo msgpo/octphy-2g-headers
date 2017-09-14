@@ -1,7 +1,7 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 File: octvc1_hw_api_priv_swap.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description:
 This program is free software; you can redistribute it and/or modify
@@ -16,7 +16,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 
@@ -64,6 +64,8 @@ extern "C" {
 		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD *)pOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD)->ulSyncWindowSize); \
 	((tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD *)pOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD)->lSyncThreshold = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD *)pOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD)->lSyncThreshold); \
+	((tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD *)pOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD)->ulFrequencyCorrectionFlag = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD *)pOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD)->ulFrequencyCorrectionFlag); \
 }
 #else
 #define mOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD_SWAP( pOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD )

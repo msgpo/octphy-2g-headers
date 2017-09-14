@@ -2,7 +2,7 @@
 
 File: octvc1_swap_hdrs.h	
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.	
+Copyright (c) 2017 Octasic Inc. All rights reserved.	
 
 Description:	
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)	
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)	
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/	
 #ifndef __OCTVC1_SWAP_HDRS_H__
@@ -61,8 +61,8 @@ extern "C" {
 #include "ctrl/octvc1_ctrl_api_swap.h"
 #include "main/octvc1_main_api_swap.h"
 #include "main/octvc1_main_evt_swap.h"
-#include "test/octvc1_test_api_swap.h"
-#include "test/octvc1_test_evt_swap.h"
+#include "job/octvc1_job_api_swap.h"
+#include "job/octvc1_job_evt_swap.h"
 #include "hw/octvc1_hw_api_swap.h"
 #include "hw/octvc1_hw_evt_swap.h"
 #include "irsc/octvc1_irsc_api_swap.h"

@@ -2,7 +2,7 @@
 
 File: OCTVC1_HW_DEFAULT_PRIV.h
 
-Copyright (c) 2016 Octasic Inc. All rights reserved.
+Copyright (c) 2017 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the HW API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.07.00-B1039 (2016/07/22)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
 
 $Octasic_Revision: $
 
@@ -83,7 +83,8 @@ const tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD buf_tOCTVC1_HW_MSG_CLOCK_S
    },
    0x00007600, /* ulDacInitValue */
    7, /* ulSyncWindowSize */
-   10  /* lSyncThreshold */
+   10, /* lSyncThreshold */
+   0  /* ulFrequencyCorrectionFlag */
 };
 
 const tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD *g_pOctDef_tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_START_SYNCHRO_CMD =
