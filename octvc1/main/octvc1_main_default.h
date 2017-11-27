@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
 
 $Octasic_Revision: $
 
@@ -230,7 +230,7 @@ const tOCTVC1_MAIN_MSG_LOG_START_TRACE_CMD buf_tOCTVC1_MAIN_MSG_LOG_START_TRACE_
    },
    cOCT_FALSE, /* ulFullAutoStopFlag */
    cOCTVC1_LOG_TRACE_MASK_NONE, /* ulTraceMask */
-   16384, /* ulFileSize */
+   131072, /* ulFileSize */
    4, /* ulFileNumber */
    { /* Filter */
        cOCT_TRUE, /* ulTraceProcessAllFlag */

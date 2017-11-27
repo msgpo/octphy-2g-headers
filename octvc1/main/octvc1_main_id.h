@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
 
 $Octasic_Revision: $
 
@@ -95,8 +95,9 @@ $Octasic_Revision: $
 #define cOCTVC1_MAIN_MSG_PROCESS_CPU_USAGE_REPORT_EID     ( 0x0003 + cOCTVC1_MAIN_EID_BASE )
 #define cOCTVC1_MAIN_MSG_APPLICATION_STATE_CHANGE_EID     ( 0x0004 + cOCTVC1_MAIN_EID_BASE )
 #define cOCTVC1_MAIN_MSG_PROCESS_STATE_CHANGE_EID         ( 0x0005 + cOCTVC1_MAIN_EID_BASE )
+#define cOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EID       ( 0x0006 + cOCTVC1_MAIN_EID_BASE )
 
-#define cOCTVC1_MAIN_EID_MAX                              (( 0x0005 + 1 ) & 0xFFFF)
+#define cOCTVC1_MAIN_EID_MAX                              (( 0x0006 + 1 ) & 0xFFFF)
 
 /****************************************************************************
 	Module Data IDs

@@ -20,7 +20,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
 
 $Revision:  $
 
@@ -166,6 +166,8 @@ const char * octvc1_id2string( tOCT_UINT32 f_ulId )
 			return "cOCTVC1_MAIN_MSG_APPLICATION_STATE_CHANGE_EID";
 		case (cOCTVC1_MAIN_MSG_PROCESS_STATE_CHANGE_EID & ~( cOCTVC1_MSG_FLAGS_BIT_MASK << cOCTVC1_MSG_FLAGS_BIT_OFFSET )):
 			return "cOCTVC1_MAIN_MSG_PROCESS_STATE_CHANGE_EID";
+		case (cOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EID & ~( cOCTVC1_MSG_FLAGS_BIT_MASK << cOCTVC1_MSG_FLAGS_BIT_OFFSET )):
+			return "cOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EID";
 		/* OCTVC1_JOB */
 		case ( cOCTVC1_JOB_MSG_UNITS_LIST_CID & ~( cOCTVC1_MSG_FLAGS_BIT_MASK << cOCTVC1_MSG_FLAGS_BIT_OFFSET )):
 			return "cOCTVC1_JOB_MSG_UNITS_LIST_CID";

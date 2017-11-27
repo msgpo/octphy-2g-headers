@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)	
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)	
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/	
 #ifndef __OCTVC1_MAIN_API_SWAP_H__
@@ -1145,6 +1145,10 @@ extern "C" {
 	{ mOCTVC1_MAIN_LICENSING_STATUS_ENUM_SWAP( &((tOCTVC1_MAIN_MSG_LICENSING_STATS_RSP *)pOCTVC1_MAIN_MSG_LICENSING_STATS_RSP)->ulStatus ); }  \
 	((tOCTVC1_MAIN_MSG_LICENSING_STATS_RSP *)pOCTVC1_MAIN_MSG_LICENSING_STATS_RSP)->ulFeatureCount = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_MAIN_MSG_LICENSING_STATS_RSP *)pOCTVC1_MAIN_MSG_LICENSING_STATS_RSP)->ulFeatureCount); \
+	((tOCTVC1_MAIN_MSG_LICENSING_STATS_RSP *)pOCTVC1_MAIN_MSG_LICENSING_STATS_RSP)->usInfractionCount = \
+		mOCT_SWAP16_IF_LE(((tOCTVC1_MAIN_MSG_LICENSING_STATS_RSP *)pOCTVC1_MAIN_MSG_LICENSING_STATS_RSP)->usInfractionCount);  \
+	((tOCTVC1_MAIN_MSG_LICENSING_STATS_RSP *)pOCTVC1_MAIN_MSG_LICENSING_STATS_RSP)->usInfractionMaxCount = \
+		mOCT_SWAP16_IF_LE(((tOCTVC1_MAIN_MSG_LICENSING_STATS_RSP *)pOCTVC1_MAIN_MSG_LICENSING_STATS_RSP)->usInfractionMaxCount);  \
 }
 #else
 #define mOCTVC1_MAIN_MSG_LICENSING_STATS_RSP_SWAP( pOCTVC1_MAIN_MSG_LICENSING_STATS_RSP )

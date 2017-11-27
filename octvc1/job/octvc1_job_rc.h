@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
 
 $Octasic_Revision: $
 
@@ -47,6 +47,8 @@ $Octasic_Revision: $
 #define cOCTVC1_JOB_RC_UNITS_PACKAGE_NOT_FOUND				 ( 0x0001 + cOCTVC1_JOB_UNITS_RC_BASE )
 #define cOCTVC1_JOB_RC_UNITS_SUITE_NOT_FOUND				 ( 0x0002 + cOCTVC1_JOB_UNITS_RC_BASE )
 #define cOCTVC1_JOB_RC_UNITS_CASE_NOT_FOUND					 ( 0x0003 + cOCTVC1_JOB_UNITS_RC_BASE )
+#define cOCTVC1_JOB_RC_UNITS_PACKAGE_NAME_TOO_LONG			 ( 0x0004 + cOCTVC1_JOB_UNITS_RC_BASE )
+#define cOCTVC1_JOB_RC_UNITS_CASE_NAME_TOO_LONG				 ( 0x0005 + cOCTVC1_JOB_UNITS_RC_BASE )
 
 /****************************************************************************
 	RUNNER return codes

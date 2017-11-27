@@ -17,7 +17,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
 
 $Octasic_Revision: $
 
@@ -129,6 +129,21 @@ typedef struct
 	tOCT_INT8							szAppName[(cOCTVC1_MAIN_APPLICATION_MAX_NAME_LENGTH+1)];
 
 } tOCTVC1_MAIN_MSG_APPLICATION_STATE_CHANGE_EVT;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EVT
+
+ Members:
+	Header
+	ulState
+ 		New licensing state
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_EVENT_HEADER				Header;
+	tOCTVC1_MAIN_LICENSING_STATUS_ENUM	ulState;
+
+} tOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EVT;
 
 
 #endif /* __OCTVC1_MAIN_EVT_H__ */

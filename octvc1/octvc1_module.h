@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
 
 $Revision: $
 
@@ -67,7 +67,7 @@ $Revision: $
 #define cOCTVC1_MODULE_ID_ENUM_SDR							0x0A	
 #define cOCTVC1_MODULE_ID_ENUM_GSM							0x0B	
 #define cOCTVC1_MODULE_ID_ENUM_LTE							0x0C	
-#define cOCTVC1_MODULE_ID_ENUM_3G_BTS						0x0D	
+#define cOCTVC1_MODULE_ID_ENUM_3G_NODEB						0x0D	
 #define cOCTVC1_MODULE_ID_ENUM_RUS							0x0E	
 #define cOCTVC1_MODULE_ID_ENUM_LIB_TOOLKIT					0x0F	
 #define cOCTVC1_MODULE_ID_ENUM_UE3G							0x10	

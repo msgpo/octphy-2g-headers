@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
 
 $Revision: $
 
@@ -77,6 +77,7 @@ $Revision: $
 #define cOCTVC1_MAIN_APPLICATION_STATE_ENUM_STOPPED			0		
 #define cOCTVC1_MAIN_APPLICATION_STATE_ENUM_STARTED			1		
 #define cOCTVC1_MAIN_APPLICATION_STATE_ENUM_BOOTED			2		
+#define cOCTVC1_MAIN_APPLICATION_STATE_ENUM_RESTRICTED		3		 	/* Some features are not available. */
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_MAIN_APPLICATION_MODULE_STATE_ENUM :
@@ -368,6 +369,7 @@ typedef struct
 #define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_FILE_ERROR		4		
 #define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_ITEM_ERROR		5		
 #define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_SYSTEM_ERROR		6		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_LOCATION_ERROR	7		
 
 /*****************************  METHODS  *************************************/
 /*-------------------------------------------------------------------------------------
@@ -542,7 +544,7 @@ typedef struct
 typedef struct
 {
 	tOCTVC1_MSG_HEADER			Header;
-	tOCT_UINT32					ulFullAutoStopFlag;
+	tOCT_BOOL32					ulFullAutoStopFlag;
 	tOCTVC1_LOG_TRACE_MASK		ulTraceMask;
 	tOCTVC1_MAIN_LOG_TRACE_INFO	TraceInfo;
 
@@ -561,9 +563,11 @@ typedef struct
 	ulTraceMask
 		Default:	cOCTVC1_LOG_TRACE_MASK_NONE
 	ulFileSize
-		Default:	16384
+		Range:		[16384..16777216]
+		Default:	131072
  		The maximum size (in bytes) of each trace file
 	ulFileNumber
+		Range:		[2..4]
 		Default:	4
  		The maximum number of files for tracing
 	Filter
@@ -679,7 +683,7 @@ typedef struct
 {
 	tOCTVC1_MSG_HEADER					Header;
 	tOCTVC1_MAIN_LOG_TRACE_STATE_ENUM	ulState;
-	tOCT_UINT32							ulFullAutoStopFlag;
+	tOCT_BOOL32							ulFullAutoStopFlag;
 	tOCTVC1_LOG_TRACE_MASK				ulTraceMask;
 	tOCTVC1_MAIN_LOG_TRACE_STATS		TraceStats;
 	tOCTVC1_MAIN_LOG_TRACE_FILTER		Filter;
@@ -1952,12 +1956,18 @@ typedef struct
 	ulStatus
 	ulFeatureCount
  		Number of knowned features.
+	usInfractionCount
+ 		Number of infractions detected.
+	usInfractionMaxCount
+ 		Maximum number of allowed infractions.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_MSG_HEADER					Header;
 	tOCTVC1_MAIN_LICENSING_STATUS_ENUM	ulStatus;
 	tOCT_UINT32							ulFeatureCount;
+	tOCT_UINT16							usInfractionCount;
+	tOCT_UINT16							usInfractionMaxCount;
 
 } tOCTVC1_MAIN_MSG_LICENSING_STATS_RSP;
 

@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)	
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)	
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/	
 #ifndef __OCTVC1_MAIN_EVT_SWAP_H__
@@ -96,6 +96,15 @@ extern "C" {
 }
 #else
 #define mOCTVC1_MAIN_MSG_APPLICATION_STATE_CHANGE_EVT_SWAP( pOCTVC1_MAIN_MSG_APPLICATION_STATE_CHANGE_EVT )
+#endif /* _OCT_ENDIAN_TYPE_LE_ */
+
+#if defined( _OCT_ENDIAN_TYPE_LE_ )
+#define mOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EVT_SWAP( _f_pParms ){ 	tOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EVT * pOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EVT = (_f_pParms); SWAP_UNUSED(pOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EVT)\
+	{ mOCTVC1_EVENT_HEADER_SWAP( &((tOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EVT *)pOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EVT)->Header ); }  \
+	{ mOCTVC1_MAIN_LICENSING_STATUS_ENUM_SWAP( &((tOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EVT *)pOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EVT)->ulState ); }  \
+}
+#else
+#define mOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EVT_SWAP( pOCTVC1_MAIN_MSG_LICENSING_STATE_CHANGE_EVT )
 #endif /* _OCT_ENDIAN_TYPE_LE_ */
 
 #ifdef __cplusplus

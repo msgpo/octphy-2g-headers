@@ -20,7 +20,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
 
 $Revision:  $
 
@@ -92,6 +92,8 @@ const char * octvc1_lic2string( tOCT_UINT32 f_ulLic )
 			return "cOCTVC1_GSM_LIC_GPRS_EDGE_ENABLE";
 		case cOCTVC1_GSM_LIC_MULTI_TRX_ENABLE:
 			return "cOCTVC1_GSM_LIC_MULTI_TRX_ENABLE";
+		case cOCTVC1_GSM_LIC_RAW_DATA_ENABLE:
+			return "cOCTVC1_GSM_LIC_RAW_DATA_ENABLE";
 
 		case 0:
 		default:
@@ -121,6 +123,7 @@ tOCT_UINT32 octvc1_string2lic( const char * f_strLic )
 	if( strcmp( f_strLic, "cOCTVC1_GSM_LIC_RF_BAND_1900_ENABLE" ) == 0 ) return cOCTVC1_GSM_LIC_RF_BAND_1900_ENABLE;
 	if( strcmp( f_strLic, "cOCTVC1_GSM_LIC_GPRS_EDGE_ENABLE" ) == 0 ) return cOCTVC1_GSM_LIC_GPRS_EDGE_ENABLE;
 	if( strcmp( f_strLic, "cOCTVC1_GSM_LIC_MULTI_TRX_ENABLE" ) == 0 ) return cOCTVC1_GSM_LIC_MULTI_TRX_ENABLE;
+	if( strcmp( f_strLic, "cOCTVC1_GSM_LIC_RAW_DATA_ENABLE" ) == 0 ) return cOCTVC1_GSM_LIC_RAW_DATA_ENABLE;
 
 	return( 0 );
 

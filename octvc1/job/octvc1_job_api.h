@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.08.00-B1418 (2017/03/21)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
 
 $Revision: $
 
@@ -168,7 +168,8 @@ typedef struct
 #define cOCTVC1_JOB_RUNNER_STATE_ENUM_STARTED				2		
 #define cOCTVC1_JOB_RUNNER_STATE_ENUM_PAUSE					3		
 #define cOCTVC1_JOB_RUNNER_STATE_ENUM_ERROR					4		
-#define cOCTVC1_JOB_RUNNER_STATE_ENUM_INTERNAL_PROCESSING	5		
+#define cOCTVC1_JOB_RUNNER_STATE_ENUM_WAIT_NEXT				5		
+#define cOCTVC1_JOB_RUNNER_STATE_ENUM_INTERNAL_PROCESSING	6		
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_JOB_RUNNER_CASE_METRIC_INDEX_ENUM :

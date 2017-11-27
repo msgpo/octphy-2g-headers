@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: Octasic Application Development Framework OCTADF-04.07.01-B3028 (2017/02/27)
+Release: Octasic Application Development Framework OCTADF-04.09.00-B3234 (2017/07/13)
 
 $Revision: $
 
