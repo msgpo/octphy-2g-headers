@@ -2,7 +2,7 @@
 
 File: OCTVC1_LOG.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Revision: $
 
@@ -68,19 +68,39 @@ $Revision: $
 #define cOCTVC1_LOG_PAYLOAD_TYPE_ENUM_MODULE_DATA			3		
 
 /*-------------------------------------------------------------------------------------
+	tOCTVC1_LOG_TRACE_ENUM :
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_LOG_TRACE_ENUM								tOCT_UINT32
+
+#define cOCTVC1_LOG_TRACE_ENUM_USER_0						0		
+#define cOCTVC1_LOG_TRACE_ENUM_USER_1						1		
+#define cOCTVC1_LOG_TRACE_ENUM_USER_2						2		
+#define cOCTVC1_LOG_TRACE_ENUM_USER_3						3		
+#define cOCTVC1_LOG_TRACE_ENUM_USER_4						4		
+#define cOCTVC1_LOG_TRACE_ENUM_USER_5						5		
+#define cOCTVC1_LOG_TRACE_ENUM_USER_6						6		
+#define cOCTVC1_LOG_TRACE_ENUM_USER_7						7		
+#define cOCTVC1_LOG_TRACE_ENUM_SYSTEM						8		
+#define cOCTVC1_LOG_TRACE_ENUM_IPC_MESSAGE					9		
+#define cOCTVC1_LOG_TRACE_ENUM_RESOURCE						10		
+
+/*-------------------------------------------------------------------------------------
 	tOCTVC1_LOG_TRACE_MASK :
 -------------------------------------------------------------------------------------*/
 #define tOCTVC1_LOG_TRACE_MASK								tOCT_UINT32
 
-#define cOCTVC1_LOG_TRACE_MASK_SYSTEM						0x01	
-#define cOCTVC1_LOG_TRACE_MASK_IPC_MESSAGE					0x02	
-#define cOCTVC1_LOG_TRACE_MASK_USER_0						0x04	
-#define cOCTVC1_LOG_TRACE_MASK_USER_1						0x08	
-#define cOCTVC1_LOG_TRACE_MASK_USER_2						0x10	
-#define cOCTVC1_LOG_TRACE_MASK_USER_3						0x20	
-#define cOCTVC1_LOG_TRACE_MASK_USER_4						0x40	
-#define cOCTVC1_LOG_TRACE_MASK_USER_5						0x80	
-#define cOCTVC1_LOG_TRACE_MASK_NONE							0x00	
+#define cOCTVC1_LOG_TRACE_MASK_USER_0						0x0001	
+#define cOCTVC1_LOG_TRACE_MASK_USER_1						0x0002	
+#define cOCTVC1_LOG_TRACE_MASK_USER_2						0x0004	
+#define cOCTVC1_LOG_TRACE_MASK_USER_3						0x0008	
+#define cOCTVC1_LOG_TRACE_MASK_USER_4						0x0010	
+#define cOCTVC1_LOG_TRACE_MASK_USER_5						0x0020	
+#define cOCTVC1_LOG_TRACE_MASK_USER_6						0x0040	
+#define cOCTVC1_LOG_TRACE_MASK_USER_7						0x0080	
+#define cOCTVC1_LOG_TRACE_MASK_SYSTEM						0x0100	
+#define cOCTVC1_LOG_TRACE_MASK_IPC_MESSAGE					0x0200	
+#define cOCTVC1_LOG_TRACE_MASK_RESOURCE						0x0400	
+#define cOCTVC1_LOG_TRACE_MASK_NONE							0x0000	
 #define cOCTVC1_LOG_TRACE_MASK_ALL							0xFFFFFFFF	
 
 /*-------------------------------------------------------------------------------------
@@ -137,7 +157,7 @@ $Revision: $
  		bits[24] = Reserved.
  		bits[23:16] = Type Info base of Log Type see tOCTVC1_LOG_TYPE_ENUM
  		If TYPE_LOG base tOCTVC1_LOG_LEVEL_ENUM
- 		If TYPE_TRACE base tOCTVC1_LOG_TRACE_MASK
+ 		If TYPE_TRACE base tOCTVC1_LOG_TRACE_ENUM
  		bits[15:0] = Log or Trace payload length (in bytes).
 -------------------------------------------------------------------------------------*/
 typedef struct

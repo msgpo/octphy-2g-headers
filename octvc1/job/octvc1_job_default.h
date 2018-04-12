@@ -2,7 +2,7 @@
 
 File: OCTVC1_JOB_DEFAULT.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the JOB API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Octasic_Revision: $
 
@@ -27,6 +27,9 @@ $Octasic_Revision: $
 #ifndef __OCTVC1_JOB_DEFAULT_H__
 #define __OCTVC1_JOB_DEFAULT_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*****************************  INCLUDE FILES  *******************************/
 #include "octvc1_job_api.h"
@@ -144,10 +147,10 @@ const tOCTVC1_JOB_MSG_UNITS_FIND_CMD buf_tOCTVC1_JOB_MSG_UNITS_FIND_CMD =
        0  /* ulUserInfo */
    },
    { /* szPackageName */
-       0, /* szPackageName[0..15] */
+       0, /* szPackageName[0..31] */
    },
    { /* szSuiteName */
-       0, /* szSuiteName[0..15] */
+       0, /* szSuiteName[0..31] */
    },
    { /* szCaseName */
        0, /* szCaseName[0..31] */
@@ -1301,7 +1304,7 @@ const tOCTVC1_JOB_MSG_RUNNER_MODIFY_CONFIGURATION_CMD buf_tOCTVC1_JOB_MSG_RUNNER
        0  /* ulUserInfo */
    },
    cOCTVC1_DO_NOT_MODIFY, /* ulRunnerCaseLevel */
-   cOCTVC1_DO_NOT_MODIFY  /* fSendStateChangeEvt */
+   cOCTVC1_DO_NOT_MODIFY  /* ulSendStateChangeEvtFlag */
 };
 
 const tOCTVC1_JOB_MSG_RUNNER_MODIFY_CONFIGURATION_CMD *g_pOctDef_tOCTVC1_JOB_MSG_RUNNER_MODIFY_CONFIGURATION_CMD =
@@ -1316,6 +1319,10 @@ extern const tOCTVC1_JOB_MSG_RUNNER_MODIFY_CONFIGURATION_CMD *g_pOctDef_tOCTVC1_
         *pSt = *g_pOctDef_tOCTVC1_JOB_MSG_RUNNER_MODIFY_CONFIGURATION_CMD; \
     }
 
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __OCTVC1_JOB_DEFAULT_H__ */
 

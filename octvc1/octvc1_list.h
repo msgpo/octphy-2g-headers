@@ -2,7 +2,7 @@
 
 File: OCTVC1_LIST.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Revision: $
 
@@ -153,6 +153,46 @@ typedef struct
 	tOCTVC1_INDEX	aIndex[cOCTVC1_HANDLE_OBJECT_LIST_MAX_ENTRY];
 
 } tOCTVC1_LIST_INDEX_GET_SUB_INDEX;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_LIST_NAME128_OBJECT32_GET
+ 		Handle Object name List structure,
+ 		Used when the objects to list are identified by a tOCT_UINT32 and displayed by
+ 		name.
+
+ Members:
+	ulNumObject
+ 		Number of valid objects in aNamedObject
+	aName128Object32
+ 		Array containing the listed handles and named
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCT_UINT32					ulNumObject;
+	tOCTVC1_OBJECT32_NAME128	aName128Object32[cOCTVC1_HANDLE_OBJECT32_NAME128_LIST_MAX_ENTRY];
+
+} tOCTVC1_LIST_NAME128_OBJECT32_GET;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_LIST_HANDLE_OBJECT_GET_SUB_OBJECT_ID_NAME128
+ 		Handle Object list List structure,
+ 		Used when the objects to list are identified by a tOCTVC1_SUB_OBJECT_ID.
+
+ Members:
+	hParent
+ 		Handle object of the parent
+	ulNumObject
+ 		Number of valid sub object IDs in aSubObjectId
+	aName128Object32
+ 		Array containing the listed handles
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_HANDLE_OBJECT		hParent;
+	tOCT_UINT32					ulNumObject;
+	tOCTVC1_OBJECT32_NAME128	aName128Object32[cOCTVC1_HANDLE_OBJECT32_NAME128_LIST_MAX_ENTRY];
+
+} tOCTVC1_LIST_HANDLE_OBJECT_GET_SUB_OBJECT_ID_NAME128;
 
 
 #endif /* __OCTVC1_LIST_H__ */

@@ -2,7 +2,7 @@
 
 File: OCTVC1_MODULE.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Revision: $
 
@@ -35,6 +35,31 @@ $Revision: $
 
 
 /************************  COMMON DEFINITIONS  *******************************/
+
+/*-------------------------------------------------------------------------------------
+ 	Resource
+-------------------------------------------------------------------------------------*/
+#define cOCTVC1_RESOURCE_DESCRIPTION_MAX_LENGTH				15		
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_RESOURCE
+ 		System memory
+
+ Members:
+	szDescription
+ 		Resource description
+	ulModuleId
+ 		Module Id.
+	ulLocalMemorySize
+ 		Local Memory size in bytes.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCT_INT8	szDescription[(cOCTVC1_RESOURCE_DESCRIPTION_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_UINT32	ulModuleId;
+	tOCT_UINT32	ulLocalMemorySize;
+
+} tOCTVC1_RESOURCE;
 
 /*-------------------------------------------------------------------------------------
  	Last process identifiers
@@ -74,6 +99,7 @@ $Revision: $
 #define cOCTVC1_MODULE_ID_ENUM_TOOLBOX						0x11	
 #define cOCTVC1_MODULE_ID_ENUM_LTE_UE						0x12	
 #define cOCTVC1_MODULE_ID_ENUM_GSM_UE						0x13	
+#define cOCTVC1_MODULE_ID_ENUM_CDMA2K						0x14	
 
 #define cOCTVC1_MODULE_ID_BIT_OFFSET						24		
 #define cOCTVC1_MODULE_ID_BIT_MASK							0xFF	

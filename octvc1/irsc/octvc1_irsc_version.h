@@ -2,7 +2,7 @@
 
 File: OCTVC1_IRSC_VERSION.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the version of the IRSC API interface.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Octasic_Revision: $
 
@@ -27,23 +27,24 @@ $Octasic_Revision: $
 #ifndef __OCTVC1_IRSC_VERSION_H__
 #define __OCTVC1_IRSC_VERSION_H__
 
+#include "../octvc1_api.h"
 
 /* The version ID is separated into the following sections:
 
-      bit[31:25]:    Major version
-      bit[24:18]:    Minor version
-      bit[17:11]:    Bug fix version
-      bit[10:0]:     Build number
+      bit[31:27]:    Major version
+      bit[26:21]:    Minor version
+      bit[20:15]:    Bug fix version
+      bit[14:0]:     Build number
 */
 #define cOCTVC1_IRSC_VERSION_MAJOR		2
-#define cOCTVC1_IRSC_VERSION_MINOR		9
+#define cOCTVC1_IRSC_VERSION_MINOR		10
 #define cOCTVC1_IRSC_VERSION_MAINTENANCE	0
-#define cOCTVC1_IRSC_VERSION_BUILD		1607
+#define cOCTVC1_IRSC_VERSION_BUILD		1837
 
-#define cOCTVC1_IRSC_VERSION_ID                 ( (cOCTVC1_IRSC_VERSION_MAJOR << 25) + \
-                                                  (cOCTVC1_IRSC_VERSION_MINOR << 18) + \
-                                                  (cOCTVC1_IRSC_VERSION_MAINTENANCE << 11) + \
-                                                  cOCTVC1_IRSC_VERSION_BUILD )
+#define cOCTVC1_IRSC_VERSION_ID                 ( (cOCTVC1_IRSC_VERSION_MAJOR << cOCTVC1_API_VERSION_MASK_MAJOR_BIT_OFFSET) + \
+                                                  (cOCTVC1_IRSC_VERSION_MINOR << cOCTVC1_API_VERSION_MASK_MINOR_BIT_OFFSET) + \
+                                                  (cOCTVC1_IRSC_VERSION_MAINTENANCE << cOCTVC1_API_VERSION_MASK_MAINTENANCE_BIT_OFFSET) + \
+                                                  (cOCTVC1_IRSC_VERSION_BUILD << cOCTVC1_API_VERSION_MASK_BUILD_BIT_OFFSET ) )
 
 #endif /* __OCTVC1_IRSC_VERSION_H__ */
 

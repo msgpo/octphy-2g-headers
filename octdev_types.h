@@ -2,7 +2,7 @@
 
 File: OCTDEV_TYPES.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Revision: $
 
@@ -137,7 +137,10 @@ typedef unsigned char	tOCT_UINT8;
 		#define _OCT_ENDIAN_TYPE_BE_
 		#define _OCT_PLATFORM_SPARC_
 	/* Look for ARM target */
-	#elif defined( __ARMEL__ )
+	#elif defined( __ARMEB__ ) || defined( __AARCH64EB__ )
+		#define _OCT_ENDIAN_TYPE_BE_
+		#define _OCT_PLATFORM_ARM_
+	#elif defined( __ARMEL__ )|| defined( __AARCH64EL__ )	
 		#define _OCT_ENDIAN_TYPE_LE_
 		#define _OCT_PLATFORM_ARM_
 	/* Look for MIPS target */
@@ -145,6 +148,10 @@ typedef unsigned char	tOCT_UINT8;
 		#define _OCT_ENDIAN_TYPE_BE_
 		#define _OCT_PLATFORM_MIPS_
 	/* others */
+	#elif defined( __BIG_ENDIAN__ )
+		#define _OCT_ENDIAN_TYPE_BE_
+	#elif defined( __LITTLE_ENDIAN__ )
+		#define _OCT_ENDIAN_TYPE_LE_		
 	#elif defined( CPU )
 		#if CPU==PPC860
 			#define _OCT_ENDIAN_TYPE_BE_

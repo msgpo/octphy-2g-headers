@@ -2,7 +2,7 @@
 
 File: OCTVC1_HANDLE.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Revision: $
 
@@ -60,6 +60,8 @@ $Revision: $
 #define cOCTVC1_HANDLE_OBJECT_LIST_MAX_ENTRY				100		
 #define cOCTVC1_HANDLE_OBJECT32_NAME_LIST_MAX_ENTRY			25		
 #define cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH				31		
+#define cOCTVC1_HANDLE_OBJECT32_NAME128_LIST_MAX_ENTRY		10		
+#define cOCTVC1_HANDLE_OBJECT32_NAME128_MAX_LENGTH			127		
 
 /*-------------------------------------------------------------------------------------
  	Base Object Type, for MAIN API
@@ -110,6 +112,22 @@ typedef struct
 -------------------------------------------------------------------------------------*/
 #define tOCTVC1_INDEX										tOCT_UINT32
 
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_OBJECT32_NAME128
+
+ Members:
+	ulObject32
+ 		32 bits file identifier
+	szDisplayName
+ 		Filename. Normally use for display name threw populate
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCT_UINT32	ulObject32;
+	tOCT_INT8	szDisplayName[(cOCTVC1_HANDLE_OBJECT32_NAME128_MAX_LENGTH+1)];
+
+} tOCTVC1_OBJECT32_NAME128;
 
 
 #endif /* __OCTVC1_HANDLE_H__ */

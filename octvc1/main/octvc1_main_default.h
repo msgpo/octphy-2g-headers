@@ -2,7 +2,7 @@
 
 File: OCTVC1_MAIN_DEFAULT.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the MAIN API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Octasic_Revision: $
 
@@ -27,6 +27,9 @@ $Octasic_Revision: $
 #ifndef __OCTVC1_MAIN_DEFAULT_H__
 #define __OCTVC1_MAIN_DEFAULT_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*****************************  INCLUDE FILES  *******************************/
 #include "octvc1_main_api.h"
@@ -461,6 +464,8 @@ const tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYS
        0, /* ulReturnCode */
        0  /* ulUserInfo */
    },
+   0, /* hFileSystem */
+   0, /* hFile */
    { /* szFileName */
        0, /* szFileName[0..127] */
    }
@@ -496,7 +501,7 @@ const tOCTVC1_MAIN_MSG_FILE_WRITE_CMD buf_tOCTVC1_MAIN_MSG_FILE_WRITE_CMD =
        0  /* ulUserInfo */
    },
    cOCTVC1_HANDLE_INVALID, /* hFile */
-   0, /* ulNumByteToWrite */
+   4, /* ulNumByteToWrite */
    { /* abyData */
        0, /* abyData[0..1199] */
    }
@@ -626,7 +631,8 @@ const tOCTVC1_MAIN_MSG_FILE_SYSTEM_INFO_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_INF
        0, /* ulSessionId */
        0, /* ulReturnCode */
        0  /* ulUserInfo */
-   }
+   },
+   0x01000001  /* hFileSystem */
 };
 
 const tOCTVC1_MAIN_MSG_FILE_SYSTEM_INFO_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_INFO_CMD =
@@ -657,12 +663,8 @@ const tOCTVC1_MAIN_MSG_FILE_SYSTEM_INFO_FILE_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTE
        0, /* ulReturnCode */
        0  /* ulUserInfo */
    },
-   { /* ObjectGet */
-       { /* szFileName */
-           0, /* szFileName[0..127] */
-       },
-       cOCTVC1_OBJECT_CURSOR_ENUM_FIRST  /* ulGetMode */
-   }
+   0, /* hFileSystem */
+   0  /* hFile */
 };
 
 const tOCTVC1_MAIN_MSG_FILE_SYSTEM_INFO_FILE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_INFO_FILE_CMD =
@@ -1303,6 +1305,7 @@ const tOCTVC1_MAIN_MSG_FILE_SYSTEM_ADD_FILE_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM
        0, /* ulReturnCode */
        0  /* ulUserInfo */
    },
+   0, /* hFileSystem */
    { /* szFileName */
        0, /* szFileName[0..127] */
    },
@@ -1475,6 +1478,78 @@ extern const tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_CMD *g_pOctDef_tOCTVC1_MAI
 
 
 /*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* ObjectCursor */
+       0, /* hObject */
+       cOCTVC1_OBJECT_CURSOR_ENUM_FIRST  /* ulGetMode */
+   }
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_CMD =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* OpenParms */
+       { /* szName */
+           0, /* szName[0..31] */
+       },
+       { /* szHostRootPathName */
+           0, /* szHostRootPathName[0..255] */
+       }
+   }
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_CMD =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
     tOCTVC1_MAIN_MSG_LICENSING_STATS_CMD
 ----------------------------------------------------------------------------*/
 #ifdef OCTVC1_OPT_DECLARE_DEFAULTS
@@ -1569,6 +1644,306 @@ extern const tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD *g_pOctDef_tOCTVC1_MAI
     }
 
 
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   0, /* hFileSystem */
+   0  /* hFile */
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_CMD =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   0, /* hFileSystem */
+   0, /* hFile */
+   1, /* ulNumByteToWrite */
+   { /* abyData */
+       0, /* abyData[0..1199] */
+   }
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_CMD =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   0, /* hFileSystem */
+   0, /* hFile */
+   cOCTVC1_MAIN_FILE_MAX_DATA_BYTE_SIZE  /* ulMaxNumByteToRead */
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_CMD =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   0, /* hFileSystem */
+   { /* szFileName */
+       0, /* szFileName[0..127] */
+   }
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_CMD =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   0, /* hFileSystem */
+   cOCT_FALSE  /* ulForceFlag */
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_CMD =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* szName */
+       0, /* szName[0..31] */
+   }
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_CMD =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   0, /* hFileSystem */
+   0  /* hFile */
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_CMD =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* SubObjectIdGet */
+       0, /* hObject */
+       cOCTVC1_OBJECT_CURSOR_ENUM_FIRST, /* ulGetMode */
+       0  /* ulSubObjectId */
+   }
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_CMD =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_CMD buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   0, /* hFileSystem */
+   0, /* hFile */
+   cOCTVC1_MAIN_FILE_TRANSFER_MODE_ENUM_READ  /* ulTransferMode */
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_CMD =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_CMD *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_CMD; \
+    }
+
+
 /*****************************  MODULE_DATA  *************************************/
 
 /*--------------------------------------------------------------------------
@@ -1598,6 +1973,180 @@ extern const tOCTVC1_MAIN_MSG_LOG_DATA_MDA *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_DATA_
         *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_LOG_DATA_MDA; \
     }
 
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_FILE_TRANSFER_MDA
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_FILE_TRANSFER_MDA buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_FILE_TRANSFER_MDA =
+{
+   { /* ModuleData */
+       (cOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_FILE_TRANSFER_MID), /* ulModuleDataId */
+       (sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_FILE_TRANSFER_MDA)), /* ulModuleDataSize */
+       0, /* hLogicalObj */
+       0  /* ulTimestamp */
+   },
+   0, /* hFileSystem */
+   0, /* hFile */
+   0, /* hStream */
+   0, /* ulTransferMode */
+   0, /* ulMinAlignBytes */
+   0, /* ulToHostStreamSequenceIdInterval */
+   { /* szFileName */
+       0, /* szFileName[0..127] */
+   }
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_FILE_TRANSFER_MDA *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_FILE_TRANSFER_MDA =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_FILE_TRANSFER_MDA;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_FILE_TRANSFER_MDA *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_FILE_TRANSFER_MDA;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_FILE_TRANSFER_MDA_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_FILE_TRANSFER_MDA; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_ACK_FILE_TRANSFER_MDA
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_ACK_FILE_TRANSFER_MDA buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_ACK_FILE_TRANSFER_MDA =
+{
+   { /* ModuleData */
+       (cOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_ACK_FILE_TRANSFER_MID), /* ulModuleDataId */
+       (sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_ACK_FILE_TRANSFER_MDA)), /* ulModuleDataSize */
+       0, /* hLogicalObj */
+       0  /* ulTimestamp */
+   },
+   0, /* hFileSystem */
+   0, /* hFile */
+   0, /* hStream */
+   0, /* ulStatus */
+   0  /* ulFileSize */
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_ACK_FILE_TRANSFER_MDA *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_ACK_FILE_TRANSFER_MDA =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_ACK_FILE_TRANSFER_MDA;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_ACK_FILE_TRANSFER_MDA *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_ACK_FILE_TRANSFER_MDA;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_ACK_FILE_TRANSFER_MDA_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_ACK_FILE_TRANSFER_MDA; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_ABORT_FILE_TRANSFER_MDA
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_ABORT_FILE_TRANSFER_MDA buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_ABORT_FILE_TRANSFER_MDA =
+{
+   { /* ModuleData */
+       (cOCTVC1_MAIN_MSG_FILE_SYSTEM_ABORT_FILE_TRANSFER_MID), /* ulModuleDataId */
+       (sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_ABORT_FILE_TRANSFER_MDA)), /* ulModuleDataSize */
+       0, /* hLogicalObj */
+       0  /* ulTimestamp */
+   },
+   0, /* hFileSystem */
+   0, /* hFile */
+   0, /* hStream */
+   0  /* ulStatus */
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_ABORT_FILE_TRANSFER_MDA *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_ABORT_FILE_TRANSFER_MDA =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_ABORT_FILE_TRANSFER_MDA;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_ABORT_FILE_TRANSFER_MDA *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_ABORT_FILE_TRANSFER_MDA;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_ABORT_FILE_TRANSFER_MDA_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_ABORT_FILE_TRANSFER_MDA; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_FILE_TRANSFER_MDA
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_FILE_TRANSFER_MDA buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_FILE_TRANSFER_MDA =
+{
+   { /* ModuleData */
+       (cOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_FILE_TRANSFER_MID), /* ulModuleDataId */
+       (sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_FILE_TRANSFER_MDA)), /* ulModuleDataSize */
+       0, /* hLogicalObj */
+       0  /* ulTimestamp */
+   },
+   0, /* hFileSystem */
+   0, /* hFile */
+   0, /* hStream */
+   0, /* ulStatus */
+   cOCTVC1_MAIN_FILE_TRANSFER_MASK_NONE, /* ulMask */
+   0  /* ulDataSize */
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_FILE_TRANSFER_MDA *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_FILE_TRANSFER_MDA =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_FILE_TRANSFER_MDA;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_FILE_TRANSFER_MDA *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_FILE_TRANSFER_MDA;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_FILE_TRANSFER_MDA_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_FILE_TRANSFER_MDA; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_ACK_FILE_TRANSFER_MDA
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_ACK_FILE_TRANSFER_MDA buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_ACK_FILE_TRANSFER_MDA =
+{
+   { /* ModuleData */
+       (cOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_ACK_FILE_TRANSFER_MID), /* ulModuleDataId */
+       (sizeof(tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_ACK_FILE_TRANSFER_MDA)), /* ulModuleDataSize */
+       0, /* hLogicalObj */
+       0  /* ulTimestamp */
+   },
+   0, /* hFileSystem */
+   0, /* hFile */
+   0, /* hStream */
+   0, /* ulStatus */
+   0, /* ulSequenceId */
+   0  /* ulPktAckCnt */
+};
+
+const tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_ACK_FILE_TRANSFER_MDA *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_ACK_FILE_TRANSFER_MDA =
+    &buf_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_ACK_FILE_TRANSFER_MDA;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_ACK_FILE_TRANSFER_MDA *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_ACK_FILE_TRANSFER_MDA;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_ACK_FILE_TRANSFER_MDA_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_ACK_FILE_TRANSFER_MDA; \
+    }
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __OCTVC1_MAIN_DEFAULT_H__ */
 

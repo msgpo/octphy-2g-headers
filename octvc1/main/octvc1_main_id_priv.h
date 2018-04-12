@@ -2,7 +2,7 @@
 
 File: OCTVC1_MAIN_ID_PRIV.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the identifiers for the MAIN API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Octasic_Revision: $
 
@@ -35,10 +35,17 @@ $Octasic_Revision: $
 /****************************************************************************
 	Command IDs
  ****************************************************************************/
+#define cOCTVC1_MAIN_MSG_LICENSING_INFO_INFRACTION_CID           ( 0x041 + cOCTVC1_MAIN_CID_BASE )
+#define cOCTVC1_MAIN_MSG_LICENSING_LIST_INFRACTION_CID           ( 0x042 + cOCTVC1_MAIN_CID_BASE )
+#define cOCTVC1_MAIN_MSG_LICENSING_INFO_INFRACTION_CONFIG_CID    ( 0x043 + cOCTVC1_MAIN_CID_BASE )
+#define cOCTVC1_MAIN_MSG_LICENSING_MODIFY_INFRACTION_CONFIG_CID  ( 0x044 + cOCTVC1_MAIN_CID_BASE )
+#define cOCTVC1_MAIN_MSG_APPLICATION_CONFIG_INFO_MODULE_CID      ( 0x045 + cOCTVC1_MAIN_CID_BASE )
+#define cOCTVC1_MAIN_MSG_APPLICATION_CONFIG_MODIFY_MODULE_CID    ( 0x046 + cOCTVC1_MAIN_CID_BASE )
 
 /****************************************************************************
 	Event IDs
  ****************************************************************************/
+#define cOCTVC1_MAIN_MSG_LICENSING_INFRACTION_STATE_CHANGE_EID ( 0x0007 + cOCTVC1_MAIN_EID_BASE )
 
 /****************************************************************************
 	Module Data IDs

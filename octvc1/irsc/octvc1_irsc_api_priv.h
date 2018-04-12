@@ -2,7 +2,7 @@
 
 File: OCTVC1_IRSC_API_PRIV.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the IRSC API.
  		OCTVC1 Internal Resources
@@ -19,7 +19,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Revision: $
 
@@ -41,7 +41,10 @@ $Revision: $
 
 
 
+
 /*****************************  METHODS  *************************************/
+
+/*****************************  MODULE_DATA  *************************************/
 
 /***************  INCLUDE FILES WITH DEPENDENCIES ON THIS FILE  **************/
 #include "octvc1_irsc_evt_priv.h"

@@ -2,7 +2,7 @@
 
 File: octvc1_process_swap.h	
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.	
+Copyright (c) 2018 Octasic Inc. All rights reserved.	
 
 Description:	
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)	
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)	
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/	
 #ifndef __OCTVC1_PROCESS_SWAP_H__
@@ -97,10 +97,20 @@ extern "C" {
 		mOCT_SWAP32_IF_LE(((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulLastExecCacheMissCnt); \
 	((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulTotalCacheMissCnt = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulTotalCacheMissCnt); \
+	((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulMaxExecCodeMissCnt = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulMaxExecCodeMissCnt); \
+	((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulLastExecCodeMissCnt = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulLastExecCodeMissCnt); \
+	((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulTotalCodeMissCnt = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulTotalCodeMissCnt); \
 	((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulExecCnt = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulExecCnt); \
 	((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulDoneCnt = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulDoneCnt); \
+	((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulReqCnt = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulReqCnt); \
+	((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulScratchPadLeakFlag = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulScratchPadLeakFlag); \
 	((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulErrorCnt = \
 		mOCT_SWAP32_IF_LE(((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->ulErrorCnt); \
 	{ mOCTVC1_PROCESS_TASK_STATE_ENUM_SWAP( &((tOCTVC1_PROCESS_TASK_STATS *)pOCTVC1_PROCESS_TASK_STATS)->State ); }  \

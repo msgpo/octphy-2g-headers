@@ -1,7 +1,7 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
 
 File: OCTVC1_MAIN_EVT_PRIV.h
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the MAIN API.
 
@@ -17,7 +17,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Octasic_Revision: $
 
@@ -34,6 +34,25 @@ $Octasic_Revision: $
 /************************  COMMON DEFINITIONS  *******************************/
 
 /*****************************  NOTIFICATIONS  **********************************/
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_LICENSING_INFRACTION_STATE_CHANGE_EVT
+
+ Members:
+	Header
+	hInfraction
+	ulInfractionType
+	szFileName
+ 		NULL terminated name of the file associated to this infraction.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_EVENT_HEADER						Header;
+	tOCTVC1_HANDLE_OBJECT						hInfraction;
+	tOCTVC1_MAIN_LICENSE_INFRACTION_TYPE_ENUM	ulInfractionType;
+	tOCT_INT8									szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+
+} tOCTVC1_MAIN_MSG_LICENSING_INFRACTION_STATE_CHANGE_EVT;
+
 
 #endif /* __OCTVC1_MAIN_EVT_PRIV_H__ */
 

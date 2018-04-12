@@ -2,7 +2,7 @@
 
 File: OCTVC1_GSM_ID.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the identifiers for the GSM API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Octasic_Revision: $
 
@@ -75,8 +75,11 @@ $Octasic_Revision: $
 #define cOCTVC1_GSM_MSG_TRX_STOP_STUBB_LOOPBACK_TEST_CID                   ( 0x03a + cOCTVC1_GSM_CID_BASE )
 #define cOCTVC1_GSM_MSG_TRX_MODIFY_TEST_MODE_CID                           ( 0x03b + cOCTVC1_GSM_CID_BASE )
 #define cOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CID                             ( 0x03c + cOCTVC1_GSM_CID_BASE )
+#define cOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CID                         ( 0x03d + cOCTVC1_GSM_CID_BASE )
+#define cOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CID                        ( 0x03e + cOCTVC1_GSM_CID_BASE )
+#define cOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CID                         ( 0x03f + cOCTVC1_GSM_CID_BASE )
 
-#define cOCTVC1_GSM_CID_MAX                                                (( 0x03c + 1 ) & 0xFFF)
+#define cOCTVC1_GSM_CID_MAX                                                (( 0x03f + 1 ) & 0xFFF)
 
 /****************************************************************************
 	Event IDs

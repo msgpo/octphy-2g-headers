@@ -2,7 +2,7 @@
 
 File: OCTVC1_PKT_API.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: Octasic Application Development Framework OCTADF-04.09.00-B3234 (2017/07/13)
+Release: Octasic Application Development Framework OCTADF-04.10.01-B3387 (2018/01/29)
 
 $Revision: $
 

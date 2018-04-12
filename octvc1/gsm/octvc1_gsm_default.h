@@ -2,7 +2,7 @@
 
 File: OCTVC1_GSM_DEFAULT.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the GSM API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Octasic_Revision: $
 
@@ -27,6 +27,9 @@ $Octasic_Revision: $
 #ifndef __OCTVC1_GSM_DEFAULT_H__
 #define __OCTVC1_GSM_DEFAULT_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*****************************  INCLUDE FILES  *******************************/
 #include "octvc1_gsm_api.h"
@@ -2671,6 +2674,128 @@ extern const tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_CMD *g_pOctDef_tOCTVC1_GSM_MSG_T
     }
 
 
+/*--------------------------------------------------------------------------
+    tOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CMD buf_tOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* TrxId */
+       0, /* byTrxId */
+       { /* abyPad */
+           0, /* abyPad[0] */
+           0, /* abyPad[1] */
+           0  /* abyPad[2] */
+       }
+   }
+};
+
+const tOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CMD =
+    &buf_tOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CMD buf_tOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* TrxId */
+       0, /* byTrxId */
+       { /* abyPad */
+           0, /* abyPad[0] */
+           0, /* abyPad[1] */
+           0  /* abyPad[2] */
+       }
+   },
+   0, /* Mode */
+   0, /* TimeslotNb */
+   0, /* SubChannelNb */
+   0, /* tracePoint */
+   0  /* Type */
+};
+
+const tOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CMD =
+    &buf_tOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CMD buf_tOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* TrxId */
+       0, /* byTrxId */
+       { /* abyPad */
+           0, /* abyPad[0] */
+           0, /* abyPad[1] */
+           0  /* abyPad[2] */
+       }
+   },
+   0, /* TimeslotNb */
+   0, /* SubChannelNb */
+   0  /* Mode */
+};
+
+const tOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CMD =
+    &buf_tOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CMD *g_pOctDef_tOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CMD; \
+    }
+
+
 /*****************************  MODULE_DATA  *************************************/
 
 /*--------------------------------------------------------------------------
@@ -3286,6 +3411,10 @@ extern const tOCTVC1_GSM_MSG_TRX_DATA_LOGICAL_CHANNEL_MDA *g_pOctDef_tOCTVC1_GSM
         *pSt = *g_pOctDef_tOCTVC1_GSM_MSG_TRX_DATA_LOGICAL_CHANNEL_MDA; \
     }
 
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __OCTVC1_GSM_DEFAULT_H__ */
 

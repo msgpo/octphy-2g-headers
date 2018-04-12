@@ -2,7 +2,7 @@
 
 File: OCTVC1_GSM_API.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the GSM API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Revision: $
 
@@ -52,6 +52,7 @@ $Revision: $
 -------------------------------------------------------------------------------------*/
 
 #define cOCTVC1_GSM_APPLICATION_ID_MODULE_PHY				((0x00)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_MODULE_APPLICATION_ID_MODULE_BIT_OFFSET))	
+#define cOCTVC1_GSM_APPLICATION_ID_MODULE_TEST				((0x01)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_MODULE_APPLICATION_ID_MODULE_BIT_OFFSET))	
 
 /*-------------------------------------------------------------------------------------
  	GSM Module Tap Id
@@ -175,6 +176,32 @@ $Revision: $
 #define cOCTVC1_GSM_ID_TIMESLOT_NB_STUB_ENUM_ALL			0xFF	
 
 /*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MODULE_TO_CAPTURE_ENUM : 	DLOM OR DLIM
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_GSM_MODULE_TO_CAPTURE_ENUM					tOCT_UINT8
+
+#define cOCTVC1_GSM_MODULE_TO_CAPTURE_ENUM_NONE				0		
+#define cOCTVC1_GSM_MODULE_TO_CAPTURE_ENUM_DLOM				1		
+#define cOCTVC1_GSM_MODULE_TO_CAPTURE_ENUM_DLIM				2		
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_CAPTURE_TYPE_ENUM : 	WRAP AROUND OR NOT
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_GSM_CAPTURE_TYPE_ENUM						tOCT_UINT8
+
+#define cOCTVC1_GSM_CAPTURE_TYPE_ENUM_NONE					0		
+#define cOCTVC1_GSM_CAPTURE_TYPE_ENUM_ONE_TIME_CAPTURE		1		
+#define cOCTVC1_GSM_CAPTURE_TYPE_ENUM_WRAP_AROUND_CAPTURE	2		
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_CAPTURE_STATUS_ENUM : 	STATUS OF CAPTURE
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_GSM_CAPTURE_STATUS_ENUM						tOCT_UINT8
+
+#define cOCTVC1_GSM_CAPTURE_STATUS_ENUM_IDLE				0		
+#define cOCTVC1_GSM_CAPTURE_STATUS_ENUM_RUNNING				1		
+
+/*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM : 	Time slot number.
 -------------------------------------------------------------------------------------*/
 #define tOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM					tOCT_UINT32
@@ -206,6 +233,15 @@ $Revision: $
 #define cOCTVC1_GSM_STUB_MODE_ENUM_NONE						cOCTVC1_GSM_ID_STUB_MODE_ENUM_NONE	
 #define cOCTVC1_GSM_STUB_MODE_ENUM_IQ_DATA_CAPTURE			cOCTVC1_GSM_ID_STUB_MODE_ENUM_IQ_DATA_CAPTURE	
 #define cOCTVC1_GSM_STUB_MODE_ENUM_IQ_DATA_STUB				cOCTVC1_GSM_ID_STUB_MODE_ENUM_IQ_DATA_STUB	
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_CAPTURE_MODE_ENUM : 	WETHER TO CAPTURE OR TO STUB
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_GSM_CAPTURE_MODE_ENUM						tOCT_UINT8
+
+#define cOCTVC1_GSM_CAPTURE_MODE_ENUM_NONE					cOCTVC1_GSM_ID_STUB_MODE_ENUM_NONE	
+#define cOCTVC1_GSM_CAPTURE_MODE_ENUM_IQ_DATA_CAPTURE		cOCTVC1_GSM_ID_STUB_MODE_ENUM_IQ_DATA_CAPTURE	
+#define cOCTVC1_GSM_CAPTURE_MODE_ENUM_IQ_DATA_STUB			cOCTVC1_GSM_ID_STUB_MODE_ENUM_IQ_DATA_STUB	
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM : 	Sub Channel number.
@@ -653,6 +689,28 @@ typedef struct
 	tOCTVC1_GSM_STUB_MODE_ENUM			byStubMode;
 
 } tOCTVC1_GSM_STUB_CHANNEL_ID;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_CAPTURE_CHANNEL_ID
+
+ Members:
+	byTimeslotNb
+		Default:	cOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM_0
+ 		Timeslot number.
+	bySubChannelNb
+		Default:	cOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM_0
+ 		Sub-Channel number.
+	byCAPTUREMode
+		Default:	cOCTVC1_GSM_CAPTURE_MODE_ENUM_NONE
+ 		CAPTURE_MODE_ENUM.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM	byTimeslotNb;
+	tOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM	bySubChannelNb;
+	tOCTVC1_GSM_CAPTURE_MODE_ENUM		byCAPTUREMode;
+
+} tOCTVC1_GSM_CAPTURE_CHANNEL_ID;
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_GSM_LOGICAL_CHANNEL_ID
@@ -2636,6 +2694,148 @@ typedef struct
 	tOCTVC1_GSM_MODULATION_ENUM	modulation;
 
 } tOCTVC1_GSM_MSG_TRX_INFO_TEST_MODE_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	TrxId
+ 		Unique TRX identifier
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_GSM_TRX_ID	TrxId;
+
+} tOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	TrxId
+ 		Unique TRX identifier
+	Status
+		Default:	0
+ 		CAPTURE_STATUS.
+	tracePoint
+		Default:	0
+ 		OM OR IM
+	Type
+		Default:	0
+ 		ONE TIME OR WRAPPING
+	TimeslotNb
+ 		Timeslot number.
+	SubChannelNb
+ 		Sub-Channel number.
+	blockCnt
+ 		blockCnt
+	wrapCount
+ 		WRAP_AROUND_COUNT
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER					Header;
+	tOCTVC1_GSM_TRX_ID					TrxId;
+	tOCTVC1_GSM_CAPTURE_STATUS_ENUM		Status;
+	tOCTVC1_GSM_MODULE_TO_CAPTURE_ENUM	tracePoint;
+	tOCTVC1_GSM_CAPTURE_TYPE_ENUM		Type;
+	tOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM	TimeslotNb;
+	tOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM	SubChannelNb;
+	tOCT_UINT16							blockCnt;
+	tOCT_UINT8							wrapCount;
+
+} tOCTVC1_GSM_MSG_TRX_INFO_DL_TRACE_BUFF_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	TrxId
+ 		Unique TRX identifier
+	Mode
+		Default:	0
+ 		Mode_of_capture
+	TimeslotNb
+ 		Timeslot number.
+	SubChannelNb
+ 		Sub-Channel number.
+	tracePoint
+		Default:	0
+ 		MODULE_TO_CAPTURE
+	Type
+		Default:	0
+ 		CAPTURE_TYPE
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER					Header;
+	tOCTVC1_GSM_TRX_ID					TrxId;
+	tOCTVC1_GSM_CAPTURE_MODE_ENUM		Mode;
+	tOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM	TimeslotNb;
+	tOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM	SubChannelNb;
+	tOCTVC1_GSM_MODULE_TO_CAPTURE_ENUM	tracePoint;
+	tOCTVC1_GSM_CAPTURE_TYPE_ENUM		Type;
+
+} tOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_GSM_MSG_TRX_START_DL_TRACE_BUFF_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	TrxId
+ 		Unique TRX identifier
+	TimeslotNb
+ 		Timeslot number.
+	SubChannelNb
+ 		Sub-Channel number.
+	Mode
+		Default:	0
+ 		CAPTURE_MODE_ENUM.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER					Header;
+	tOCTVC1_GSM_TRX_ID					TrxId;
+	tOCTVC1_GSM_TIMESLOT_NB_STUB_ENUM	TimeslotNb;
+	tOCTVC1_GSM_ID_SUB_CHANNEL_NB_ENUM	SubChannelNb;
+	tOCTVC1_GSM_CAPTURE_MODE_ENUM		Mode;
+
+} tOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_GSM_MSG_TRX_STOP_DL_TRACE_BUFF_RSP;
 
 
 /*****************************  MODULE_DATA  *************************************/

@@ -1,9 +1,10 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
 
-File: OCTVC1_IRSC_EVT.h
+File: OCTVC1_STREAM.h
+
 Copyright (c) 2018 Octasic Inc. All rights reserved.
 
-Description: Contains the event definition of the IRSC API.
+Description: 
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -19,35 +20,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
-$Octasic_Revision: $
+$Revision: $
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 
-#ifndef __OCTVC1_IRSC_EVT_H__
-#define __OCTVC1_IRSC_EVT_H__
+#ifndef __OCTVC1_STREAM_H__
+#define __OCTVC1_STREAM_H__
 
 
 /*****************************  INCLUDE FILES  *******************************/
+#include "../octdev_types.h"
 
-#include "octvc1_irsc_api.h"
 
 /************************  COMMON DEFINITIONS  *******************************/
 
-/*****************************  NOTIFICATIONS  **********************************/
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_IRSC_MSG_PROCESS_DUMP_EVT
+ 	Stream types
+-------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_STREAM_DIRECTION_ENUM : 	Tap direction.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_STREAM_DIRECTION_ENUM						tOCT_UINT32
+
+#define cOCTVC1_STREAM_DIRECTION_ENUM_TO_HOST				0		
+#define cOCTVC1_STREAM_DIRECTION_ENUM_FROM_HOST				1		
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_STREAM_STATS
+ 		Stream stats
 
  Members:
-	Header
-	hProcess
+	ulTransferDataSize
+	ulDurationUs
+	ulSentPacketCnt
+	ulRecvPacketCnt
+	ulRecvDropCnt
+	ulRecvOverflowCnt
+	ulRecvRetryCnt
+	ulRecvMissCnt
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_EVENT_HEADER	Header;
-	tOCTVC1_HANDLE_OBJECT	hProcess;
+	tOCT_UINT32	ulTransferDataSize;
+	tOCT_UINT32	ulDurationUs;
+	tOCT_UINT32	ulSentPacketCnt;
+	tOCT_UINT32	ulRecvPacketCnt;
+	tOCT_UINT32	ulRecvDropCnt;
+	tOCT_UINT32	ulRecvOverflowCnt;
+	tOCT_UINT32	ulRecvRetryCnt;
+	tOCT_UINT32	ulRecvMissCnt;
 
-} tOCTVC1_IRSC_MSG_PROCESS_DUMP_EVT;
+} tOCTVC1_STREAM_STATS;
 
 
-#endif /* __OCTVC1_IRSC_EVT_H__ */
+#endif /* __OCTVC1_STREAM_H__ */
 

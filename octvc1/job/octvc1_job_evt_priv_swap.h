@@ -1,7 +1,7 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 File: octvc1_job_evt_priv_swap.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description:
 This program is free software; you can redistribute it and/or modify
@@ -16,7 +16,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 
@@ -34,11 +34,13 @@ extern "C" {
 /*********************************  MACROS  **********************************/
 
 #if defined( _OCT_ENDIAN_TYPE_LE_ )
-#define mOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_END_EVT_SWAP( _f_pParms ){ 	tOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_END_EVT * pOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_END_EVT = (_f_pParms); SWAP_UNUSED(pOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_END_EVT)\
-	{ mOCTVC1_EVENT_HEADER_SWAP( &((tOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_END_EVT *)pOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_END_EVT)->Header ); }  \
+#define mOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_STATE_CHANGE_EVT_SWAP( _f_pParms ){ 	tOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_STATE_CHANGE_EVT * pOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_STATE_CHANGE_EVT = (_f_pParms); SWAP_UNUSED(pOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_STATE_CHANGE_EVT)\
+	{ mOCTVC1_EVENT_HEADER_SWAP( &((tOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_STATE_CHANGE_EVT *)pOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_STATE_CHANGE_EVT)->Header ); }  \
+	{ mOCTVC1_JOB_UNIT_TEST_STATE_ENUM_SWAP( &((tOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_STATE_CHANGE_EVT *)pOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_STATE_CHANGE_EVT)->ulState ); }  \
+	{ mOCTVC1_JOB_UNIT_TEST_RESULT_ENUM_SWAP( &((tOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_STATE_CHANGE_EVT *)pOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_STATE_CHANGE_EVT)->ulResult ); }  \
 }
 #else
-#define mOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_END_EVT_SWAP( pOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_END_EVT )
+#define mOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_STATE_CHANGE_EVT_SWAP( pOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_STATE_CHANGE_EVT )
 #endif /* _OCT_ENDIAN_TYPE_LE_ */
 
 #ifdef __cplusplus

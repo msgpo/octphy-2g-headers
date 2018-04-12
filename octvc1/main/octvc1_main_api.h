@@ -2,7 +2,7 @@
 
 File: OCTVC1_MAIN_API.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the MAIN API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Revision: $
 
@@ -36,6 +36,7 @@ $Revision: $
 #include "../octvc1_fifo.h"
 #include "../octvc1_buffer.h"
 #include "../octvc1_eth.h"
+#include "../octvc1_transport.h"
 #include "../octvc1_mac.h"
 #include "../octvc1_cursor.h"
 #include "../octvc1_list.h"
@@ -44,11 +45,13 @@ $Revision: $
 #include "../octvc1_api.h"
 #include "../octvc1_module.h"
 #include "../octvc1_user_id.h"
+#include "../octvc1_stream.h"
 
 #include "octvc1_main_id.h"
 #include "octvc1_main_rc.h"
 
 /************************  COMMON DEFINITIONS  *******************************/
+
 
 
 /*-------------------------------------------------------------------------------------
@@ -195,29 +198,111 @@ typedef struct
 } tOCTVC1_MAIN_API_SESSION_HEARTBEAT_STATS;
 
 /*-------------------------------------------------------------------------------------
- 	FILE related definiitons.
+ 	FILE SYSTEM related definitons.
 -------------------------------------------------------------------------------------*/
-#define cOCTVC1_MAIN_FILE_MAX_DATA_BYTE_SIZE				1200	 	/* File commands (read/write) buffer size, in bytes. */
-#define cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH					127		 	/* Filesystem string length restriction. */
+
+#define cOCTVC1_MAIN_FILE_SYSTEM_NAME_MAX_LENGTH			cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH	 	/* File System Name string length restriction. */
+#define cOCTVC1_MAIN_FILE_SYSTEM_HOST_ROOT_PATH_MAX_LENGTH	255		 	/* File System Host Root path name string length restriction. */
 
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_MAIN_FILE_SYSTEM_FILE_CURSOR
+	tOCTVC1_MAIN_FILE_SYSTEM_OPEN_PARMS
 
  Members:
-	szFileName
- 		NULL terminated name of the file.
-	ulGetMode
-		Default:	cOCTVC1_OBJECT_CURSOR_ENUM_FIRST
+	szName
+ 		Filesystem name. Must be unique.
+	szHostRootPathName
+ 		Host root path name.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCT_INT8					szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
-	tOCTVC1_OBJECT_CURSOR_ENUM	ulGetMode;
+	tOCT_INT8	szName[(cOCTVC1_MAIN_FILE_SYSTEM_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_INT8	szHostRootPathName[(cOCTVC1_MAIN_FILE_SYSTEM_HOST_ROOT_PATH_MAX_LENGTH+1)];/* NOSWAPMAC */
 
-} tOCTVC1_MAIN_FILE_SYSTEM_FILE_CURSOR;
+} tOCTVC1_MAIN_FILE_SYSTEM_OPEN_PARMS;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_FILE_SYSTEM_INFO_PARMS
+
+ Members:
+	hFileSystem
+	szName
+ 		Filesystem name.
+	szHostRootPathName
+ 		Host root path name.
+	ulFileCnt
+ 		NOTE: this the number of files added in this file system.
+	FileServerAddress
+ 		File server address.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_HANDLE_OBJECT		hFileSystem;
+	tOCT_INT8					szName[(cOCTVC1_MAIN_FILE_SYSTEM_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_INT8					szHostRootPathName[(cOCTVC1_MAIN_FILE_SYSTEM_HOST_ROOT_PATH_MAX_LENGTH+1)];/* NOSWAPMAC */
+	tOCT_UINT32					ulFileCnt;
+	tOCTVC1_TRANSPORT_ADDRESS	FileServerAddress;
+
+} tOCTVC1_MAIN_FILE_SYSTEM_INFO_PARMS;
+
+/*-------------------------------------------------------------------------------------
+ 	FILE related definitons.
+-------------------------------------------------------------------------------------*/
+#define cOCTVC1_MAIN_FILE_MAX_DATA_BYTE_SIZE				1200	 	/* File commands (read/write) buffer size, in bytes. */
+#define cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH					cOCTVC1_HANDLE_OBJECT32_NAME128_MAX_LENGTH	 	/* File name string length restriction. */
 
 /*-------------------------------------------------------------------------------------
  	API command/response arguments file modes.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_MAIN_FILE_TRANSFER_MODE_ENUM				tOCT_UINT32
+
+#define cOCTVC1_MAIN_FILE_TRANSFER_MODE_ENUM_READ			0x1		 	/* Read from target */
+#define cOCTVC1_MAIN_FILE_TRANSFER_MODE_ENUM_WRITE			0x2		 	/* Write to target */
+
+/*-------------------------------------------------------------------------------------
+ 	API command/response arguments file modes.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM						tOCT_UINT32
+
+#define cOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM_INVALID					0x00	
+#define cOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM_WAIT_ACK					0x01	
+#define cOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM_ACTIVE					0x02	
+#define cOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM_WAIT_ACK_EOF				0x03	
+#define cOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM_EOF						0x04	
+#define cOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM_ACK_REPLY				0x05	
+#define cOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM_ERROR					0x80	
+#define cOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM_ERROR_NOT_FOUND			0x81	
+#define cOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM_ERROR_ALREADY_OPEN		0x82	
+#define cOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM_ERROR_NO_REQUEST_ACK		0x83	
+#define cOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM_ERROR_MISSING_DATA		0x84	
+
+/*-------------------------------------------------------------------------------------
+ 	File transfer mask.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_MAIN_FILE_TRANSFER_MASK						tOCT_UINT32
+
+#define cOCTVC1_MAIN_FILE_TRANSFER_MASK_NONE				0x00000000	
+#define cOCTVC1_MAIN_FILE_TRANSFER_MASK_REWIND				((tOCT_UINT32)(0x1<<0) )	
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_FILE_TRANSFER_STATS
+
+ Members:
+	Mode
+	Status
+	Stream
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MAIN_FILE_TRANSFER_MODE_ENUM	Mode;
+	tOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM	Status;
+	tOCTVC1_STREAM_STATS					Stream;
+
+} tOCTVC1_MAIN_FILE_TRANSFER_STATS;
+
+/*-------------------------------------------------------------------------------------
+ 	API command/response arguments file modes.
+ 	Note : deprecated. Replaced by FILE_TRANSFER_MODE_ENUM
+ 	Note : Opening both read and write at the same time is not supported.
 -------------------------------------------------------------------------------------*/
 #define tOCTVC1_MAIN_FILE_OPEN_MODE_MASK					tOCT_UINT32
 
@@ -342,6 +427,7 @@ typedef struct
  	Main Module Data Definitions
 -------------------------------------------------------------------------------------*/
 #define cOCTVC1_MAIN_MODULE_DATA_IPC						((0x0001)|(cOCTVC1_MODULE_ID_ENUM_MAIN<<cOCTVC1_MODULE_ID_BIT_OFFSET))	
+#define cOCTVC1_MAIN_MODULE_DATA_RESOURCE					((0x0002)|(cOCTVC1_MODULE_ID_ENUM_MAIN<<cOCTVC1_MODULE_ID_BIT_OFFSET))	
 
 /*-------------------------------------------------------------------------------------
  	Licensing Definitions
@@ -362,14 +448,15 @@ typedef struct
 -------------------------------------------------------------------------------------*/
 #define tOCTVC1_MAIN_LICENSING_STATUS_ENUM					tOCT_UINT32
 
-#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_NO_LICENSE_FILE	0		
-#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_ACTIVE			1		
-#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_LEGACY			2		
-#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_INACTIVE			3		
-#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_FILE_ERROR		4		
-#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_ITEM_ERROR		5		
-#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_SYSTEM_ERROR		6		
-#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_LOCATION_ERROR	7		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_NO_LICENSE_FILE		0		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_ACTIVE				1		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_LEGACY				2		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_INACTIVE				3		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_FILE_ERROR			4		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_ITEM_ERROR			5		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_SYSTEM_ERROR			6		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_LOCATION_ERROR		7		
+#define cOCTVC1_MAIN_LICENSING_STATUS_ENUM_NO_LICENSE_ERROR		8		
 
 /*****************************  METHODS  *************************************/
 /*-------------------------------------------------------------------------------------
@@ -798,13 +885,18 @@ typedef struct
  Members:
 	Header
  		OCTVC1 Message Header
+	hFileSystem
+	hFile
 	szFileName
  		Null-Terminated file name string.
+ 		Used when hFile is invalid for backward compatibility.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER	Header;
-	tOCT_INT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCTVC1_HANDLE_OBJECT	hFile;
+	tOCT_INT8				szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_CMD;
 
@@ -814,13 +906,14 @@ typedef struct
  Members:
 	Header
  		OCTVC1 Message Header
-	szFileName
- 		Null-Terminated file name string.
+	hFileSystem
+	hFile
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER	Header;
-	tOCT_INT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCTVC1_HANDLE_OBJECT	hFile;
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_REMOVE_FILE_RSP;
 
@@ -835,6 +928,7 @@ typedef struct
 	hFile
 		Default:	cOCTVC1_HANDLE_INVALID
 	ulNumByteToWrite
+		Default:	4
  		MUST be a multiple of 16 bytes. Except for the last write to the file.
 	abyData
 -------------------------------------------------------------------------------------*/
@@ -981,10 +1075,13 @@ typedef struct
  Members:
 	Header
  		OCTVC1 Message Header
+	hFileSystem
+		Default:	0x01000001
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_INFO_CMD;
 
@@ -994,12 +1091,12 @@ typedef struct
  Members:
 	Header
  		OCTVC1 Message Header
-	ulMaxFileEntry
+	InfoParms
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER	Header;
-	tOCT_UINT32			ulMaxFileEntry;
+	tOCTVC1_MSG_HEADER					Header;
+	tOCTVC1_MAIN_FILE_SYSTEM_INFO_PARMS	InfoParms;
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_INFO_RSP;
 
@@ -1009,12 +1106,14 @@ typedef struct
  Members:
 	Header
  		OCTVC1 Message Header
-	ObjectGet
+	hFileSystem
+	hFile
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER						Header;
-	tOCTVC1_MAIN_FILE_SYSTEM_FILE_CURSOR	ObjectGet;
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCTVC1_HANDLE_OBJECT	hFile;
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_INFO_FILE_CMD;
 
@@ -1024,26 +1123,26 @@ typedef struct
  Members:
 	Header
  		OCTVC1 Message Header
-	ObjectGet
-	ulAccessMode
+	hFileSystem
+	hFile
+	szFileName
+ 		Null-Terminated file name string.
 	ulHostOwnerFlag
  		Only Host owner file can be deleted
 	ulFileSize
  		Currently used file Size
 	ulMaxFileSize
  		Maximum File Size
-	ulInstanceNum
- 		Number of MAIN_FILE link to that SYSTEM_FILE
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER						Header;
-	tOCTVC1_MAIN_FILE_SYSTEM_FILE_CURSOR	ObjectGet;
-	tOCTVC1_MAIN_FILE_OPEN_MODE_MASK		ulAccessMode;
-	tOCT_BOOL32								ulHostOwnerFlag;
-	tOCT_UINT32								ulFileSize;
-	tOCT_UINT32								ulMaxFileSize;
-	tOCT_UINT32								ulInstanceNum;
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCTVC1_HANDLE_OBJECT	hFile;
+	tOCT_INT8				szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_BOOL32				ulHostOwnerFlag;
+	tOCT_UINT32				ulFileSize;
+	tOCT_UINT32				ulMaxFileSize;
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_INFO_FILE_RSP;
 
@@ -1763,16 +1862,18 @@ typedef struct
  Members:
 	Header
  		OCTVC1 Message Header
+	hFileSystem
 	szFileName
  		Null-Terminated file name string.
 	ulMaxFilesize
- 		Maximum file size
+ 		Maximum file size. Must be MTU align to 16 Bytes.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER	Header;
-	tOCT_INT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
-	tOCT_UINT32			ulMaxFilesize;
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCT_INT8				szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_UINT32				ulMaxFilesize;
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_ADD_FILE_CMD;
 
@@ -1782,13 +1883,17 @@ typedef struct
  Members:
 	Header
  		OCTVC1 Message Header
+	hFileSystem
+	hFile
 	szFileName
  		Null-Terminated file name string.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER	Header;
-	tOCT_INT8			szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCTVC1_HANDLE_OBJECT	hFile;
+	tOCT_INT8				szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
 
 } tOCTVC1_MAIN_MSG_FILE_SYSTEM_ADD_FILE_RSP;
 
@@ -1839,10 +1944,13 @@ typedef struct
  Members:
 	Header
  		OCTVC1 Message Header
+	hStreamObj
+ 		Identifier handle for the opened stream.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER	Header;
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hStreamObj;
 
 } tOCTVC1_MAIN_MSG_LOG_START_STREAM_RSP;
 
@@ -1935,6 +2043,77 @@ typedef struct
 } tOCTVC1_MAIN_MSG_APPLICATION_STOP_MODULE_RSP;
 
 /*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ObjectCursor
+ 		Object cursor
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER					Header;
+	tOCTVC1_CURSOR_HANDLE_OBJECT_GET	ObjectCursor;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ObjectCursor
+ 		Object cursor
+	ObjectNameList
+ 		Object32 named list.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER					Header;
+	tOCTVC1_CURSOR_HANDLE_OBJECT_GET	ObjectCursor;
+	tOCTVC1_LIST_NAME_OBJECT32_GET		ObjectNameList;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_CMD
+ 		Open a remote file system.
+ 		This allows the target to open files at a remote location.
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	OpenParms
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER					Header;
+	tOCTVC1_MAIN_FILE_SYSTEM_OPEN_PARMS	OpenParms;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+ 		Filesystem identifer handle.
+	szName
+ 		Filesystem name.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCT_INT8				szName[(cOCTVC1_MAIN_FILE_SYSTEM_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_OPEN_RSP;
+
+/*-------------------------------------------------------------------------------------
 	tOCTVC1_MAIN_MSG_LICENSING_STATS_CMD
 
  Members:
@@ -2016,7 +2195,7 @@ typedef struct
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_CMD
- 		List the cmd that are monitored
+ 		List the license feature
 
  Members:
 	Header
@@ -2049,8 +2228,485 @@ typedef struct
 
 } tOCTVC1_MAIN_MSG_LICENSING_LIST_FEATURES_RSP;
 
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+	hFile
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCTVC1_HANDLE_OBJECT	hFile;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+	hFile
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCTVC1_HANDLE_OBJECT	hFile;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_STOP_FILE_TRANSFER_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_CMD
+ 		Write number of bytes to target.
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+	hFile
+	ulNumByteToWrite
+		Default:	1
+ 		MUST be a multiple of 16 bytes. Except for the last write to the file.
+	abyData
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCTVC1_HANDLE_OBJECT	hFile;
+	tOCT_UINT32				ulNumByteToWrite;
+	tOCT_UINT8				abyData[cOCTVC1_MAIN_FILE_MAX_DATA_BYTE_SIZE];
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+	hFile
+	ulNumByteWritten
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCTVC1_HANDLE_OBJECT	hFile;
+	tOCT_UINT32				ulNumByteWritten;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_WRITE_FILE_TRANSFER_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_CMD
+ 		Read number of bytes from target.
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+	hFile
+	ulMaxNumByteToRead
+		Default:	cOCTVC1_MAIN_FILE_MAX_DATA_BYTE_SIZE
+ 		Must be MTU align to ulMinAlignBytes (from transfer start request) (16 Bytes).
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCTVC1_HANDLE_OBJECT	hFile;
+	tOCT_UINT32				ulMaxNumByteToRead;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+	hFile
+	ulNumByteRead
+	abyData
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCTVC1_HANDLE_OBJECT	hFile;
+	tOCT_UINT32				ulNumByteRead;
+	tOCT_UINT8				abyData[cOCTVC1_MAIN_FILE_MAX_DATA_BYTE_SIZE];
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_READ_FILE_TRANSFER_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+	szFileName
+ 		Null-Terminated file name string.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCT_INT8				szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+	hFile
+	szFileName
+ 		Null-Terminated file name string.
+	ulHostOwnerFlag
+ 		Only Host owner file can be deleted
+	ulFileSize
+ 		Currently used file Size
+	ulMaxFileSize
+ 		Maximum File Size
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCTVC1_HANDLE_OBJECT	hFile;
+	tOCT_INT8				szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+	tOCT_BOOL32				ulHostOwnerFlag;
+	tOCT_UINT32				ulFileSize;
+	tOCT_UINT32				ulMaxFileSize;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_FILE_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_CMD
+ 		Close a remote filesystem.
+ 		Note: it is not possible to close a local filesystem.
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+ 		Filesystem identifer handle.
+	ulForceFlag
+		Default:	cOCT_FALSE
+ 		If cOCT_FALSE, close will be refused if files are present in the file system.
+ 		If cOCT_TRUE, Will force close even if files are present in the file system
+ 		and also try to close all opened file in this file system.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCT_BOOL32				ulForceFlag;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+ 		Filesystem identifer handle.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_CLOSE_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	szName
+ 		Filesystem name.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCT_INT8			szName[(cOCTVC1_MAIN_FILE_SYSTEM_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	InfoParms
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER					Header;
+	tOCTVC1_MAIN_FILE_SYSTEM_INFO_PARMS	InfoParms;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_FIND_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_CMD
+ 		Transfer statistics.
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+	hFile
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCTVC1_HANDLE_OBJECT	hFile;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+	hFile
+	Stats
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER					Header;
+	tOCTVC1_HANDLE_OBJECT				hFileSystem;
+	tOCTVC1_HANDLE_OBJECT				hFile;
+	tOCTVC1_MAIN_FILE_TRANSFER_STATS	Stats;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_STATS_FILE_TRANSFER_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	SubObjectIdGet
+ 		Object cursor
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER								Header;
+	tOCTVC1_CURSOR_HANDLE_OBJECT_GET_SUB_OBJECT_ID	SubObjectIdGet;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	SubObjectIdGet
+ 		Object cursor
+	FileNameList
+ 		File name list.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER										Header;
+	tOCTVC1_CURSOR_HANDLE_OBJECT_GET_SUB_OBJECT_ID			SubObjectIdGet;
+	tOCTVC1_LIST_HANDLE_OBJECT_GET_SUB_OBJECT_ID_NAME128	FileNameList;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_LIST_FILE_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+	hFile
+	ulTransferMode
+		Default:	cOCTVC1_MAIN_FILE_TRANSFER_MODE_ENUM_READ
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER						Header;
+	tOCTVC1_HANDLE_OBJECT					hFileSystem;
+	tOCTVC1_HANDLE_OBJECT					hFile;
+	tOCTVC1_MAIN_FILE_TRANSFER_MODE_ENUM	ulTransferMode;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hFileSystem
+	hFile
+	ulMinAlignBytes
+ 		Indicates the minimum write size used for proper alignment (in bytes)
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hFileSystem;
+	tOCTVC1_HANDLE_OBJECT	hFile;
+	tOCT_UINT32				ulMinAlignBytes;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_START_FILE_TRANSFER_RSP;
+
 
 /*****************************  MODULE_DATA  *************************************/
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_FILE_TRANSFER_MDA
+
+ Members:
+	ModuleData
+ 		OCTVC1 Module Data
+	hFileSystem
+	hFile
+	hStream
+	ulTransferMode
+	ulMinAlignBytes
+ 		Indicates the minimum write size used for proper alignment (in bytes)
+	ulToHostStreamSequenceIdInterval
+ 		Sequence id interval the host must ackknowledge TO_HOST data packet
+	szFileName
+ 		Null-Terminated file name string.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MODULE_DATA						ModuleData;
+	tOCTVC1_HANDLE_OBJECT					hFileSystem;
+	tOCTVC1_HANDLE_OBJECT					hFile;
+	tOCTVC1_HANDLE_OBJECT					hStream;
+	tOCTVC1_MAIN_FILE_TRANSFER_MODE_ENUM	ulTransferMode;
+	tOCT_UINT32								ulMinAlignBytes;
+	tOCT_UINT32								ulToHostStreamSequenceIdInterval;
+	tOCT_INT8								szFileName[(cOCTVC1_MAIN_FILE_NAME_MAX_LENGTH+1)];
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_FILE_TRANSFER_MDA;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_ACK_FILE_TRANSFER_MDA
+
+ Members:
+	ModuleData
+ 		OCTVC1 Module Data
+	hFileSystem
+	hFile
+	hStream
+	ulStatus
+	ulFileSize
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MODULE_DATA						ModuleData;
+	tOCTVC1_HANDLE_OBJECT					hFileSystem;
+	tOCTVC1_HANDLE_OBJECT					hFile;
+	tOCTVC1_HANDLE_OBJECT					hStream;
+	tOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM	ulStatus;
+	tOCT_UINT32								ulFileSize;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_REQUEST_ACK_FILE_TRANSFER_MDA;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_ABORT_FILE_TRANSFER_MDA
+
+ Members:
+	ModuleData
+ 		OCTVC1 Module Data
+	hFileSystem
+	hFile
+	hStream
+	ulStatus
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MODULE_DATA						ModuleData;
+	tOCTVC1_HANDLE_OBJECT					hFileSystem;
+	tOCTVC1_HANDLE_OBJECT					hFile;
+	tOCTVC1_HANDLE_OBJECT					hStream;
+	tOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM	ulStatus;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_ABORT_FILE_TRANSFER_MDA;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_FILE_TRANSFER_MDA
+
+ Members:
+	ModuleData
+ 		OCTVC1 Module Data
+	hFileSystem
+	hFile
+	hStream
+	ulStatus
+	ulMask
+		Default:	cOCTVC1_MAIN_FILE_TRANSFER_MASK_NONE
+	ulDataSize
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MODULE_DATA						ModuleData;
+	tOCTVC1_HANDLE_OBJECT					hFileSystem;
+	tOCTVC1_HANDLE_OBJECT					hFile;
+	tOCTVC1_HANDLE_OBJECT					hStream;
+	tOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM	ulStatus;
+	tOCTVC1_MAIN_FILE_TRANSFER_MASK			ulMask;
+	tOCT_UINT32								ulDataSize;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_FILE_TRANSFER_MDA;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_ACK_FILE_TRANSFER_MDA
+
+ Members:
+	ModuleData
+ 		OCTVC1 Module Data
+	hFileSystem
+	hFile
+	hStream
+	ulStatus
+	ulSequenceId
+ 		Sequence Ack
+	ulPktAckCnt
+ 		Sequence Ack
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MODULE_DATA						ModuleData;
+	tOCTVC1_HANDLE_OBJECT					hFileSystem;
+	tOCTVC1_HANDLE_OBJECT					hFile;
+	tOCTVC1_HANDLE_OBJECT					hStream;
+	tOCTVC1_MAIN_FILE_TRANSFER_STATUS_ENUM	ulStatus;
+	tOCT_UINT32								ulSequenceId;
+	tOCT_UINT32								ulPktAckCnt;
+
+} tOCTVC1_MAIN_MSG_FILE_SYSTEM_DATA_ACK_FILE_TRANSFER_MDA;
+
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_MAIN_MSG_LOG_DATA_MDA
 

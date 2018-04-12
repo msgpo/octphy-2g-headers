@@ -2,7 +2,7 @@
 
 File: OCTVC1_MAIN_RC.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the return codes for the MAIN API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Octasic_Revision: $
 
@@ -69,10 +69,16 @@ $Octasic_Revision: $
 /****************************************************************************
 	FILE_SYSTEM return codes
  ****************************************************************************/
-#define cOCTVC1_MAIN_FILE_SYSTEM_RC_BASE					 ( 0x0300 + cOCTVC1_MAIN_RC_BASE )
+#define cOCTVC1_MAIN_FILE_SYSTEM_RC_BASE							 ( 0x0300 + cOCTVC1_MAIN_RC_BASE )
 
-#define cOCTVC1_MAIN_RC_FILE_SYSTEM_INFO					 ( 0x0002 + cOCTVC1_MAIN_FILE_SYSTEM_RC_BASE )
-#define cOCTVC1_MAIN_RC_FILE_SYSTEM_INFO_NO_MORE_FILE		 ( 0x0004 + cOCTVC1_MAIN_FILE_SYSTEM_RC_BASE )
+#define cOCTVC1_MAIN_RC_FILE_SYSTEM_INFO							 ( 0x0001 + cOCTVC1_MAIN_FILE_SYSTEM_RC_BASE )
+#define cOCTVC1_MAIN_RC_FILE_SYSTEM_INFO_NO_MORE_FILE				 ( 0x0002 + cOCTVC1_MAIN_FILE_SYSTEM_RC_BASE )
+#define cOCTVC1_MAIN_RC_FILE_SYSTEM_CANNOT_CLOSE_LOCAL				 ( 0x0003 + cOCTVC1_MAIN_FILE_SYSTEM_RC_BASE )
+#define cOCTVC1_MAIN_RC_FILE_SYSTEM_CANNOT_ADD_REMOTE_FILE			 ( 0x0004 + cOCTVC1_MAIN_FILE_SYSTEM_RC_BASE )
+#define cOCTVC1_MAIN_RC_FILE_SYSTEM_CANNOT_DELETE_REMOTE_FILE		 ( 0x0005 + cOCTVC1_MAIN_FILE_SYSTEM_RC_BASE )
+#define cOCTVC1_MAIN_RC_FILE_SYSTEM_CANNOT_TRANSFER_REMOTE_FILE		 ( 0x0006 + cOCTVC1_MAIN_FILE_SYSTEM_RC_BASE )
+#define cOCTVC1_MAIN_RC_FILE_SYSTEM_NAME							 ( 0x0007 + cOCTVC1_MAIN_FILE_SYSTEM_RC_BASE )
+#define cOCTVC1_MAIN_RC_FILE_SYSTEM_CANNOT_CLOSE_FILE_STILL_OPEN	 ( 0x0008 + cOCTVC1_MAIN_FILE_SYSTEM_RC_BASE )
 
 /****************************************************************************
 	APPLICATION return codes

@@ -2,7 +2,7 @@
 
 File: OCTVC1_FILE.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Revision: $
 
@@ -56,6 +56,9 @@ $Revision: $
 #define cOCTVC1_FILE_TYPE_ENUM_NONE							0		
 #define cOCTVC1_FILE_TYPE_ENUM_TEXT							1		
 #define cOCTVC1_FILE_TYPE_ENUM_BIN							2		
+#define cOCTVC1_FILE_TYPE_ENUM_SCRAMBLED					3		
+#define cOCTVC1_FILE_TYPE_ENUM_ENCRYPT_RSA_2048				4		
+#define cOCTVC1_FILE_TYPE_ENUM_SCRAMBLED_ENCRYPT_RSA_2048	5		
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_FILE_FORMAT_ENUM : 	File Type description
@@ -64,6 +67,7 @@ $Revision: $
 
 #define cOCTVC1_FILE_FORMAT_ENUM_NONE						0		
 #define cOCTVC1_FILE_FORMAT_ENUM_LOG						1		
+#define cOCTVC1_FILE_FORMAT_ENUM_INFRACTION					2		
 
 /*-------------------------------------------------------------------------------------
  	File Header Type

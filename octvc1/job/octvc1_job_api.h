@@ -2,7 +2,7 @@
 
 File: OCTVC1_JOB_API.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the JOB API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Revision: $
 
@@ -52,8 +52,8 @@ $Revision: $
 #define cOCTVC1_JOB_RUNNER_JOB_MAX_OBJ						8		 	/* Maximum object handle to pass as job parameter. */
 #define cOCTVC1_JOB_RUNNER_JOB_STATS_MAX_LENGTH				128		 	/* Maximum number of char in szStats. */
 #define cOCTVC1_JOB_RUNNER_JOB_RESULT_MAX_LENGTH			128		 	/* Maximum number of char in szStats. */
-#define cOCTVC1_JOB_PACKAGE_NAME_MAX_LENGTH					15		
-#define cOCTVC1_JOB_SUITE_NAME_MAX_LENGTH					15		
+#define cOCTVC1_JOB_PACKAGE_NAME_MAX_LENGTH					31		
+#define cOCTVC1_JOB_SUITE_NAME_MAX_LENGTH					31		
 #define cOCTVC1_JOB_RUNNER_CASE_PENDING_PULSE_COUNT_FOREVER	0xFFFFFFFF	 	/* Pending pulse forever */
 #define cOCTVC1_JOB_RUNNER_CASE_STATS_MAX_LENGTH			1023	 	/* Maximum number of char in szStats. */
 
@@ -1655,14 +1655,14 @@ typedef struct
 	ulRunnerCaseLevel
  		Specify the runner level. Some job may change the number of iteration base on
  		this setting.
-	fSendStateChangeEvt
+	ulSendStateChangeEvtFlag
  		Specify to send runner executor state change events.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_MSG_HEADER					Header;
 	tOCTVC1_JOB_RUNNER_CASE_LEVEL_ENUM	ulRunnerCaseLevel;
-	tOCT_BOOL32							fSendStateChangeEvt;
+	tOCT_BOOL32							ulSendStateChangeEvtFlag;
 
 } tOCTVC1_JOB_MSG_RUNNER_INFO_CONFIGURATION_RSP;
 
@@ -1676,7 +1676,7 @@ typedef struct
 		Default:	cOCTVC1_DO_NOT_MODIFY
  		Specify the runner level. Some job may change the number of iteration base on
  		this setting.
-	fSendStateChangeEvt
+	ulSendStateChangeEvtFlag
 		Default:	cOCTVC1_DO_NOT_MODIFY
  		Specify to send runner executor state change events.
 -------------------------------------------------------------------------------------*/
@@ -1684,7 +1684,7 @@ typedef struct
 {
 	tOCTVC1_MSG_HEADER					Header;
 	tOCTVC1_JOB_RUNNER_CASE_LEVEL_ENUM	ulRunnerCaseLevel;
-	tOCT_BOOL32							fSendStateChangeEvt;
+	tOCT_BOOL32							ulSendStateChangeEvtFlag;
 
 } tOCTVC1_JOB_MSG_RUNNER_MODIFY_CONFIGURATION_CMD;
 

@@ -2,7 +2,7 @@
 
 File: OCTVC1_HW_RC.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the return codes for the HW API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Octasic_Revision: $
 
@@ -61,19 +61,20 @@ $Octasic_Revision: $
 /****************************************************************************
 	CLOCK_SYNC_MGR return codes
  ****************************************************************************/
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE					 ( 0x0050 + cOCTVC1_HW_RC_BASE )
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE							 ( 0x0050 + cOCTVC1_HW_RC_BASE )
 
-#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_ALREADY_OPEN			 ( 0x0000 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
-#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_OPEN_ERROR				 ( 0x0001 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
-#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_CLOSE_ERROR			 ( 0x0002 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
-#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_BAD_PCB_INFO			 ( 0x0003 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
-#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_DAC_OPEN_ERROR			 ( 0x0004 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
-#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_PROCESS_OPEN_ERROR		 ( 0x0005 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
-#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_PROCESS_CLOSE_ERROR	 ( 0x0006 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
-#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_DAC_CLOSE_ERROR		 ( 0x0007 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
-#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_STATS_ERROR			 ( 0x0008 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
-#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_NOT_SUPPORTED			 ( 0x0009 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
-#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_NOT_OPENED				 ( 0x000A + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
+#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_ALREADY_OPEN					 ( 0x0000 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
+#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_OPEN_ERROR						 ( 0x0001 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
+#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_CLOSE_ERROR					 ( 0x0002 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
+#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_BAD_PCB_INFO					 ( 0x0003 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
+#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_DAC_OPEN_ERROR					 ( 0x0004 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
+#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_PROCESS_OPEN_ERROR				 ( 0x0005 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
+#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_PROCESS_CLOSE_ERROR			 ( 0x0006 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
+#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_DAC_CLOSE_ERROR				 ( 0x0007 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
+#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_STATS_ERROR					 ( 0x0008 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
+#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_NOT_SUPPORTED					 ( 0x0009 + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
+#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_NOT_OPENED						 ( 0x000A + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE )
+#define cOCTVC1_HW_RC_CLOCK_SYNC_MGR_BAD_CLOCK_SRC_REF_ON_FREE_RUN	 ( 0x000B + cOCTVC1_HW_CLOCK_SYNC_MGR_RC_BASE ) 	/* Free running DAC_TYPE is only compatible with 1PPS clock src */
 
 /****************************************************************************
 	Validate return codes

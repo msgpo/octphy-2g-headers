@@ -2,7 +2,7 @@
 
 File: OCTVC1_PROCESS.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Revision: $
 
@@ -42,19 +42,12 @@ $Revision: $
 
 /*-------------------------------------------------------------------------------------
  	Process type.
- 	Process type.
 -------------------------------------------------------------------------------------*/
 #define tOCTVC1_PROCESS_TYPE_ENUM							tOCT_UINT32
 
 #define cOCTVC1_PROCESS_TYPE_ENUM_INVALID					0		
 #define cOCTVC1_PROCESS_TYPE_ENUM_CONTROL					1		
 #define cOCTVC1_PROCESS_TYPE_ENUM_OCTADF_ROUTER				2		
-#define cOCTVC1_PROCESS_TYPE_ENUM_GSM_SCHED					((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+1) )	
-#define cOCTVC1_PROCESS_TYPE_ENUM_GSM_DL					((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+2) )	
-#define cOCTVC1_PROCESS_TYPE_ENUM_GSM_ULIM					((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+3) )	
-#define cOCTVC1_PROCESS_TYPE_ENUM_GSM_ULEQ					((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+4) )	
-#define cOCTVC1_PROCESS_TYPE_ENUM_GSM_ULOM					((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+5) )	
-#define cOCTVC1_PROCESS_TYPE_ENUM_GSM_DECOMB				((tOCT_UINT32)(cOCTVC1_PROCESS_LAST_OADF_PROCESS_TYPE_ENUM_ID+6) )	
 #define cOCTVC1_PROCESS_IMAGE_NAME_MAX_LENGTH				63		 	/* Process image string length restriction. */
 
 /*-------------------------------------------------------------------------------------
@@ -125,15 +118,28 @@ typedef struct
 	ulLastExecTimeUs
  		Task's last execution time (in microseconds)
 	ulMaxExecCacheMissCnt
- 		Task's maximum cache miss in one execution
+ 		Task's maximum cache miss in one execution.
+ 		Include code and data cache misses.
 	ulLastExecCacheMissCnt
  		Task's last execution cache miss count
+ 		Include code and data cache misses.
 	ulTotalCacheMissCnt
  		Task's last execution cache miss count
+ 		Include code and data cache misses.
+	ulMaxExecCodeMissCnt
+ 		Task's maximum code cache miss in one execution
+	ulLastExecCodeMissCnt
+ 		Task's last execution code cache miss count
+	ulTotalCodeMissCnt
+ 		Task's last execution code cache miss count
 	ulExecCnt
  		Number of times the task has been executed
 	ulDoneCnt
  		Number of times the task has been completed
+	ulReqCnt
+ 		Task requested count
+	ulScratchPadLeakFlag
+ 		ScratchPad leak happenned during task processing
 	ulErrorCnt
  		Number of times the task returned an error
 	State
@@ -147,8 +153,13 @@ typedef struct
 	tOCT_UINT32						ulMaxExecCacheMissCnt;
 	tOCT_UINT32						ulLastExecCacheMissCnt;
 	tOCT_UINT32						ulTotalCacheMissCnt;
+	tOCT_UINT32						ulMaxExecCodeMissCnt;
+	tOCT_UINT32						ulLastExecCodeMissCnt;
+	tOCT_UINT32						ulTotalCodeMissCnt;
 	tOCT_UINT32						ulExecCnt;
 	tOCT_UINT32						ulDoneCnt;
+	tOCT_UINT32						ulReqCnt;
+	tOCT_BOOL32						ulScratchPadLeakFlag;
 	tOCT_UINT32						ulErrorCnt;
 	tOCTVC1_PROCESS_TASK_STATE_ENUM	State;
 

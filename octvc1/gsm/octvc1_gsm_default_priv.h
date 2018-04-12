@@ -2,7 +2,7 @@
 
 File: OCTVC1_GSM_DEFAULT_PRIV.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the GSM API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Octasic_Revision: $
 
@@ -27,6 +27,9 @@ $Octasic_Revision: $
 #ifndef __OCTVC1_GSM_DEFAULT_PRIV_H__
 #define __OCTVC1_GSM_DEFAULT_PRIV_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*****************************  INCLUDE FILES  *******************************/
 #include "octvc1_gsm_api_priv.h"
@@ -35,6 +38,10 @@ $Octasic_Revision: $
 /*****************************  COMMAND DEFAULT *****************************/
 
 /*****************************  MODULE_DATA  *************************************/
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __OCTVC1_GSM_DEFAULT_PRIV_H__ */
 

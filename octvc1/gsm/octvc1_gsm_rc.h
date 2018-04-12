@@ -2,7 +2,7 @@
 
 File: OCTVC1_GSM_RC.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the return codes for the GSM API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)
 
 $Octasic_Revision: $
 
@@ -95,6 +95,13 @@ $Octasic_Revision: $
 #define cOCTVC1_GSM_RC_LOGICAL_CHANNEL_DIRECTION_INVALID	 ( 0x0004 + cOCTVC1_GSM_LOGICAL_CHANNEL_RC_BASE )
 #define cOCTVC1_GSM_RC_LOGICAL_CHANNEL_SAPI_INVALID			 ( 0x0005 + cOCTVC1_GSM_LOGICAL_CHANNEL_RC_BASE )
 #define cOCTVC1_GSM_RC_LOGICAL_CHANNEL_BCCH_BSIC_INVALID	 ( 0x0006 + cOCTVC1_GSM_LOGICAL_CHANNEL_RC_BASE )
+
+/****************************************************************************
+	TEST_MODULE return codes
+ ****************************************************************************/
+#define cOCTVC1_GSM_TEST_MODULE_RC_BASE						 ( 0x0420 + cOCTVC1_GSM_RC_BASE )
+
+#define cOCTVC1_GSM_RC_TEST_MODULE_GSM_MODULE_NOT_STARTED	 ( 0x0000 + cOCTVC1_GSM_TEST_MODULE_RC_BASE )
 
 /****************************************************************************
 	Validate return codes

@@ -2,7 +2,7 @@
 
 File: octvc1_handle_swap.h	
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.	
+Copyright (c) 2018 Octasic Inc. All rights reserved.	
 
 Description:	
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)	
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.10.00-B1837 (2018/02/21)	
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/	
 #ifndef __OCTVC1_HANDLE_SWAP_H__
@@ -42,6 +42,15 @@ extern "C" {
 }
 #else
 #define mOCTVC1_OBJECT32_NAME_SWAP( pOCTVC1_OBJECT32_NAME )
+#endif /* _OCT_ENDIAN_TYPE_LE_ */
+
+#if defined( _OCT_ENDIAN_TYPE_LE_ )
+#define mOCTVC1_OBJECT32_NAME128_SWAP( _f_pParms ){ 	tOCTVC1_OBJECT32_NAME128 * pOCTVC1_OBJECT32_NAME128 = (_f_pParms); SWAP_UNUSED(pOCTVC1_OBJECT32_NAME128)\
+	((tOCTVC1_OBJECT32_NAME128 *)pOCTVC1_OBJECT32_NAME128)->ulObject32 = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_OBJECT32_NAME128 *)pOCTVC1_OBJECT32_NAME128)->ulObject32); \
+}
+#else
+#define mOCTVC1_OBJECT32_NAME128_SWAP( pOCTVC1_OBJECT32_NAME128 )
 #endif /* _OCT_ENDIAN_TYPE_LE_ */
 
 #ifdef __cplusplus
