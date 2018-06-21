@@ -2,7 +2,7 @@
 
 File: OCTVC1_HW_DEFAULT.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the HW API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Octasic_Revision: $
 
@@ -27,6 +27,9 @@ $Octasic_Revision: $
 #ifndef __OCTVC1_HW_DEFAULT_H__
 #define __OCTVC1_HW_DEFAULT_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*****************************  INCLUDE FILES  *******************************/
 #include "octvc1_hw_api.h"
@@ -632,68 +635,6 @@ extern const tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_STATS_CMD *g_pOctDef_tOCTVC1_HW_MSG_C
 
 
 /*--------------------------------------------------------------------------
-    tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CMD
-----------------------------------------------------------------------------*/
-#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
-
-const tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CMD buf_tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CMD =
-{
-   { /* Header */
-       ((sizeof(tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
-       0, /* ulTransactionId */
-       ((cOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
-       0, /* ulSessionId */
-       0, /* ulReturnCode */
-       0  /* ulUserInfo */
-   }
-};
-
-const tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CMD *g_pOctDef_tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CMD =
-    &buf_tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CMD;
-
-#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
-extern const tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CMD *g_pOctDef_tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CMD;
-#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
-
-#define mOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CMD_DEF(pSt) \
-    { \
-        *pSt = *g_pOctDef_tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CMD; \
-    }
-
-
-/*--------------------------------------------------------------------------
-    tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CMD
-----------------------------------------------------------------------------*/
-#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
-
-const tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CMD buf_tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CMD =
-{
-   { /* Header */
-       ((sizeof(tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
-       0, /* ulTransactionId */
-       ((cOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
-       0, /* ulSessionId */
-       0, /* ulReturnCode */
-       0  /* ulUserInfo */
-   },
-   cOCTVC1_DO_NOT_MODIFY, /* ulClkSourceRef */
-   cOCTVC1_DO_NOT_MODIFY  /* ulSourceState */
-};
-
-const tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CMD *g_pOctDef_tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CMD =
-    &buf_tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CMD;
-
-#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
-extern const tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CMD *g_pOctDef_tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CMD;
-#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
-
-#define mOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CMD_DEF(pSt) \
-    { \
-        *pSt = *g_pOctDef_tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CMD; \
-    }
-
-
-/*--------------------------------------------------------------------------
     tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_RX_CONFIG_CMD
 ----------------------------------------------------------------------------*/
 #ifdef OCTVC1_OPT_DECLARE_DEFAULTS
@@ -828,6 +769,10 @@ extern const tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD *g_pOctDef_tOCT
         *pSt = *g_pOctDef_tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CMD; \
     }
 
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __OCTVC1_HW_DEFAULT_H__ */
 

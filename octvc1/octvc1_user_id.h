@@ -2,7 +2,7 @@
 
 File: OCTVC1_USER_ID.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Revision: $
 
@@ -51,6 +51,9 @@ $Revision: $
 #define cOCTVC1_USER_ID_PROCESS_ENUM_GSM_ULIM_0				((tOCT_UINT32)((0x00000200)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_USER_ID_MODULE_ID_BIT_SHIFT)) )	
 #define cOCTVC1_USER_ID_PROCESS_ENUM_GSM_ULOM_0				((tOCT_UINT32)((0x00000300)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_USER_ID_MODULE_ID_BIT_SHIFT)) )	
 #define cOCTVC1_USER_ID_PROCESS_ENUM_GSM_SCHED_0			((tOCT_UINT32)((0x00000400)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_USER_ID_MODULE_ID_BIT_SHIFT)) )	
+#define cOCTVC1_USER_ID_PROCESS_ENUM_GSM_DECOMB				((tOCT_UINT32)((0x00000500)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_USER_ID_MODULE_ID_BIT_SHIFT)) )	
+#define cOCTVC1_USER_ID_PROCESS_ENUM_GSM_ULEQ				((tOCT_UINT32)((0x00000600)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_USER_ID_MODULE_ID_BIT_SHIFT)) )	
+#define cOCTVC1_USER_ID_PROCESS_ENUM_GSM_TEST				((tOCT_UINT32)((0x00000700)|(cOCTVC1_MODULE_ID_ENUM_GSM<<cOCTVC1_USER_ID_MODULE_ID_BIT_SHIFT)) )	
 
 
 #endif /* __OCTVC1_USER_ID_H__ */

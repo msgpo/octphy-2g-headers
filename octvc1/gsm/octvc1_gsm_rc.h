@@ -2,7 +2,7 @@
 
 File: OCTVC1_GSM_RC.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the return codes for the GSM API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Octasic_Revision: $
 
@@ -46,23 +46,24 @@ $Octasic_Revision: $
 /****************************************************************************
 	TRX return codes
  ****************************************************************************/
-#define cOCTVC1_GSM_TRX_RC_BASE								 ( 0x0200 + cOCTVC1_GSM_RC_BASE )
+#define cOCTVC1_GSM_TRX_RC_BASE										 ( 0x0200 + cOCTVC1_GSM_RC_BASE )
 
-#define cOCTVC1_GSM_RC_TRX_RESOURCE_UNAVAILABLE				 ( 0x0000 + cOCTVC1_GSM_TRX_RC_BASE )
-#define cOCTVC1_GSM_RC_TRX_ALREADY_OPENED					 ( 0x0001 + cOCTVC1_GSM_TRX_RC_BASE )
-#define cOCTVC1_GSM_RC_TRX_ID_INVALID						 ( 0x0002 + cOCTVC1_GSM_TRX_RC_BASE )
-#define cOCTVC1_GSM_RC_TRX_NOT_FOUND						 ( 0x0003 + cOCTVC1_GSM_TRX_RC_BASE )
-#define cOCTVC1_GSM_RC_TRX_RADIO_INIT						 ( 0x0004 + cOCTVC1_GSM_TRX_RC_BASE )
-#define cOCTVC1_GSM_RC_TRX_RADIO_CONFIG						 ( 0x0005 + cOCTVC1_GSM_TRX_RC_BASE )
-#define cOCTVC1_GSM_RC_TRX_RADIO_RESET						 ( 0x0006 + cOCTVC1_GSM_TRX_RC_BASE )
-#define cOCTVC1_GSM_RC_TRX_RADIO_TERMINATE					 ( 0x0007 + cOCTVC1_GSM_TRX_RC_BASE )
-#define cOCTVC1_GSM_RC_TRX_CENTRE_FREQ_NOT_SAME_ACROSS_TRX	 ( 0x0008 + cOCTVC1_GSM_TRX_RC_BASE )
-#define cOCTVC1_GSM_RC_TRX_CARRIER_OFFSET_OUTOF_RANGE		 ( 0x0009 + cOCTVC1_GSM_TRX_RC_BASE )
-#define cOCTVC1_GSM_RC_TRX_NOT_PROPERLY_SEPARATED			 ( 0x000a + cOCTVC1_GSM_TRX_RC_BASE )
-#define cOCTVC1_GSM_RC_TRX_BCCH_NOT_CONFIGURED				 ( 0x000b + cOCTVC1_GSM_TRX_RC_BASE )
-#define cOCTVC1_GSM_RC_TRX_CLOSE_NONPRIMARY_FIRST			 ( 0x000c + cOCTVC1_GSM_TRX_RC_BASE )
-#define cOCTVC1_GSM_RC_TRX_PARAMS_INVALID					 ( 0x000d + cOCTVC1_GSM_TRX_RC_BASE )
-#define cOCTVC1_GSM_RC_TRX_PRIMARY_ONLY_BCCH_CONFIGURED		 ( 0x000e + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_RESOURCE_UNAVAILABLE						 ( 0x0000 + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_ALREADY_OPENED							 ( 0x0001 + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_ID_INVALID								 ( 0x0002 + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_NOT_FOUND								 ( 0x0003 + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_RADIO_INIT								 ( 0x0004 + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_RADIO_CONFIG								 ( 0x0005 + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_RADIO_RESET								 ( 0x0006 + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_RADIO_TERMINATE							 ( 0x0007 + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_CENTRE_FREQ_NOT_SAME_ACROSS_TRX			 ( 0x0008 + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_CARRIER_OFFSET_OUTOF_RANGE				 ( 0x0009 + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_NOT_PROPERLY_SEPARATED					 ( 0x000a + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_BCCH_NOT_CONFIGURED						 ( 0x000b + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_CLOSE_NONPRIMARY_FIRST					 ( 0x000c + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_PARAMS_INVALID							 ( 0x000d + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_PRIMARY_ONLY_BCCH_CONFIGURED				 ( 0x000e + cOCTVC1_GSM_TRX_RC_BASE )
+#define cOCTVC1_GSM_RC_TRX_PRE_CONFIG_OVERSAMPLE_SELECTION_NOT_DONE	 ( 0x000f + cOCTVC1_GSM_TRX_RC_BASE )
 
 /****************************************************************************
 	PHYSICAL_CHANNEL return codes
@@ -95,6 +96,13 @@ $Octasic_Revision: $
 #define cOCTVC1_GSM_RC_LOGICAL_CHANNEL_DIRECTION_INVALID	 ( 0x0004 + cOCTVC1_GSM_LOGICAL_CHANNEL_RC_BASE )
 #define cOCTVC1_GSM_RC_LOGICAL_CHANNEL_SAPI_INVALID			 ( 0x0005 + cOCTVC1_GSM_LOGICAL_CHANNEL_RC_BASE )
 #define cOCTVC1_GSM_RC_LOGICAL_CHANNEL_BCCH_BSIC_INVALID	 ( 0x0006 + cOCTVC1_GSM_LOGICAL_CHANNEL_RC_BASE )
+
+/****************************************************************************
+	TEST_MODULE return codes
+ ****************************************************************************/
+#define cOCTVC1_GSM_TEST_MODULE_RC_BASE						 ( 0x0420 + cOCTVC1_GSM_RC_BASE )
+
+#define cOCTVC1_GSM_RC_TEST_MODULE_GSM_MODULE_NOT_STARTED	 ( 0x0000 + cOCTVC1_GSM_TEST_MODULE_RC_BASE )
 
 /****************************************************************************
 	Validate return codes

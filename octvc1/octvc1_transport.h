@@ -1,6 +1,6 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
 
-File: OCTVC1_FIFO.h
+File: OCTVC1_TRANSPORT.h
 
 Copyright (c) 2018 Octasic Inc. All rights reserved.
 
@@ -24,30 +24,56 @@ $Revision: $
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 
-#ifndef __OCTVC1_FIFO_H__
-#define __OCTVC1_FIFO_H__
+#ifndef __OCTVC1_TRANSPORT_H__
+#define __OCTVC1_TRANSPORT_H__
+
+
+/*****************************  INCLUDE FILES  *******************************/
+#include "../octdev_types.h"
+#include "octvc1_base.h"
+#include "octvc1_eth.h"
 
 
 /************************  COMMON DEFINITIONS  *******************************/
 
 /*-------------------------------------------------------------------------------------
- 	Control process FIFO-ID definition
- 	Deprecated should use cOCTVC1_FIFO_ID_CONTROL
+ 	Transport Type
 -------------------------------------------------------------------------------------*/
-
-#define cOCTVC1_FIFO_ID_MGW_CONTROL							0x00000000	
 
 /*-------------------------------------------------------------------------------------
- 	Control process _FIFO-ID definition
+	tOCTVC1_TRANSPORT_TYPE_ENUM :
 -------------------------------------------------------------------------------------*/
+#define tOCTVC1_TRANSPORT_TYPE_ENUM							tOCT_UINT32
 
-#define cOCTVC1_FIFO_ID_CONTROL								0x00000000	
+#define cOCTVC1_TRANSPORT_TYPE_ENUM_NONE					0		 	/* No transport */
+#define cOCTVC1_TRANSPORT_TYPE_ENUM_ETH						1		 	/* Ethernet Tranport */
+#define cOCTVC1_TRANSPORT_TYPE_ENUM_UDP						2		 	/* UDP Tranport */
+#define cOCTVC1_TRANSPORT_TYPE_ENUM_TCP						1		 	/* TCP Tranport */
+#define cOCTVC1_TRANSPORT_TYPE_ENUM_LOCAL					1		 	/* Local Tranport */
+#define cOCTVC1_TRANSPORT_TYPE_ENUM_IPC						1		 	/* IPC Tranport */
+#define cOCTVC1_TRANSPORT_TYPE_ENUM_USER					10		 	/* User Tranport */
 
 /*-------------------------------------------------------------------------------------
- 	Invalid _FIFO-ID
+ 	Transport Address
 -------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_TRANSPORT_ADDRESS
 
-#define cOCTVC1_FIFO_ID_INVALID								0xFFFFFFFF	
+ Members:
+	ulTransportType
+		Default:	cOCTVC1_TRANSPORT_TYPE_ENUM_NONE
+ 		Target file system to file server transport type.
+	Eth
+ 		Ethernet destination information.
+ 		Only valid if ulTransportType set to cOCTDEV_TRANSPORT_TYPE_ENUM_ETH.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_TRANSPORT_TYPE_ENUM	ulTransportType;
+	tOCTVC1_ETH_ADDRESS			Eth;
 
-#endif /* __OCTVC1_FIFO_H__ */
+} tOCTVC1_TRANSPORT_ADDRESS;
+
+
+#endif /* __OCTVC1_TRANSPORT_H__ */
 

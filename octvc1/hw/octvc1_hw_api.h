@@ -2,7 +2,7 @@
 
 File: OCTVC1_HW_API.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the HW API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Revision: $
 
@@ -451,7 +451,7 @@ typedef struct
 	ulRxAverageBytePerSecond
  		Average byte receive per seconds
 	ulRxAveragePeriodUs
- 		Average Time in micro second between two receive
+ 		Average Time in microseconds between two receive
 	Frequency
  		Current frequency
 -------------------------------------------------------------------------------------*/
@@ -477,7 +477,7 @@ typedef struct
 	ulTxAverageBytePerSecond
  		Average byte receive per seconds
 	ulTxAveragePeriodUs
- 		Average Time in micro second between two send
+ 		Average Time in microseconds between two send
 	Frequency
  		Current frequency
 -------------------------------------------------------------------------------------*/
@@ -525,27 +525,14 @@ typedef struct
  																		/* Base on config file informations. */
 
 /*-------------------------------------------------------------------------------------
- 	Clock Sync Manager Source Selection.
+ 	Clock Sync Manager DAC State.
 -------------------------------------------------------------------------------------*/
-#define tOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_SELECTION_ENUM						tOCT_UINT32
+#define tOCTVC1_HW_CLOCK_SYNC_MGR_DAC_STATE_ENUM				tOCT_UINT32
 
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_SELECTION_ENUM_AUTOSELECT			0		 	/* Clock Source is selected by the PHY. */
- 																					/* Base on config file informations. */
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_SELECTION_ENUM_CONFIG_FILE			1		 	/* Clock Source should be selected by the host application. */
- 																					/* Host did not specify the source yet. */
- 																					/* Expecting rate is defined by config file. */
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_SELECTION_ENUM_HOST_APPLICATION	2		 	/* Clock Source was selected by the host application. */
- 																					/* Host did specify the source through API call. */
-
-/*-------------------------------------------------------------------------------------
- 	Clock Sync manager sync source state
--------------------------------------------------------------------------------------*/
-#define tOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_STATE_ENUM				tOCT_UINT32
-
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_STATE_ENUM_INVALID			0		 	/* The clock source is not valid. */
- 																			/* (Ex: GPS is not available). */
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_STATE_ENUM_VALID			1		 	/* The clock source is valid. */
-#define cOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_STATE_ENUM_UNSPECIFIED		2		 	/* The clock source state was never specified by the host application. */
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_DAC_STATE_ENUM_UNUSED			0		 	/* Clock Sync Manager DAC mechanism is not used. */
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_DAC_STATE_ENUM_MASTER			1		 	/* Clock Sync Manager DAC mechanism is controled by the process. */
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_DAC_STATE_ENUM_SLAVE			2		 	/* Clock Sync Manager DAC mechanism is controled by another DSP. */
+#define cOCTVC1_HW_CLOCK_SYNC_MGR_DAC_STATE_ENUM_FREE_RUNNING	3		 	/* Clock Sync Manager is disable. Clock asservissement is done externally. */
 
 /*-------------------------------------------------------------------------------------
  	Clock Sync manager state
@@ -1216,14 +1203,13 @@ typedef struct
  		OCTVC1 Message Header
 	ulClkSourceRef
  		Selected source for reference clock
-	ulClkSourceSelection
- 		Clock source selection mode
+	ulMaxDriftDurationUs
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
-	tOCTVC1_MSG_HEADER								Header;
-	tOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM			ulClkSourceRef;
-	tOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_SELECTION_ENUM	ulClkSourceSelection;
+	tOCTVC1_MSG_HEADER						Header;
+	tOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM	ulClkSourceRef;
+	tOCT_INT32								ulMaxDriftDurationUs;
 
 } tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_RSP;
 
@@ -1251,115 +1237,24 @@ typedef struct
  		OCTVC1 Message Header
 	ulState
  		Clock sync manager state
-	lClockError
- 		Accumulated error on the tracked clock's control loop
-	lLastMeasuredError
- 		The last clock error that got injected in the control loop
-	lDroppedCycles
- 		Number of cycles (at ulPllFreqHz) that have been dropped by the control loop
- 		This occurs when there a big gaps of the reference clock in the frequency
- 		measurement unit,
- 		which are likely caused by changes in the reference clock.
-	ulPllFreqHz
- 		Frequency provided to the comparator and generators.
-	ulPllFractionalFreqHz
- 		Fractional part of ulPllFreqHz.
-	ulSlipCnt
- 		Number of times values exceeded the synchronization threshold while in the sync
- 		state
-	ulSyncLossCnt
- 		Number of times the clock manager left the synchronized state
-	ulSourceState
- 		Clock source state
+	ulDacState
+ 		DAC state
 	ulDacValue
- 		Curent DAC value
+ 		Current DAC value
 	ulOwnerProcessUid
-	ulFrequencyCorrectionFlag
- 		Set to cOCT_TRUE when frequency correction is applied
+	ulDriftElapseTimeUs
+ 		Last calculated drift elapse time in microseconds.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
 	tOCTVC1_MSG_HEADER							Header;
 	tOCTVC1_HW_CLOCK_SYNC_MGR_STATE_ENUM		ulState;
-	tOCT_INT32									lClockError;
-	tOCT_INT32									lLastMeasuredError;
-	tOCT_INT32									lDroppedCycles;
-	tOCT_UINT32									ulPllFreqHz;
-	tOCT_UINT32									ulPllFractionalFreqHz;
-	tOCT_UINT32									ulSlipCnt;
-	tOCT_UINT32									ulSyncLossCnt;
-	tOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_STATE_ENUM	ulSourceState;
+	tOCTVC1_HW_CLOCK_SYNC_MGR_DAC_STATE_ENUM	ulDacState;
 	tOCT_UINT32									ulDacValue;
 	tOCTVC1_USER_ID_PROCESS_ENUM				ulOwnerProcessUid;
-	tOCT_BOOL32									ulFrequencyCorrectionFlag;
+	tOCT_UINT32									ulDriftElapseTimeUs;
 
 } tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_STATS_RSP;
-
-/*-------------------------------------------------------------------------------------
-	tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CMD
-
- Members:
-	Header
- 		OCTVC1 Message Header
--------------------------------------------------------------------------------------*/
-typedef struct
-{
-	tOCTVC1_MSG_HEADER	Header;
-
-} tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CMD;
-
-/*-------------------------------------------------------------------------------------
-	tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_RSP
-
- Members:
-	Header
- 		OCTVC1 Message Header
-	ulClkSourceRef
- 		Selected source for reference clock
-	ulSourceState
- 		Selected source for reference clock
--------------------------------------------------------------------------------------*/
-typedef struct
-{
-	tOCTVC1_MSG_HEADER							Header;
-	tOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM		ulClkSourceRef;
-	tOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_STATE_ENUM	ulSourceState;
-
-} tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_RSP;
-
-/*-------------------------------------------------------------------------------------
-	tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CMD
-
- Members:
-	Header
- 		OCTVC1 Message Header
-	ulClkSourceRef
-		Default:	cOCTVC1_DO_NOT_MODIFY
- 		Selected source for reference clock
-	ulSourceState
-		Default:	cOCTVC1_DO_NOT_MODIFY
- 		Selected source for reference clock
--------------------------------------------------------------------------------------*/
-typedef struct
-{
-	tOCTVC1_MSG_HEADER							Header;
-	tOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_ENUM		ulClkSourceRef;
-	tOCTVC1_HW_CLOCK_SYNC_MGR_SOURCE_STATE_ENUM	ulSourceState;
-
-} tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CMD;
-
-/*-------------------------------------------------------------------------------------
-	tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_RSP
-
- Members:
-	Header
- 		OCTVC1 Message Header
--------------------------------------------------------------------------------------*/
-typedef struct
-{
-	tOCTVC1_MSG_HEADER	Header;
-
-} tOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_RSP;
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_RX_CONFIG_CMD

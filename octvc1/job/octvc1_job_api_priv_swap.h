@@ -1,7 +1,7 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 File: octvc1_job_api_priv_swap.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description:
 This program is free software; you can redistribute it and/or modify
@@ -16,7 +16,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 
@@ -32,6 +32,24 @@ extern "C" {
 #include "octvc1_job_api_priv.h"
 
 /*********************************  MACROS  **********************************/
+
+#if defined( _OCT_ENDIAN_TYPE_LE_ )
+#define mOCTVC1_JOB_UNIT_TEST_STATE_ENUM_SWAP( pType ){ \
+		*((tOCT_UINT32 *)pType) = mOCT_SWAP32_IF_LE( *((tOCT_UINT32 *)pType) ); }
+#else
+
+#define mOCTVC1_JOB_UNIT_TEST_STATE_ENUM_SWAP( pType )
+
+#endif /* _OCT_ENDIAN_TYPE_LE_ */
+
+#if defined( _OCT_ENDIAN_TYPE_LE_ )
+#define mOCTVC1_JOB_UNIT_TEST_RESULT_ENUM_SWAP( pType ){ \
+		*((tOCT_UINT32 *)pType) = mOCT_SWAP32_IF_LE( *((tOCT_UINT32 *)pType) ); }
+#else
+
+#define mOCTVC1_JOB_UNIT_TEST_RESULT_ENUM_SWAP( pType )
+
+#endif /* _OCT_ENDIAN_TYPE_LE_ */
 
 #ifdef __cplusplus
 }

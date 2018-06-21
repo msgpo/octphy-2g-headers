@@ -2,7 +2,7 @@
 
 File: OCTVC1_JOB_API_PRIV.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the JOB API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Revision: $
 
@@ -35,6 +35,30 @@ $Revision: $
 
 /************************  COMMON DEFINITIONS  *******************************/
 
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_JOB_UNIT_TEST_STATE_ENUM :
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_JOB_UNIT_TEST_STATE_ENUM					tOCT_UINT32
+
+#define cOCTVC1_JOB_UNIT_TEST_STATE_ENUM_LOGGER_START		0		
+#define cOCTVC1_JOB_UNIT_TEST_STATE_ENUM_LOGGER_END			1		
+#define cOCTVC1_JOB_UNIT_TEST_STATE_ENUM_PACKAGE_START		2		
+#define cOCTVC1_JOB_UNIT_TEST_STATE_ENUM_PACKAGE_END		3		
+#define cOCTVC1_JOB_UNIT_TEST_STATE_ENUM_SUITE_START		4		
+#define cOCTVC1_JOB_UNIT_TEST_STATE_ENUM_SUITE_END			5		
+#define cOCTVC1_JOB_UNIT_TEST_STATE_ENUM_CASE_START			6		
+#define cOCTVC1_JOB_UNIT_TEST_STATE_ENUM_CASE_END			7		
+#define cOCTVC1_JOB_UNIT_TEST_STATE_ENUM_CASE_ITERATION		8		
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_JOB_UNIT_TEST_RESULT_ENUM :
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_JOB_UNIT_TEST_RESULT_ENUM					tOCT_UINT32
+
+#define cOCTVC1_JOB_UNIT_TEST_RESULT_ENUM_PASS				0		
+#define cOCTVC1_JOB_UNIT_TEST_RESULT_ENUM_SKIP				1		
+#define cOCTVC1_JOB_UNIT_TEST_RESULT_ENUM_ERROR				2		
 
 /*****************************  METHODS  *************************************/
 

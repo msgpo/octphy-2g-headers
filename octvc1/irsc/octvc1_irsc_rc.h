@@ -2,7 +2,7 @@
 
 File: OCTVC1_IRSC_RC.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the return codes for the IRSC API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Octasic_Revision: $
 
@@ -64,6 +64,15 @@ $Octasic_Revision: $
 #define cOCTVC1_IRSC_RC_API_COMMAND_MAX_REACHED					 ( 0x0003 + cOCTVC1_IRSC_API_COMMAND_RC_BASE )
 #define cOCTVC1_IRSC_RC_API_COMMAND_MONITORING_ALREADY_START	 ( 0x0004 + cOCTVC1_IRSC_API_COMMAND_RC_BASE )
 #define cOCTVC1_IRSC_RC_API_COMMAND_INTERNAL_ERROR				 ( 0x0005 + cOCTVC1_IRSC_API_COMMAND_RC_BASE )
+
+/****************************************************************************
+	Validate return codes
+ ****************************************************************************/
+#define cOCTVC1_IRSC_AUTO_VALIDATE_RC_BASE					 ( 0xF000 + cOCTVC1_IRSC_RC_BASE )
+
+#define cOCTVC1_IRSC_RC_ROUTER_STREAMER_MODIFY_INVALID_LIMIT_BANDWIDTH_MBPS	 ( 0x1 + cOCTVC1_IRSC_AUTO_VALIDATE_RC_BASE )
+#define cOCTVC1_IRSC_RC_ROUTER_STREAMER_MODIFY_INVALID_TO_HOST_STREAM_SEQUENCE_ID_INTERVAL	 ( 0x2 + cOCTVC1_IRSC_AUTO_VALIDATE_RC_BASE )
+#define cOCTVC1_IRSC_RC_ROUTER_STREAMER_MODIFY_INVALID_TO_HOST_STREAM_INITIAL_PKT_CNT	 ( 0x3 + cOCTVC1_IRSC_AUTO_VALIDATE_RC_BASE )
 
 #endif /* OCTVC1_IRSC_RC_H__ */
 

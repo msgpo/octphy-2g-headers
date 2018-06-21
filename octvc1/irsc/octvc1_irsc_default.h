@@ -2,7 +2,7 @@
 
 File: OCTVC1_IRSC_DEFAULT.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the IRSC API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Octasic_Revision: $
 
@@ -27,6 +27,9 @@ $Octasic_Revision: $
 #ifndef __OCTVC1_IRSC_DEFAULT_H__
 #define __OCTVC1_IRSC_DEFAULT_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*****************************  INCLUDE FILES  *******************************/
 #include "octvc1_irsc_api.h"
@@ -831,7 +834,8 @@ const tOCTVC1_IRSC_MSG_APPLICATION_START_TAP_CMD buf_tOCTVC1_IRSC_MSG_APPLICATIO
        cOCTVC1_IRSC_APPLICATION_TRANSPORT_MAX_DATA_SIZE, /* ulMaxTransportDataSize */
        cOCTVC1_INDEX_INVALID, /* ulFilterIndex */
        0, /* ulUserId */
-       cOCT_FALSE  /* ulRetryEnableFlag */
+       cOCT_FALSE, /* ulRetryEnableFlag */
+       0  /* ulPauseOnStartFlag */
    }
 };
 
@@ -940,6 +944,36 @@ extern const tOCTVC1_IRSC_MSG_ROUTER_STATS_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTE
 
 
 /*--------------------------------------------------------------------------
+    tOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_CMD buf_tOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   }
+};
+
+const tOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_CMD =
+    &buf_tOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
     tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD
 ----------------------------------------------------------------------------*/
 #ifdef OCTVC1_OPT_DECLARE_DEFAULTS
@@ -968,6 +1002,307 @@ extern const tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD *g_pOctDef_tOCTVC1_IR
         *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD; \
     }
 
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_CMD buf_tOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   cOCTVC1_DO_NOT_MODIFY, /* ulLimitBandwidthMbps */
+   cOCTVC1_DO_NOT_MODIFY, /* ulToHostStreamSequenceIdInterval */
+   cOCTVC1_DO_NOT_MODIFY  /* ulToHostStreamInitialPktCnt */
+};
+
+const tOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_CMD =
+    &buf_tOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_CMD buf_tOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   0, /* hProcess */
+   cOCT_FALSE, /* ulStackScanFlag */
+   cOCT_FALSE  /* ulScratchPadResetFlag */
+};
+
+const tOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_CMD =
+    &buf_tOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_CMD buf_tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* SubObjectIdGet */
+       0, /* hObject */
+       cOCTVC1_OBJECT_CURSOR_ENUM_FIRST, /* ulGetMode */
+       0  /* ulSubObjectId */
+   }
+};
+
+const tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_CMD =
+    &buf_tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_CMD buf_tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   0, /* hProcess */
+   0  /* ulIndex */
+};
+
+const tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_CMD =
+    &buf_tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_CMD buf_tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   { /* SubObjectIdGet */
+       0, /* hObject */
+       cOCTVC1_OBJECT_CURSOR_ENUM_FIRST, /* ulGetMode */
+       0  /* ulSubObjectId */
+   }
+};
+
+const tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_CMD =
+    &buf_tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_CMD buf_tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   0, /* hProcess */
+   0  /* ulIndex */
+};
+
+const tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_CMD =
+    &buf_tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_CMD buf_tOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   cOCTVC1_HANDLE_INVALID  /* hTapId */
+};
+
+const tOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_CMD =
+    &buf_tOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_CMD; \
+    }
+
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_CMD
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_CMD buf_tOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_CMD =
+{
+   { /* Header */
+       ((sizeof(tOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_CMD)<<cOCTVC1_MSG_LENGTH_BIT_OFFSET)&cOCTVC1_MSG_LENGTH_BIT_MASK), /* ulLength */
+       0, /* ulTransactionId */
+       ((cOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_CID<<cOCTVC1_MSG_ID_BIT_OFFSET)&cOCTVC1_MSG_ID_BIT_MASK), /* ul_Type_R_CmdId */
+       0, /* ulSessionId */
+       0, /* ulReturnCode */
+       0  /* ulUserInfo */
+   },
+   cOCTVC1_HANDLE_INVALID  /* hTapId */
+};
+
+const tOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_CMD =
+    &buf_tOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_CMD;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_CMD *g_pOctDef_tOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_CMD;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_CMD_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_CMD; \
+    }
+
+
+/*****************************  MODULE_DATA  *************************************/
+
+/*--------------------------------------------------------------------------
+    tOCTVC1_IRSC_MSG_ROUTER_DATA_REQUEST_STREAMER_MDA
+----------------------------------------------------------------------------*/
+#ifdef OCTVC1_OPT_DECLARE_DEFAULTS
+
+const tOCTVC1_IRSC_MSG_ROUTER_DATA_REQUEST_STREAMER_MDA buf_tOCTVC1_IRSC_MSG_ROUTER_DATA_REQUEST_STREAMER_MDA =
+{
+   { /* ModuleData */
+       (cOCTVC1_IRSC_MSG_ROUTER_DATA_REQUEST_STREAMER_MID), /* ulModuleDataId */
+       (sizeof(tOCTVC1_IRSC_MSG_ROUTER_DATA_REQUEST_STREAMER_MDA)), /* ulModuleDataSize */
+       0, /* hLogicalObj */
+       0  /* ulTimestamp */
+   },
+   0, /* hStream */
+   0, /* hOwner */
+   0, /* ulDataSize */
+   0, /* ulSequenceId */
+   0  /* ulRetryFlag */
+};
+
+const tOCTVC1_IRSC_MSG_ROUTER_DATA_REQUEST_STREAMER_MDA *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_DATA_REQUEST_STREAMER_MDA =
+    &buf_tOCTVC1_IRSC_MSG_ROUTER_DATA_REQUEST_STREAMER_MDA;
+
+#else /* OCTVC1_OPT_DECLARE_DEFAULTS */
+extern const tOCTVC1_IRSC_MSG_ROUTER_DATA_REQUEST_STREAMER_MDA *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_DATA_REQUEST_STREAMER_MDA;
+#endif /* OCTVC1_OPT_DECLARE_DEFAULTS */
+
+#define mOCTVC1_IRSC_MSG_ROUTER_DATA_REQUEST_STREAMER_MDA_DEF(pSt) \
+    { \
+        *pSt = *g_pOctDef_tOCTVC1_IRSC_MSG_ROUTER_DATA_REQUEST_STREAMER_MDA; \
+    }
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __OCTVC1_IRSC_DEFAULT_H__ */
 

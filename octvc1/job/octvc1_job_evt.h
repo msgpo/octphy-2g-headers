@@ -1,7 +1,7 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
 
 File: OCTVC1_JOB_EVT.h
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the JOB API.
 
@@ -17,7 +17,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Octasic_Revision: $
 
@@ -65,6 +65,25 @@ typedef struct
 	tOCTVC1_JOB_RUNNER_CASE_STATE_ENUM	ulNewState;
 
 } tOCTVC1_JOB_MSG_RUNNER_EXECUTOR_STATE_CHANGE_EVT;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_JOB_MSG_RUNNER_EXECUTOR_ITERATION_EVT
+
+ Members:
+	Header
+ 		OCTVC1 Event Header
+	hExecutor
+ 		Executor handle identifier.
+	hRunnerCase
+ 		Job case identifier.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_EVENT_HEADER	Header;
+	tOCTVC1_HANDLE_OBJECT	hExecutor;
+	tOCTVC1_HANDLE_OBJECT	hRunnerCase;
+
+} tOCTVC1_JOB_MSG_RUNNER_EXECUTOR_ITERATION_EVT;
 
 
 #endif /* __OCTVC1_JOB_EVT_H__ */

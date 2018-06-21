@@ -2,7 +2,7 @@
 
 File: OCTVC1_GENERIC_RC.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the return codes for the GENERIC API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Octasic_Revision: $
 
@@ -83,6 +83,7 @@ $Octasic_Revision: $
 #define cOCTVC1_GENERIC_RC_MEMORY_IO_WRITE					 ( 0x000A + cOCTVC1_GENERIC_MEMORY_RC_BASE )
 #define cOCTVC1_GENERIC_RC_MEMORY_CHECKSUM					 ( 0x000B + cOCTVC1_GENERIC_MEMORY_RC_BASE )
 #define cOCTVC1_GENERIC_RC_MEMORY_SIZE						 ( 0x000C + cOCTVC1_GENERIC_MEMORY_RC_BASE )
+#define cOCTVC1_GENERIC_RC_MEMORY_SCRATCH_BAD_RESERVE		 ( 0x000D + cOCTVC1_GENERIC_MEMORY_RC_BASE )
 
 /****************************************************************************
 	INTERNAL return codes

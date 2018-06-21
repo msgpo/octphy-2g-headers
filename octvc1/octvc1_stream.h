@@ -1,6 +1,6 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
 
-File: OCTVC1_BUFFER.h
+File: OCTVC1_STREAM.h
 
 Copyright (c) 2018 Octasic Inc. All rights reserved.
 
@@ -24,36 +24,54 @@ $Revision: $
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 
-#ifndef __OCTVC1_BUFFER_H__
-#define __OCTVC1_BUFFER_H__
+#ifndef __OCTVC1_STREAM_H__
+#define __OCTVC1_STREAM_H__
 
 
 /*****************************  INCLUDE FILES  *******************************/
 #include "../octdev_types.h"
-#include "octvc1_module.h"
 
 
 /************************  COMMON DEFINITIONS  *******************************/
 
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_BUFFER_FORMAT_ENUM : 	Buffer format
- 	Bits[31:16] Reserved
- 	Bits[15:12] Specify the API type of a buffer.
- 	Bits[11: 0] Specify the content type of a buffer.
+ 	Stream types
 -------------------------------------------------------------------------------------*/
-#define tOCTVC1_BUFFER_FORMAT_ENUM							tOCT_UINT32
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_STREAM_DIRECTION_ENUM : 	Tap direction.
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_STREAM_DIRECTION_ENUM						tOCT_UINT32
 
-#define cOCTVC1_BUFFER_FORMAT_ENUM_UNKNOWN					0x0000	
-#define cOCTVC1_BUFFER_FORMAT_ENUM_MAIN						((tOCT_UINT32)(cOCTVC1_MODULE_ID_ENUM_MAIN<<12) )	
+#define cOCTVC1_STREAM_DIRECTION_ENUM_TO_HOST				0		
+#define cOCTVC1_STREAM_DIRECTION_ENUM_FROM_HOST				1		
 
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_BUFFER_FORMAT_MAIN_ENUM :
+	tOCTVC1_STREAM_STATS
+ 		Stream stats
+
+ Members:
+	ulTransferDataSize
+	ulDurationUs
+	ulSentPacketCnt
+	ulRecvPacketCnt
+	ulRecvDropCnt
+	ulRecvOverflowCnt
+	ulRecvRetryCnt
+	ulRecvMissCnt
 -------------------------------------------------------------------------------------*/
-#define tOCTVC1_BUFFER_FORMAT_MAIN_ENUM						tOCTVC1_BUFFER_FORMAT_ENUM
+typedef struct
+{
+	tOCT_UINT32	ulTransferDataSize;
+	tOCT_UINT32	ulDurationUs;
+	tOCT_UINT32	ulSentPacketCnt;
+	tOCT_UINT32	ulRecvPacketCnt;
+	tOCT_UINT32	ulRecvDropCnt;
+	tOCT_UINT32	ulRecvOverflowCnt;
+	tOCT_UINT32	ulRecvRetryCnt;
+	tOCT_UINT32	ulRecvMissCnt;
 
-#define cOCTVC1_BUFFER_FORMAT_MAIN_ENUM_PCAP_TRACE			((tOCTVC1_BUFFER_FORMAT_ENUM)(0x0001|cOCTVC1_BUFFER_FORMAT_ENUM_MAIN) )	
-#define cOCTVC1_BUFFER_FORMAT_MAIN_ENUM_FILE_SYS			((tOCTVC1_BUFFER_FORMAT_ENUM)(0x0002|cOCTVC1_BUFFER_FORMAT_ENUM_MAIN) )	
+} tOCTVC1_STREAM_STATS;
 
 
-#endif /* __OCTVC1_BUFFER_H__ */
+#endif /* __OCTVC1_STREAM_H__ */
 

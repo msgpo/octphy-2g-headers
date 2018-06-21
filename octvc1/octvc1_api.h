@@ -2,7 +2,7 @@
 
 File: OCTVC1_API.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Revision: $
 
@@ -90,6 +90,31 @@ typedef struct
 	tOCTVC1_API_SESSION_EVT_SYSTEM_MODULE_MASK	ulSystemEvtMask;
 
 } tOCTVC1_API_SESSION_EVT_INFO;
+
+/*-------------------------------------------------------------------------------------
+ 	API Version Format
+-------------------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_API_VERSION_MASK :
+-------------------------------------------------------------------------------------*/
+#define tOCTVC1_API_VERSION_MASK							tOCT_UINT32
+
+#define cOCTVC1_API_VERSION_MASK_MAJOR_BIT_MASK				0x0000001F	
+#define cOCTVC1_API_VERSION_MASK_MAJOR_BIT_OFFSET			27		
+#define cOCTVC1_API_VERSION_MASK_MAJOR						((tOCT_UINT32)(cOCTVC1_API_VERSION_MASK_MAJOR_BIT_MASK<<cOCTVC1_API_VERSION_MASK_MAJOR_BIT_OFFSET) )	
+
+#define cOCTVC1_API_VERSION_MASK_MINOR_BIT_MASK				0x0000003F	
+#define cOCTVC1_API_VERSION_MASK_MINOR_BIT_OFFSET			21		
+#define cOCTVC1_API_VERSION_MASK_MINOR						((tOCT_UINT32)(cOCTVC1_API_VERSION_MASK_MINOR_BIT_MASK<<cOCTVC1_API_VERSION_MASK_MINOR_BIT_OFFSET) )	
+
+#define cOCTVC1_API_VERSION_MASK_MAINTENANCE_BIT_MASK		0x0000003F	
+#define cOCTVC1_API_VERSION_MASK_MAINTENANCE_BIT_OFFSET		15		
+#define cOCTVC1_API_VERSION_MASK_MAINTENANCE				((tOCT_UINT32)(cOCTVC1_API_VERSION_MASK_MAINTENANCE_BIT_MASK<<cOCTVC1_API_VERSION_MASK_MAINTENANCE_BIT_OFFSET) )	
+
+#define cOCTVC1_API_VERSION_MASK_BUILD_BIT_MASK				0x00007FFF	
+#define cOCTVC1_API_VERSION_MASK_BUILD_BIT_OFFSET			0		
+#define cOCTVC1_API_VERSION_MASK_BUILD						((tOCT_UINT32)(cOCTVC1_API_VERSION_MASK_BUILD_BIT_MASK<<cOCTVC1_API_VERSION_MASK_BUILD_BIT_OFFSET) )	
 
 
 #endif /* __OCTVC1_API_H__ */

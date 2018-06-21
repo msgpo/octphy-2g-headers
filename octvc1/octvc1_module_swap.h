@@ -2,7 +2,7 @@
 
 File: octvc1_module_swap.h	
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.	
+Copyright (c) 2018 Octasic Inc. All rights reserved.	
 
 Description:	
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)	
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)	
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/	
 #ifndef __OCTVC1_MODULE_SWAP_H__
@@ -34,6 +34,17 @@ extern "C" {
 
 /*********************************  MACROS  **********************************/
 
+
+#if defined( _OCT_ENDIAN_TYPE_LE_ )
+#define mOCTVC1_RESOURCE_SWAP( _f_pParms ){ 	tOCTVC1_RESOURCE * pOCTVC1_RESOURCE = (_f_pParms); SWAP_UNUSED(pOCTVC1_RESOURCE)\
+	((tOCTVC1_RESOURCE *)pOCTVC1_RESOURCE)->ulModuleId = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_RESOURCE *)pOCTVC1_RESOURCE)->ulModuleId); \
+	((tOCTVC1_RESOURCE *)pOCTVC1_RESOURCE)->ulLocalMemorySize = \
+		mOCT_SWAP32_IF_LE(((tOCTVC1_RESOURCE *)pOCTVC1_RESOURCE)->ulLocalMemorySize); \
+}
+#else
+#define mOCTVC1_RESOURCE_SWAP( pOCTVC1_RESOURCE )
+#endif /* _OCT_ENDIAN_TYPE_LE_ */
 
 #if defined( _OCT_ENDIAN_TYPE_LE_ )
 #define mOCTVC1_MODULE_ID_ENUM_SWAP( pType ){ \

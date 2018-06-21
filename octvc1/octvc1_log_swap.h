@@ -2,7 +2,7 @@
 
 File: octvc1_log_swap.h	
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.	
+Copyright (c) 2018 Octasic Inc. All rights reserved.	
 
 Description:	
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)	
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)	
 
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/	
 #ifndef __OCTVC1_LOG_SWAP_H__
@@ -59,6 +59,15 @@ extern "C" {
 #else
 
 #define mOCTVC1_LOG_PAYLOAD_TYPE_ENUM_SWAP( pType )
+
+#endif /* _OCT_ENDIAN_TYPE_LE_ */
+
+#if defined( _OCT_ENDIAN_TYPE_LE_ )
+#define mOCTVC1_LOG_TRACE_ENUM_SWAP( pType ){ \
+		*((tOCT_UINT32 *)pType) = mOCT_SWAP32_IF_LE( *((tOCT_UINT32 *)pType) ); }
+#else
+
+#define mOCTVC1_LOG_TRACE_ENUM_SWAP( pType )
 
 #endif /* _OCT_ENDIAN_TYPE_LE_ */
 

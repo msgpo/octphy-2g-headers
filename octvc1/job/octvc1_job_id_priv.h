@@ -2,7 +2,7 @@
 
 File: OCTVC1_JOB_ID_PRIV.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the identifiers for the JOB API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Octasic_Revision: $
 
@@ -39,7 +39,7 @@ $Octasic_Revision: $
 /****************************************************************************
 	Event IDs
  ****************************************************************************/
-#define cOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_END_EID         ( 0x0007 + cOCTVC1_JOB_EID_BASE )
+#define cOCTVC1_JOB_MSG_RUNNER_UNIT_TEST_STATE_CHANGE_EID ( 0x0007 + cOCTVC1_JOB_EID_BASE )
 
 
 #endif /* __OCTVC1_JOB_ID_PRIV_H__ */

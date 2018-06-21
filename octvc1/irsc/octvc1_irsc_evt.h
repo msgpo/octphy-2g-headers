@@ -1,7 +1,7 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
 
 File: OCTVC1_IRSC_EVT.h
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the event definition of the IRSC API.
 
@@ -17,7 +17,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Octasic_Revision: $
 
@@ -47,35 +47,6 @@ typedef struct
 	tOCTVC1_HANDLE_OBJECT	hProcess;
 
 } tOCTVC1_IRSC_MSG_PROCESS_DUMP_EVT;
-
-/*-------------------------------------------------------------------------------------
-	tOCTVC1_IRSC_MSG_APPLICATION_TAP_DATA_REQUEST_EVT
-
- Members:
-	Header
-	hTapId
-	ulDataSize
-	hLogicalObj
- 		Contains an Object Handle for the Tap that has been started
- 		This handle will also be placed in
- 		DataHeader.VocNetHeader.hLogicalObj.aulHandle[0]
- 		of the tOCTVOCNET_PKT_DATA_FRAGMENT_HEADER at the header of each data packet
- 		sent.
-	ulSequenceId
- 		In the case of a retry, request data starting from this Sequence ID
-	ulRetryFlag
- 		Indicates if this event is a retry request
--------------------------------------------------------------------------------------*/
-typedef struct
-{
-	tOCTVC1_EVENT_HEADER	Header;
-	tOCT_UINT32				hTapId;
-	tOCT_UINT32				ulDataSize;
-	tOCTVC1_HANDLE_OBJECT	hLogicalObj;
-	tOCT_UINT32				ulSequenceId;
-	tOCT_BOOL32				ulRetryFlag;
-
-} tOCTVC1_IRSC_MSG_APPLICATION_TAP_DATA_REQUEST_EVT;
 
 
 #endif /* __OCTVC1_IRSC_EVT_H__ */

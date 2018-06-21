@@ -2,7 +2,7 @@
 
 File: OCTVC1_ETH.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: 
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Revision: $
 
@@ -31,6 +31,7 @@ $Revision: $
 /*****************************  INCLUDE FILES  *******************************/
 #include "../octdev_types.h"
 #include "octvc1_base.h"
+#include "octvc1_mac.h"
 
 
 /************************  COMMON DEFINITIONS  *******************************/
@@ -50,6 +51,23 @@ $Revision: $
 #define cOCTVC1_ETH_PORT_ID_ENUM_INVALID					0xFFFFFFFF	
 
 #define cOCTVC1_ETH_802_1_PQ_TCI_INVALID					0xFFFFFFFF	 	/* Ethernet 802.1 pq definition */
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_ETH_ADDRESS
+ 		Ethernet address information
+
+ Members:
+	MacAddress
+	usEtherType
+	usReserved
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MAC_ADDRESS	MacAddress;
+	tOCT_UINT16			usEtherType;
+	tOCT_UINT16			usReserved;
+
+} tOCTVC1_ETH_ADDRESS;
 
 
 #endif /* __OCTVC1_ETH_H__ */

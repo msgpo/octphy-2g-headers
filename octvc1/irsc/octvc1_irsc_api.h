@@ -2,7 +2,7 @@
 
 File: OCTVC1_IRSC_API.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the definition of the IRSC API.
  		OCTVC1 Internal Resources
@@ -19,7 +19,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Revision: $
 
@@ -46,6 +46,7 @@ $Revision: $
 #include "../octvc1_api.h"
 #include "../octvc1_module.h"
 #include "../octvc1_user_id.h"
+#include "../octvc1_stream.h"
 #include "../octvc1_tap.h"
 
 #include "octvc1_irsc_id.h"
@@ -206,6 +207,7 @@ typedef struct
 #define cOCTVC1_IRSC_APPLICATION_TAP_STATE_ENUM_DISABLE		0		
 #define cOCTVC1_IRSC_APPLICATION_TAP_STATE_ENUM_STOP		1		
 #define cOCTVC1_IRSC_APPLICATION_TAP_STATE_ENUM_START		2		
+#define cOCTVC1_IRSC_APPLICATION_TAP_STATE_ENUM_PAUSE		3		
 
 /*-------------------------------------------------------------------------------------
  	Tap state.
@@ -247,29 +249,8 @@ typedef struct
 } tOCTVC1_IRSC_APPLICATION_TAP_INFO;
 
 /*-------------------------------------------------------------------------------------
-	tOCTVC1_IRSC_STREAM_STATS
- 		Stream stats
-
- Members:
-	ulPacketCnt
-	ulDropCnt
-	ulOverflowCnt
-	ulRetryCnt
-	ulMissCnt
--------------------------------------------------------------------------------------*/
-typedef struct
-{
-	tOCT_UINT32	ulPacketCnt;
-	tOCT_UINT32	ulDropCnt;
-	tOCT_UINT32	ulOverflowCnt;
-	tOCT_UINT32	ulRetryCnt;
-	tOCT_UINT32	ulMissCnt;
-
-} tOCTVC1_IRSC_STREAM_STATS;
-
-/*-------------------------------------------------------------------------------------
 	tOCTVC1_IRSC_APPLICATION_TAP_STATS
- 		API Command stats
+ 		TAP Command stats
 
  Members:
 	ulState
@@ -283,13 +264,13 @@ typedef struct
 	tOCTVC1_IRSC_APPLICATION_TAP_STATE_ENUM	ulState;
 	tOCTVC1_INDEX							ulFilterIndex;
 	tOCT_UINT32								ulUserId;
-	tOCTVC1_IRSC_STREAM_STATS				Stream;
+	tOCTVC1_STREAM_STATS					Stream;
 
 } tOCTVC1_IRSC_APPLICATION_TAP_STATS;
 
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_IRSC_APPLICATION_TAP_START
- 		API Command stats
+ 		Activate an application tap
 
  Members:
 	ulMode
@@ -307,6 +288,8 @@ typedef struct
 		Default:	cOCT_FALSE
  		If true, Retry events will be sent when blocks are missing.
  		Blocks will be dropped to ensure they are not kept out of sequence.
+	ulPauseOnStartFlag
+ 		May specify to pause the TAP on start.
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -315,6 +298,7 @@ typedef struct
 	tOCTVC1_INDEX							ulFilterIndex;
 	tOCT_UINT32								ulUserId;
 	tOCT_BOOL32								ulRetryEnableFlag;
+	tOCT_BOOL32								ulPauseOnStartFlag;
 
 } tOCTVC1_IRSC_APPLICATION_TAP_START;
 
@@ -326,6 +310,7 @@ typedef struct
 /*-------------------------------------------------------------------------------------
  	IRSC Router
 -------------------------------------------------------------------------------------*/
+#define cOCTVC1_IRSC_ROUTER_STREAMER_LIMIT_BANDWIDTH_DISABLE	0xFFFFFFFF	
 #define cOCTVC1_IRSC_ROUTER_MAX_INTERFACE					24		
 
 /*-------------------------------------------------------------------------------------
@@ -456,6 +441,113 @@ typedef struct
 
 } tOCTVC1_IRSC_ROUTER_STATS;
 
+/*-------------------------------------------------------------------------------------
+ 	Process related definitions.
+-------------------------------------------------------------------------------------*/
+#define cOCTVC1_IRSC_PROCESS_MEMORY_CACHE_STATS_RECENT_MISSES_NUM	8		 	/* L1 cache misses history number. */
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_PROCESS_MEMORY_CACHE_STATS
+ 		Process cache memory stats
+
+ Members:
+	ulL1MaxSize
+ 		Maximum L1 memory size for cache fetching
+	ulL1UserLockedSize
+ 		L1 memory currently locked by user
+	ulL1CodeSize
+ 		Code cache size in bytes
+	ulL1DataSize
+ 		Data cache size in bytes
+	ulL1MissCnt
+ 		Not in L1 memory
+	ulTlbMissCnt
+ 		In L1 memory but not in TLB
+	ulL1CodeFetchCnt
+ 		Code cache line fetch
+	ulL1DataReadCnt
+ 		Data cache line fetch
+	ulL1DataWriteCnt
+ 		Data cache line fetch
+	aulRecentMisses
+ 		The most recent L1 misses
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCT_UINT32	ulL1MaxSize;
+	tOCT_UINT32	ulL1UserLockedSize;
+	tOCT_UINT32	ulL1CodeSize;
+	tOCT_UINT32	ulL1DataSize;
+	tOCT_UINT32	ulL1MissCnt;
+	tOCT_UINT32	ulTlbMissCnt;
+	tOCT_UINT32	ulL1CodeFetchCnt;
+	tOCT_UINT32	ulL1DataReadCnt;
+	tOCT_UINT32	ulL1DataWriteCnt;
+	tOCT_UINT32	aulRecentMisses[cOCTVC1_IRSC_PROCESS_MEMORY_CACHE_STATS_RECENT_MISSES_NUM];
+
+} tOCTVC1_IRSC_PROCESS_MEMORY_CACHE_STATS;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_PROCESS_MEMORY_HEAP_STATS
+ 		Process heap memory stats
+
+ Members:
+	ulUsedSize
+ 		Used heap memory size in bytes
+	ulFreeSize
+ 		Free heap memory size in bytes
+	ulFreeLargestSize
+ 		Free largest heap memory block size
+	ulUsedBlocNum
+ 		Used heap memory block number
+	ulFreeBlocNum
+ 		Free heap memory block number
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCT_UINT32	ulUsedSize;
+	tOCT_UINT32	ulFreeSize;
+	tOCT_UINT32	ulFreeLargestSize;
+	tOCT_UINT32	ulUsedBlocNum;
+	tOCT_UINT32	ulFreeBlocNum;
+
+} tOCTVC1_IRSC_PROCESS_MEMORY_HEAP_STATS;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_PROCESS_MEMORY_STACK_STATS
+ 		Process heap memory stats
+
+ Members:
+	ulFreeSize
+ 		Current Free size
+	ulUnusedSize
+ 		Stack size allocation that was never used.
+ 		Available when called with ulStackScanFlag to true
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCT_UINT32	ulFreeSize;
+	tOCT_UINT32	ulUnusedSize;
+
+} tOCTVC1_IRSC_PROCESS_MEMORY_STACK_STATS;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_PROCESS_MEMORY_SCRATCH_PAD_STATS
+ 		Process heap memory stats
+
+ Members:
+	ulTotalSize
+ 		Total scratch pad size in bytes. Allocate in local memory
+	ulMaxUsedSize
+ 		Max Used scratch pad size in bytes
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCT_UINT32	ulTotalSize;
+	tOCT_UINT32	ulMaxUsedSize;
+
+} tOCTVC1_IRSC_PROCESS_MEMORY_SCRATCH_PAD_STATS;
+
 /*****************************  METHODS  *************************************/
 /*-------------------------------------------------------------------------------------
 	tOCTVC1_IRSC_MSG_PROCESS_INFO_CMD
@@ -489,6 +581,23 @@ typedef struct
  		Process file name.
 	ulModuleId
  		Module Id.
+	ulRouterIfEnableFlag
+ 		Router Interface enable flag
+ 		if cOCT_TRUE, an router internal is enable between this process and router
+ 		Router interface allow this core send directly API event, send/receive
+ 		MODULE_DATA
+	ulIpcPortMax
+ 		Maximum number of ipc port
+	ulIpcFifoMax
+ 		Maximum number of ipc fifo
+	ulTaskMax
+ 		Maximum number of task
+	ulUserIpcPortMax
+ 		Maximum number of user ipc port
+	ulUserIpcFifoMax
+ 		Maximum number of user ipc fifo
+	ulUserTaskMax
+ 		Maximum number of user task
 -------------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -498,6 +607,13 @@ typedef struct
 	tOCT_INT8						szName[(cOCTVC1_HANDLE_OBJECT32_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
 	tOCT_INT8						szProcessImageName[(cOCTVC1_PROCESS_IMAGE_NAME_MAX_LENGTH+1)];/* NOSWAPMAC */
 	tOCT_UINT32						ulModuleId;
+	tOCT_BOOL32						ulRouterIfEnableFlag;
+	tOCT_UINT32						ulIpcPortMax;
+	tOCT_UINT32						ulIpcFifoMax;
+	tOCT_UINT32						ulTaskMax;
+	tOCT_UINT32						ulUserIpcPortMax;
+	tOCT_UINT32						ulUserIpcFifoMax;
+	tOCT_UINT32						ulUserTaskMax;
 
 } tOCTVC1_IRSC_MSG_PROCESS_INFO_RSP;
 
@@ -539,6 +655,8 @@ typedef struct
 	State
  		Current process state.
 	ulTotalCacheMissCnt
+	ulTaskScratchPadLeakCnt
+ 		Number of tasks with scratchpad leak flag trigged
 	Error
  		Process Error
 -------------------------------------------------------------------------------------*/
@@ -548,6 +666,7 @@ typedef struct
 	tOCTVC1_HANDLE_OBJECT		hProcess;
 	tOCTVC1_PROCESS_STATE_ENUM	State;
 	tOCT_UINT32					ulTotalCacheMissCnt;
+	tOCT_UINT32					ulTaskScratchPadLeakCnt;
 	tOCTVC1_PROCESS_ERROR		Error;
 
 } tOCTVC1_IRSC_MSG_PROCESS_STATS_RSP;
@@ -1538,6 +1657,46 @@ typedef struct
 } tOCTVC1_IRSC_MSG_ROUTER_STATS_RSP;
 
 /*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulLimitBandwidthMbps
+ 		Maximal limit that target application will stream out data
+	ulToHostStreamSequenceIdInterval
+ 		For stream target to host, define the interval that host by send data packet
+ 		acknowledgement.
+ 		Presently, only apply on file stream transfer
+	ulToHostStreamInitialPktCnt
+ 		For stream target to host, define initial number of packet the stream will send
+ 		to host before waiting acknowledgement.
+ 		Most be egal or greater that ulToHostStreamSequenceIdInterval .
+ 		Presently, only apply on file stream transfer
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCT_UINT32			ulLimitBandwidthMbps;
+	tOCT_UINT32			ulToHostStreamSequenceIdInterval;
+	tOCT_UINT32			ulToHostStreamInitialPktCnt;
+
+} tOCTVC1_IRSC_MSG_ROUTER_INFO_STREAMER_RSP;
+
+/*-------------------------------------------------------------------------------------
 	tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_CMD
  		This command retrieves the system global statistics.
 
@@ -1572,6 +1731,354 @@ typedef struct
 	tOCT_UINT32			ulExtMemLargestFreeBlocSizeKb;
 
 } tOCTVC1_IRSC_MSG_APPLICATION_STATS_SYSTEM_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	ulLimitBandwidthMbps
+		Range:		[50..1000],cOCTVC1_IRSC_ROUTER_STREAMER_LIMIT_BANDWIDTH_DISABLE
+		Default:	cOCTVC1_DO_NOT_MODIFY
+ 		Maximal limit that target application will stream out data
+ 		Set to cOCTVC1_IRSC_ROUTER_STREAMER_LIMIT_BANDWIDTH_DISABLE to disable
+ 		Bandwidth limitation
+	ulToHostStreamSequenceIdInterval
+		Range:		[10..500]
+		Default:	cOCTVC1_DO_NOT_MODIFY
+ 		For stream target to host, define the interval that host by send data packet
+ 		acknowledgement.
+ 		Presently, only apply on file stream transfer
+	ulToHostStreamInitialPktCnt
+		Range:		[10..500]
+		Default:	cOCTVC1_DO_NOT_MODIFY
+ 		For stream target to host, initial number of packet the stream will send to
+ 		host before waiting acknowledgement.
+ 		Most be egal or greater that ulToHostStreamSequenceIdInterval .
+ 		Attention, host application must have appropriated ethernet configuration.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCT_UINT32			ulLimitBandwidthMbps;
+	tOCT_UINT32			ulToHostStreamSequenceIdInterval;
+	tOCT_UINT32			ulToHostStreamInitialPktCnt;
+
+} tOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+
+} tOCTVC1_IRSC_MSG_ROUTER_MODIFY_STREAMER_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_CMD
+ 		Retreive the memory statistics
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hProcess
+	ulStackScanFlag
+		Default:	cOCT_FALSE
+ 		If true, the stack will be scan to find the maximum amount of stack used in
+ 		this process.
+ 		Attention, the stack scan can take more than 1ms of execution in the process.
+	ulScratchPadResetFlag
+		Default:	cOCT_FALSE
+ 		If true, the max used size will be reset.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hProcess;
+	tOCT_BOOL32				ulStackScanFlag;
+	tOCT_BOOL32				ulScratchPadResetFlag;
+
+} tOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hProcess
+	Stack
+ 		Stack stats
+	Heap
+ 		Heap stats
+	ScratchPad
+ 		ScratchPad stats
+	Cache
+ 		Cache system stats
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER								Header;
+	tOCTVC1_HANDLE_OBJECT							hProcess;
+	tOCTVC1_IRSC_PROCESS_MEMORY_STACK_STATS			Stack;
+	tOCTVC1_IRSC_PROCESS_MEMORY_HEAP_STATS			Heap;
+	tOCTVC1_IRSC_PROCESS_MEMORY_SCRATCH_PAD_STATS	ScratchPad;
+	tOCTVC1_IRSC_PROCESS_MEMORY_CACHE_STATS			Cache;
+
+} tOCTVC1_IRSC_MSG_PROCESS_STATS_MEMORY_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	SubObjectIdGet
+ 		Object cursor
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER								Header;
+	tOCTVC1_CURSOR_HANDLE_OBJECT_GET_SUB_OBJECT_ID	SubObjectIdGet;
+
+} tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	SubObjectIdGet
+ 		Object cursor
+	ObjectNameList
+ 		Object32 named list.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER									Header;
+	tOCTVC1_CURSOR_HANDLE_OBJECT_GET_SUB_OBJECT_ID		SubObjectIdGet;
+	tOCTVC1_LIST_HANDLE_OBJECT_GET_SUB_OBJECT_ID_NAME	ObjectNameList;
+
+} tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_SYSTEM_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hProcess
+ 		Process identifier
+	ulIndex
+ 		Resource index
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hProcess;
+	tOCTVC1_SUB_OBJECT_ID	ulIndex;
+
+} tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hProcess
+ 		Process identifier
+	ulIndex
+ 		Resource index
+	Resource
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hProcess;
+	tOCTVC1_SUB_OBJECT_ID	ulIndex;
+	tOCTVC1_RESOURCE		Resource;
+
+} tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_SYSTEM_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	SubObjectIdGet
+ 		Object cursor
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER								Header;
+	tOCTVC1_CURSOR_HANDLE_OBJECT_GET_SUB_OBJECT_ID	SubObjectIdGet;
+
+} tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	SubObjectIdGet
+ 		Object cursor
+	ObjectNameList
+ 		Object32 named list.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER									Header;
+	tOCTVC1_CURSOR_HANDLE_OBJECT_GET_SUB_OBJECT_ID		SubObjectIdGet;
+	tOCTVC1_LIST_HANDLE_OBJECT_GET_SUB_OBJECT_ID_NAME	ObjectNameList;
+
+} tOCTVC1_IRSC_MSG_PROCESS_LIST_RESOURCE_USER_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hProcess
+ 		Process identifier
+	ulIndex
+ 		Resource index
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hProcess;
+	tOCTVC1_SUB_OBJECT_ID	ulIndex;
+
+} tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hProcess
+ 		Process identifier
+	ulIndex
+ 		Resource index
+	Resource
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER		Header;
+	tOCTVC1_HANDLE_OBJECT	hProcess;
+	tOCTVC1_SUB_OBJECT_ID	ulIndex;
+	tOCTVC1_RESOURCE		Resource;
+
+} tOCTVC1_IRSC_MSG_PROCESS_STATS_RESOURCE_USER_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hTapId
+		Default:	cOCTVC1_HANDLE_INVALID
+ 		Tap handle identifier.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCT_UINT32			hTapId;
+
+} tOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hTapId
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCT_UINT32			hTapId;
+
+} tOCTVC1_IRSC_MSG_APPLICATION_PAUSE_TAP_RSP;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_CMD
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hTapId
+		Default:	cOCTVC1_HANDLE_INVALID
+ 		Tap handle identifier.
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCT_UINT32			hTapId;
+
+} tOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_CMD;
+
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_RSP
+
+ Members:
+	Header
+ 		OCTVC1 Message Header
+	hTapId
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MSG_HEADER	Header;
+	tOCT_UINT32			hTapId;
+
+} tOCTVC1_IRSC_MSG_APPLICATION_RESUME_TAP_RSP;
+
+
+/*****************************  MODULE_DATA  *************************************/
+/*-------------------------------------------------------------------------------------
+	tOCTVC1_IRSC_MSG_ROUTER_DATA_REQUEST_STREAMER_MDA
+
+ Members:
+	ModuleData
+ 		OCTVC1 Module Data
+	hStream
+ 		Contains an Object Handle of stream
+ 		This handle will also be placed in DataHeader.VocNetHeader.hLogicalObj
+ 		of the tOCTVOCNET_PKT_DATA_FRAGMENT_HEADER at the header of each data packet
+ 		sent.
+	hOwner
+ 		Contains an Object Handle of the object responsable for the stream object
+ 		(hLogicalObj)
+	ulDataSize
+	ulSequenceId
+ 		In the case of a retry, request data starting from this Sequence ID
+	ulRetryFlag
+ 		Indicates if this event is a retry request
+-------------------------------------------------------------------------------------*/
+typedef struct
+{
+	tOCTVC1_MODULE_DATA		ModuleData;
+	tOCTVC1_HANDLE_OBJECT	hStream;
+	tOCTVC1_HANDLE_OBJECT	hOwner;
+	tOCT_UINT32				ulDataSize;
+	tOCT_UINT32				ulSequenceId;
+	tOCT_BOOL32				ulRetryFlag;
+
+} tOCTVC1_IRSC_MSG_ROUTER_DATA_REQUEST_STREAMER_MDA;
 
 
 /***************  INCLUDE FILES WITH DEPENDENCIES ON THIS FILE  **************/

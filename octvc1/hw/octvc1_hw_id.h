@@ -2,7 +2,7 @@
 
 File: OCTVC1_HW_ID.h
 
-Copyright (c) 2017 Octasic Inc. All rights reserved.
+Copyright (c) 2018 Octasic Inc. All rights reserved.
 
 Description: Contains the identifiers for the HW API.
 
@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Release: OCTSDR Software Development Kit OCTSDR_GSM-02.09.00-B1607 (2017/08/29)
+Release: OCTSDR Software Development Kit OCTSDR_GSM-02.11.00-B1927 (2018/04/27)
 
 $Octasic_Revision: $
 
@@ -53,14 +53,12 @@ $Octasic_Revision: $
 #define cOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CALIB_CID  ( 0x011 + cOCTVC1_HW_CID_BASE )
 #define cOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_CID              ( 0x012 + cOCTVC1_HW_CID_BASE )
 #define cOCTVC1_HW_MSG_CLOCK_SYNC_MGR_STATS_CID             ( 0x013 + cOCTVC1_HW_CID_BASE )
-#define cOCTVC1_HW_MSG_CLOCK_SYNC_MGR_INFO_SOURCE_CID       ( 0x014 + cOCTVC1_HW_CID_BASE )
-#define cOCTVC1_HW_MSG_CLOCK_SYNC_MGR_MODIFY_SOURCE_CID     ( 0x015 + cOCTVC1_HW_CID_BASE )
 #define cOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_RX_CONFIG_CID ( 0x018 + cOCTVC1_HW_CID_BASE )
 #define cOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_TX_CONFIG_CID ( 0x019 + cOCTVC1_HW_CID_BASE )
 #define cOCTVC1_HW_MSG_RF_PORT_INFO_ANTENNA_FRONT_END_CID   ( 0x01b + cOCTVC1_HW_CID_BASE )
 #define cOCTVC1_HW_MSG_RF_PORT_MODIFY_ANTENNA_FRONT_END_CID ( 0x01c + cOCTVC1_HW_CID_BASE )
 
-#define cOCTVC1_HW_CID_MAX                                  (( 0x01c + 1 ) & 0xFFF)
+#define cOCTVC1_HW_CID_MAX                                  (( 0x01d + 1 ) & 0xFFF)
 
 /****************************************************************************
 	Event IDs
@@ -70,8 +68,9 @@ $Octasic_Revision: $
 #define cOCTVC1_HW_MSG_RF_PORT_STATUS_CHANGE_EID                   ( 0x0003 + cOCTVC1_HW_EID_BASE )
 #define cOCTVC1_HW_MSG_RF_PORT_ANTENNA_RX_CONFIG_STATUS_CHANGE_EID ( 0x0004 + cOCTVC1_HW_EID_BASE )
 #define cOCTVC1_HW_MSG_RF_PORT_ANTENNA_TX_CONFIG_STATUS_CHANGE_EID ( 0x0005 + cOCTVC1_HW_EID_BASE )
+#define cOCTVC1_HW_MSG_CLOCK_SYNC_MGR_DRIFT_CHANGE_EID             ( 0x0006 + cOCTVC1_HW_EID_BASE )
 
-#define cOCTVC1_HW_EID_MAX                                         (( 0x0005 + 1 ) & 0xFFFF)
+#define cOCTVC1_HW_EID_MAX                                         (( 0x0006 + 1 ) & 0xFFFF)
 
 
 #endif /* __OCTVC1_HW_ID_H__ */
